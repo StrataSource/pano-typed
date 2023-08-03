@@ -1,8 +1,3 @@
-/**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
- */
-
 /** [API not finalized] The workshop content API. Exclusive to P2:CE! */
 declare namespace WorkshopAPI {
 	function GetAddonCount(): number;

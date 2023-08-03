@@ -1,9 +1,3 @@
-/**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
- * @todo Momentum-specific types need to be added here!
- */
-
 /** The map cache API. Exclusive to Momentum Mod! */
 declare namespace MapCacheAPI {
 	/** Gets the metadata for the current map */

@@ -1,0 +1,21 @@
+{
+	"name": "pano-typed",
+	"version": "1.0.0",
+	"description": "Near-full coverage of Panorama's APIs and data structures with Typescript definitions.",
+	"author": "Koerismo",
+	"license": "MIT",
+	"type": "module",
+
+	"scripts": {
+		"build": "gulp",
+		"build:p2ce": "gulp p2ce",
+		"build:momentum": "gulp momentum",
+		"build:csgo": "gulp csgo"
+	},
+
+	"devDependencies": {
+		"gulp": "^4.0.2",
+		"gulp-concat": "^2.6.1",
+		"gulp-replace": "^1.1.4"
+	}
+}

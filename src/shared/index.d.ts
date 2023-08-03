@@ -1,8 +1,3 @@
-/**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
- */
-
 /* ========================    PRIMITIVES   ======================== */
 
 interface PanelTagNameMap {
