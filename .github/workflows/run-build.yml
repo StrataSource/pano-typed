@@ -27,6 +27,8 @@ jobs:
           mkdir dist
           npm run build
           npm run build:csgo
+          npm run build:p2ce
+          npm run build:momentum
 
       - name: Copy files to dist
         run: cp LICENSE README.md dist
@@ -39,12 +41,15 @@ jobs:
           git checkout --track origin/build
 
       - name: Copy dist to root
-        run: cp -rf ./dist/* ./
+        run: |
+          rm *.d.ts
+          cp -rf ./dist/* ./
 
       - name: Commit files
         run: |
           git add *.d.ts
           git add README.md
+          git add LICENSE
           git push
           git commit -m "Automated build on ${{ github.ref }}"
           git push origin build
