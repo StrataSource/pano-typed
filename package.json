@@ -7,14 +7,14 @@
 	"type": "module",
 
 	"scripts": {
-		"build":          "node compile.js shared,p2ce,momentum panorama",
+		"build":          "node compile.js shared strata",
 		"build:p2ce":     "node compile.js shared,p2ce p2ce",
 		"build:momentum": "node compile.js shared,momentum momentum",
 		"build:csgo":     "node compile.js shared csgo"
 	},
 
 	"devDependencies": {
-		"glob": "^10.3.3",
-		"multistream": "^4.1.0"
+		"multistream": "^4.1.0",
+		"replacestream": "^4.0.3"
 	}
 }

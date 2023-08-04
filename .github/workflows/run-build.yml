@@ -9,30 +9,39 @@ jobs:
 
   build-all:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
-
-      - run: |
-          pwd
-          cd ${{ github.repository }}
+          node-version: '18'
 
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm ic
 
       - name: Run build
-        run: npm run build
+        run: |
+          mkdir dist
+          npm run build
+          npm run build:csgo
 
-      - name: Switch to build branch
-        run: git checkout build
+      - name: Configure git
+        run: |
+          git config --global user.email "github-action@users.noreply.github.com"
+          git config --global user.name "GitHub Action"
+          git fetch --all
+          git checkout --track origin/build
 
       - name: Copy files
-        run: cp "./dist/*" "./"
+        run: cp -r ./dist/* ./
 
       - name: Commit files
         run: |
           git add *.d.ts
-          git commit -m "Build for ${{ github.ref }}"
+          git push
+          git commit -m "Automated build on ${{ github.ref }}"
+          git push origin build
+
