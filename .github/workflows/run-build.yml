@@ -16,7 +16,9 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm i --global gulp-cli
+          npm ci
 
       - name: Run build
         run: npm run build
