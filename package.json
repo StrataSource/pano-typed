@@ -7,15 +7,14 @@
 	"type": "module",
 
 	"scripts": {
-		"build": "gulp",
-		"build:p2ce": "gulp p2ce",
-		"build:momentum": "gulp momentum",
-		"build:csgo": "gulp csgo"
+		"build":          "node compile.js shared,p2ce,momentum panorama",
+		"build:p2ce":     "node compile.js shared,p2ce p2ce",
+		"build:momentum": "node compile.js shared,momentum momentum",
+		"build:csgo":     "node compile.js shared csgo"
 	},
 
 	"devDependencies": {
-		"gulp": "^4.0.2",
-		"gulp-concat": "^2.6.1",
-		"gulp-replace": "^1.1.4"
+		"glob": "^10.3.3",
+		"multistream": "^4.1.0"
 	}
 }

@@ -17,7 +17,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm i --global gulp-cli
           npm ci
 
       - name: Run build
