@@ -28,6 +28,9 @@ jobs:
           npm run build
           npm run build:csgo
 
+      - name: Copy files to dist
+        run: cp LICENSE README.md dist
+
       - name: Configure git
         run: |
           git config --global user.email "github-action@users.noreply.github.com"
@@ -35,13 +38,13 @@ jobs:
           git fetch --all
           git checkout --track origin/build
 
-      - name: Copy files
-        run: cp -r ./dist/* ./
+      - name: Copy dist to root
+        run: cp -rf ./dist/* ./
 
       - name: Commit files
         run: |
           git add *.d.ts
+          git add README.md
           git push
           git commit -m "Automated build on ${{ github.ref }}"
           git push origin build
-
