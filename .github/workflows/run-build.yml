@@ -23,7 +23,7 @@ jobs:
         run: npm run build
 
       - name: Switch to build branch
-        run: git checkout build
+        run: git checkout --track -b build origin/build
 
       - name: Copy files
         run: cp "/dist/*" "/"
