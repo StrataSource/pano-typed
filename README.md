@@ -7,6 +7,4 @@ Features:
 - Smart type returns for panel-related functions.
 - Smart type checking for built-in events.
 
-### [Download](https://github.com/koerismo/pano-typed/archive/refs/heads/build.zip)
-
 *Warning: This is a work-in-progress, and type definitions are subject to change at any time.*
