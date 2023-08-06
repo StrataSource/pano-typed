@@ -4,8 +4,12 @@
  */
 
 /// <reference path="./style.d.ts" />
+/// <reference path="./events.d.ts" />
 
 /* ========================    PRIMITIVES   ======================== */
+
+type ValueOf<T> = T[keyof T];
+type Func = (...args: unknown[]) => unknown;
 
 interface PanelTagNameMap {
 	'Panel': Panel,
@@ -27,76 +31,8 @@ interface PanelTagNameMap {
 	'ChaosSettingsSlider': ChaosSettingsSlider,
 }
 
-interface PanelEventNameMap {
-	'AddStyle':							(cls: string) => void,
-	'AddStyleToEachChild':				(cls: string) => void,
-	'DragStart':						(source: unknown, info: DragEventInfo) => void,
-	'DropInputFocus':					() => void,
-	'IfHasClassEvent':					(cls: string, eventToFire: string) => void,
-	'IfHoverOtherEvent':				(otherPanelID: string, eventToFire: string) => void,
-	'IfNotHasClassEvent':				(cls: string, eventToFire: string) => void,
-	'IfNotHoverOtherEvent':				(otherPanelID: string, eventToFire: string) => void,
-	'ImageFailedLoad':					() => void,
-	'MovePanelDown':					(repeatCount: int32) => void,
-	'MovePanelLeft':					(repeatCount: int32) => void,
-	'MovePanelRight':					(repeatCount: int32) => void,
-	'MovePanelUp':						(repeatCount: int32) => void,
-	'PagePanelDown':					() => void,
-	'PagePanelLeft':					() => void,
-	'PagePanelRight':					() => void,
-	'PagePanelUp':						() => void,
-	'PanelLoaded':						() => void,
-	'PanoramaCastVoteNo':				() => void,
-	'PanoramaCastVoteYes':				() => void,
-	'RemoveStyle':						(cls: string) => void,
-	'RemoveStyleFromEachChild':			(cls: string) => void,
-	'ScrollPanelDown':					() => void,
-	'ScrollPanelLeft':					() => void,
-	'ScrollPanelRight':					() => void,
-	'ScrollPanelUp':					() => void,
-	'ScrollToBottom':					() => void,
-	'ScrollToTop':						() => void,
-	'SetChildPanelsSelected':			(selected: boolean) => void,
-	'SetInputFocus':					() => void,
-	'SetPanelEnabled':					(enabled: boolean) => void,
-	'SetPanelSelected':					(selected: boolean) => void,
-	'SwitchStyle':						(slot: string, cls: string) => void,
-	'TogglePanelSelected':				() => void,
-	'ToggleStyle':						(cls: string) => void,
-	'TriggerStyle':						(cls: string) => void,
-}
-
-interface GlobalEventNameMap {
-	'AsyncEvent':						(delay: duration, eventToFire: string) => void,
-	'ChaosHudProcessInput':				() => void,
-	'ChaosHudThink':					() => void,
-	'DemoPlaybackControl': 				(str: string, flt: float) => void,
-	'Drawer_ExtendAndNavigateToTab':	(tabid: string) => void,
-	'Drawer_NavigateToTab': 			(tabid: string) => void,
-	'Drawer_UpdateLobbyButton':			(imgsrc: string, playercount: unknown) => void,
-	'HideContentPanel':					() => void,
-	'LayoutReloaded':					() => void,
-	'MainMenuTabHidden':				(tabid: string) => void,
-	'MainMenuTabShown':					(tabid: string) => void,
-	'PageDown':							() => void,
-	'PageLeft':							() => void,
-	'PageRight':						() => void,
-	'PageUp':							() => void,
-	'PanoramaGameTimeJumpEvent':		(time: duration) => void,
-	'ReloadBackground':					() => void,
-	'ScrollDown':						() => void,
-	'ScrollLeft':						() => void,
-	'ScrollRight':						() => void,
-	'ScrollUp':							() => void,
-	'SettingsNavigateToPanel':			(category: string, panel: Panel) => void,
-	'ShowCenterPrintText':				(message: string, priority: unknown) => void,
-	'ShowContentPanel':					() => void,
-	'ShowVoteContextMenu':				() => void,
-	'StaticHudMenu_EntrySelected':		(panel: Panel) => void,
-}
-
 /** Defines a panel event source. */
-declare type PanelEventSource = PanelEventSourceEnum[keyof PanelEventSourceEnum];
+declare type PanelEventSource = ValueOf<PanelEventSourceEnum>;
 interface PanelEventSourceEnum {
 	PROGRAM:  0,
 	GAMEPAD:  1,
@@ -106,7 +42,7 @@ interface PanelEventSourceEnum {
 }
 
 /** Defines the current game state. */
-declare type GameUIState = GameUIStateEnum[keyof GameUIStateEnum];
+declare type GameUIState = ValueOf<GameUIStateEnum>;
 interface GameUIStateEnum {
 	INVALID:       0,
 	LOADINGSCREEN: 1,
@@ -304,17 +240,17 @@ declare namespace $ {
 	 *
 	 */
 	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: Panel|string, callback: PanelEventNameMap[T]): void;
-	function RegisterEventHandler(event: string, context: Panel|string, callback: Function): void;
+	function RegisterEventHandler(event: string, context: Panel|string, callback: Func): void;
 
 	/** Register a handler for an event that is not otherwise handled
 	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L18)
 	 */
 	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): void;
-	function RegisterForUnhandledEvent(event: string, callback: Function): void;
+	function RegisterForUnhandledEvent(event: string, callback: Func): void;
 
 	/** Register a key binding */
-	function RegisterKeyBind(panel: Panel, key: string, event: Function|string): void;
+	function RegisterKeyBind(panel: Panel, key: string, event: Func|string): void;
 
 	/** $.persistentStorage.removeItem(keyName).  When passed a key name, will remove that key from the storage. */
 	function removeItem(keyName: string): void;
@@ -322,7 +258,7 @@ declare namespace $ {
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
 	 */
-	function Schedule(time: duration, callback: Function): number;
+	function Schedule(time: duration, callback: Func): number;
 
 	/** $.StopSoundEvent(guid, [fadetime]). Stops the sound event. guid was returned from a previous call to PlaySoundEvent. fadetime is optional. */
 	function StopSoundEvent(guid: any, fadetime?: number): void;
@@ -556,7 +492,7 @@ declare interface Panel {
 	 * @example latestUpdateImage.SetPanelEvent('onactivate', () => SteamOverlayAPI.OpenURLModal(item.link));
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/568f2d8de1303b86592a9a8602efd416f6a2f5bf/scripts/pages/main-menu/news.js#L57)
 	*/
-	SetPanelEvent(event: string, callback: Function): void;
+	SetPanelEvent(event: string, callback: Func): void;
 
 	SetParent(parent: Panel): void;
 
@@ -837,7 +773,7 @@ declare namespace GameInterfaceAPI {
 	function GetSettingString(key: string): string;
 
 	/** Registers a callback for a specific game event type, returns an event handler ID to unregister with */
-	function RegisterGameEventHandler(event_name: string, callback: Function): uuid;
+	function RegisterGameEventHandler(event_name: string, callback: Func): uuid;
 
 	function SetSettingBool(key: string, value: boolean): void;
 
@@ -930,7 +866,7 @@ declare namespace UiToolkitAPI {
 	function RegisterHUDPanel2d(panelTypeName: string, layoutFile: string): void;
 
 	/** Register a javascript callback that can be invoke at a later stage using InvokeJSCallback. Returns a callback handle. */
-	function RegisterJSCallback(callback: Function): uuid;
+	function RegisterJSCallback(callback: Func): uuid;
 
 	/** Register a panel type name with the corresponding layout file */
 	function RegisterPanel2d(panelTypeName: string, layoutFile: string): void;
