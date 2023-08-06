@@ -9,7 +9,7 @@
 /* ========================    PRIMITIVES   ======================== */
 
 type ValueOf<T> = T[keyof T];
-type Func = (...args: unknown[]) => unknown;
+type Func = (...args: any[]) => any;
 
 interface PanelTagNameMap {
 	'Panel': Panel,
