@@ -3,7 +3,7 @@
  * @see https://github.com/koerismo/pano-typed/
  */
 
-/// <reference path="./shared/index.d.ts" />
+/// <reference path="../shared/index.d.ts" />
 
 /** [API not finalized] The workshop content API. Exclusive to P2:CE! */
 declare namespace WorkshopAPI {
