@@ -1,0 +1,7 @@
+{
+	"name": "pano-typed",
+	"version": "1.0.0",
+	"description": "Near-full coverage of Panorama's APIs and data structures with Typescript definitions.",
+	"author": "Koerismo",
+	"license": "MIT"
+}
