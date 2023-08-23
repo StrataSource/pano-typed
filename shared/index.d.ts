@@ -617,6 +617,27 @@ declare interface ResizeDragKnob extends Panel {
 	verticalDrag: boolean;
 }
 
+interface FlexController {
+
+	/** Min value of the flex */
+	min: float;
+
+	/** Max value of the flex */
+	max: float;
+}
+
+interface PoseParameter {
+
+	/** Starting (min) value of the pose param */
+	start: float;
+
+	/** Ending (max) value of the pose param */
+	end: float;
+
+	/** Looping range */
+	loop: float;
+}
+
 /** Renders a 3d model in the UI.
  * @example <ModelPanel
  *     src="models/npcs/turret/turret.mdl"
@@ -631,8 +652,14 @@ declare interface ModelPanel extends Panel {
 	/** The cubemap that this ModelPanel should display, excluding the `.vtf` extension. This path is relative to `materials/`. */
 	cubemap: string;
 
+	/** Index of the skin to use */
+	skin: int32;
+
 	/** Whether this ModelView should use antialiasing. */
 	antialias: boolean;
+
+	/** Animation sequence name for the model, may be changed later using `SetSequence` */
+	sequence: string;
 
 	/** Whether the mouse can be dragged over this ModelView to rotate the model.
 	 * This property can only be set through XML. To modify it, use the `SetMouseRotationAllowed` method.
@@ -696,6 +723,87 @@ declare interface ModelPanel extends Panel {
 	SetParticleSystemOffsetAngles(x: float, y: float, z: float): void;
 
 	SetParticleSystemOffsetPosition(x: float, y: float, z: float): void;
+	
+	/** Returns an array of all sequences for this model */
+	GetSequences(): string[];
+
+	/** Set the current animation sequence for this model
+	 * @param sequence Sequence name
+	 */
+	SetSequence(sequence: string): void;
+	
+	/** Returns the current animation sequence for this model */
+	GetSequence(): string;
+	
+	/** Sets a single pose parameter
+	 * @param param Pose parameter to set, by name
+	 * @param value Value of the pose parameter
+	 */
+	SetPoseParameter(param: string, value: float): void;
+	
+	/** Get a pose parameter's current value
+	 * @param param Pose parameter to get, by name
+	 */
+	GetPoseParameter(param: string): float;
+	
+	/** Returns the number of pose parameters available for this model */
+	GetPoseParamCount(): int32;
+
+	/** Returns an array of all pose parameters */
+	GetPoseParameters(): Record<string, PoseParameter>;
+	
+	/** Reset a single pose parameter to its default
+	 * @param param Pose parameter to reset, must be in range [0,GetPoseParamCount())
+	 */
+	ResetPoseParam(param: int32): void;
+	
+	/** Resets all pose parameters to their default values */
+	ResetPoseParams(): void;
+	
+	/** Sets the current skin
+	 * @param skin Skin index, must be in range [0, GetSkinCount())
+	 */
+	SetSkin(skin: int32);
+	
+	/** Returns the current skin */
+	GetSkin(): int32;
+	
+	/** Returns the total number of skins available to this model.
+	 * Use with SetSkin
+	 */
+	GetSkinCount(): int32;
+	
+	/** Set the LOD for this model
+	 * @param lod LOD level
+	 */
+	SetLOD(lod: int32);
+	
+	/** Returns the current LOD for this model */
+	GetLOD(lod: int32);
+	
+	/** Enable/disable cloth sim on a model, if it supports it
+	 * @param enable True to enable, false to disable
+	 */
+	SetClothSimulationEnabled(enable: boolean);
+	
+	GetClothSimulationEnabled(): boolean;
+
+	/** Returns an array of objects describing all available flex controllers for this model
+	 * The UI must take into account the min/max values specified in these structures
+	 */
+	GetFlexControllers(): Record<string, FlexController>;
+	
+	/** Set a flex controller value. Should be within the min/max returned by GetFlexControllers(),
+	 * but out of range values will still be used to render.
+	 * @param flexController Flex controller name
+	 * @param value Value of the flex
+	 */
+	SetFlexControl(flexController: string, value: float);
+	
+	/** Returns the current value associated with a flex controller
+	 * @param flexController Flex controller name
+	 */
+	GetFlexControl(flexController: string): float;
 }
 
 /** A console message target. */
