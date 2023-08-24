@@ -763,7 +763,7 @@ declare interface ModelPanel extends Panel {
 	/** Sets the current skin
 	 * @param skin Skin index, must be in range [0, GetSkinCount())
 	 */
-	SetSkin(skin: int32);
+	SetSkin(skin: int32): void;
 	
 	/** Returns the current skin */
 	GetSkin(): int32;
@@ -776,16 +776,17 @@ declare interface ModelPanel extends Panel {
 	/** Set the LOD for this model
 	 * @param lod LOD level
 	 */
-	SetLOD(lod: int32);
+	SetLOD(lod: int32): void;
 	
 	/** Returns the current LOD for this model */
-	GetLOD(lod: int32);
+	GetLOD(): int32;
 	
 	/** Enable/disable cloth sim on a model, if it supports it
 	 * @param enable True to enable, false to disable
 	 */
-	SetClothSimulationEnabled(enable: boolean);
+	SetClothSimulationEnabled(enable: boolean): void;
 	
+	/** Returns whether cloth simulation is enabled on this model. */
 	GetClothSimulationEnabled(): boolean;
 
 	/** Returns an array of objects describing all available flex controllers for this model
@@ -798,7 +799,7 @@ declare interface ModelPanel extends Panel {
 	 * @param flexController Flex controller name
 	 * @param value Value of the flex
 	 */
-	SetFlexControl(flexController: string, value: float);
+	SetFlexControl(flexController: string, value: float): void;
 	
 	/** Returns the current value associated with a flex controller
 	 * @param flexController Flex controller name
