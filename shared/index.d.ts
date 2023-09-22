@@ -196,7 +196,7 @@ declare namespace $ {
 	 *  @example $.GetContextPanel().color = color;
 	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
 	 */
-	function GetContextPanel(): Panel;
+	function GetContextPanel<T extends Panel = Panel>(): T;
 
 	/**
 	 * $.HTMLEscape(str, truncate=false).  Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe version.  If truncate=true, too long strings will be truncated instead of throwing an exception
