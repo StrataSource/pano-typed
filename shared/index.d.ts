@@ -142,8 +142,8 @@ declare namespace $ {
 	 * @example $.CreatePanel('Split', wrapper, '', { class: 'split--hud split--latest' });
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L107)
 	 */
-	function CreatePanel<T extends keyof PanelTagNameMap>(type: T, parent: Panel, id: string, properties?: Object): PanelTagNameMap[T];
-	function CreatePanel(type: string, parent: Panel, id: string, properties?: Object): Panel;
+	function CreatePanel<T extends keyof PanelTagNameMap>(type: T, parent: Panel, id: string, properties?: Record<string, unknown>): PanelTagNameMap[T];
+	function CreatePanel(type: string, parent: Panel, id: string, properties?: Record<string, unknown>): Panel;
 
 	/** Call during JS startup code to check if script is being reloaded */
 	function DbgIsReloadingScript(...args: any[]): void;
@@ -212,12 +212,12 @@ declare namespace $ {
 	 * @example $.LoadKeyValuesFile('panorama/data/changelog.vdf');
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/drawer/about.js#L76)
 	 */
-	function LoadKeyValuesFile(url: string): Object;
+	function LoadKeyValuesFile(url: string): Record<string, unknown>;
 
 	/** Load a named key values file and return as JS object.
 	 * @param url The path to the file, including the extension, relative to the content folder root.
 	 */
-	function LoadKeyValues3File(url: string): Object;
+	function LoadKeyValues3File(url: string): Record<string, unknown>;
 
 	/** Localizes a string.
 	 * @example $.Localize('#HudStatus_Spawn');
