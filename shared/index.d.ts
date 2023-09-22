@@ -1,6 +1,6 @@
 /**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
+ * @file Index
+ * @see https://github.com/StrataSource/pano-typed/
  */
 
 /// <reference path="./style.d.ts" />

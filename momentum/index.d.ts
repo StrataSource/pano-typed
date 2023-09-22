@@ -1,6 +1,6 @@
 /**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
+ * @file Momentum-specific types
+ * @see https://github.com/StrataSource/pano-typed/
  */
 
 /// <reference path="../shared/index.d.ts" />
