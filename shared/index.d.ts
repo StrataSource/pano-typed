@@ -236,18 +236,20 @@ declare namespace $ {
 
 	/** Register an event handler
 	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
+	 * @returns A unique event identifier.
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 *
 	 */
-	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: Panel|string, callback: PanelEventNameMap[T]): void;
-	function RegisterEventHandler(event: string, context: Panel|string, callback: Func): void;
+	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: Panel|string, callback: PanelEventNameMap[T]): number;
+	function RegisterEventHandler(event: string, context: Panel|string, callback: Func): number;
 
 	/** Register a handler for an event that is not otherwise handled
-	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));
+	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));]
+	 * @returns A unique event identifier.
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L18)
 	 */
-	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): void;
-	function RegisterForUnhandledEvent(event: string, callback: Func): void;
+	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): number;
+	function RegisterForUnhandledEvent(event: string, callback: Func): number;
 
 	/** Register a key binding */
 	function RegisterKeyBind(panel: Panel, key: string, event: Func|string): void;
