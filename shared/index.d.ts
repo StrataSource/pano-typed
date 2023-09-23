@@ -595,10 +595,17 @@ declare interface Movie extends Panel {
 }
 
 /** An interactive number input.
- * @todo These types are incomplete and unverified!
+ * Values are all integers internally.
  * @example <NumberEntry max="255" />
  */
 declare interface NumberEntry extends Panel {
+	min: int32;
+
+	max: int32;
+
+	value: int32;
+
+	increment: int32;
 }
 
 declare interface ProgressBar extends Panel {
