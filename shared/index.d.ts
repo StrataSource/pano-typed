@@ -10,6 +10,15 @@
 
 type ValueOf<T> = T[keyof T];
 type Func = (...args: any[]) => any;
+type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+
+/* ========================    JSON   ======================== */
+
+// From https://github.com/sindresorhus/type-fest/blob/main/source/basic.d.ts
+type JsonPrimitive = string | number | boolean | null;
+type JsonObject = {[Key in string]: JsonValue} & {[Key in string]?: JsonValue | undefined};
+type JsonArray = JsonValue[] | readonly JsonValue[];
+type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
 interface PanelTagNameMap {
 	'Panel': Panel,
