@@ -112,13 +112,13 @@ declare namespace $ {
 		 * @example $.persistentStorage.getItem('settings.mainMenuMovie');
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/main-menu/main-menu.js#L241)
 		 */
-		function getItem<T extends string|number|boolean>(keyName: string): T|null;
+		function getItem<T extends JsonValue>(keyName: string): T|null;
 
 		/** $.persistentStorage.setItem(keyName, keyValue).  When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 		 * @example $.persistentStorage.setItem('dontShowAgain.' + key, true);
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/modals/popups/dont-show-again.js#L8)
 		 */
-		function setItem(keyName: string, keyValue: string|number|boolean): void;
+		function setItem(keyName: string, keyValue: JsonValue): void;
 	}
 
 	/** Make a web request.
