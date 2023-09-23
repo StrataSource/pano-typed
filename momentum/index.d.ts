@@ -57,3 +57,20 @@ declare interface GlobalEventNameMap {
 	'OnSaveStateUpdate':				(count: number, current: unknown, usingMenu: boolean) => void,
 	'OnMomentumReplayStopped':			() => void,
 }
+
+// TODO: This is a fucking mess just cus I can't use the SnapMode enum here.
+// Ditch enums completely?
+declare type Position = [number, number];
+declare type Snaps =  [number, number];
+
+interface HudLayoutData {
+	components: Record<string, { position: Position; snaps: [number, number] }>;
+	settings: {
+		gridSize: number;
+	}
+}
+
+declare namespace HudCustomizerAPI {
+	function SaveLayoutFromJS(data: HudLayoutData): void;
+	function GetLayout(): HudLayoutData;
+}

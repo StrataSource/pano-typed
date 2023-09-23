@@ -565,6 +565,12 @@ declare interface ToggleButton extends Panel {
 	SetSelected(arg0: boolean): void;
 }
 
+declare interface RadioButton extends Panel {
+	text: string;
+
+	SetSelected(arg0: boolean): void;
+}
+
 declare interface Frame extends Panel {
 	/** Sets the Frame content to the specified snippet. */
 	SetSnippet(snippet: string): void;
