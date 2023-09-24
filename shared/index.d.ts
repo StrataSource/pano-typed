@@ -10,6 +10,15 @@
 
 type ValueOf<T> = T[keyof T];
 type Func = (...args: any[]) => any;
+type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+
+/* ========================    JSON   ======================== */
+
+// From https://github.com/sindresorhus/type-fest/blob/main/source/basic.d.ts
+type JsonPrimitive = string | number | boolean | null;
+type JsonObject = {[Key in string]: JsonValue} & {[Key in string]?: JsonValue | undefined};
+type JsonArray = JsonValue[] | readonly JsonValue[];
+type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
 interface PanelTagNameMap {
 	'Panel': Panel,
@@ -103,13 +112,13 @@ declare namespace $ {
 		 * @example $.persistentStorage.getItem('settings.mainMenuMovie');
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/main-menu/main-menu.js#L241)
 		 */
-		function getItem<T extends string|number|boolean>(keyName: string): T|null;
+		function getItem<T extends JsonValue>(keyName: string): T|null;
 
 		/** $.persistentStorage.setItem(keyName, keyValue).  When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 		 * @example $.persistentStorage.setItem('dontShowAgain.' + key, true);
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/modals/popups/dont-show-again.js#L8)
 		 */
-		function setItem(keyName: string, keyValue: string|number|boolean): void;
+		function setItem(keyName: string, keyValue: JsonValue): void;
 	}
 
 	/** Make a web request.
@@ -142,8 +151,8 @@ declare namespace $ {
 	 * @example $.CreatePanel('Split', wrapper, '', { class: 'split--hud split--latest' });
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L107)
 	 */
-	function CreatePanel<T extends keyof PanelTagNameMap>(type: T, parent: Panel, id: string, properties?: Object): PanelTagNameMap[T];
-	function CreatePanel(type: string, parent: Panel, id: string, properties?: Object): Panel;
+	function CreatePanel<T extends keyof PanelTagNameMap>(type: T, parent: Panel, id: string, properties?: Record<string, unknown>): PanelTagNameMap[T];
+	function CreatePanel(type: string, parent: Panel, id: string, properties?: Record<string, unknown>): Panel;
 
 	/** Call during JS startup code to check if script is being reloaded */
 	function DbgIsReloadingScript(...args: any[]): void;
@@ -196,7 +205,7 @@ declare namespace $ {
 	 *  @example $.GetContextPanel().color = color;
 	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
 	 */
-	function GetContextPanel(): Panel;
+	function GetContextPanel<T extends Panel = Panel>(): T;
 
 	/**
 	 * $.HTMLEscape(str, truncate=false).  Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe version.  If truncate=true, too long strings will be truncated instead of throwing an exception
@@ -212,12 +221,12 @@ declare namespace $ {
 	 * @example $.LoadKeyValuesFile('panorama/data/changelog.vdf');
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/drawer/about.js#L76)
 	 */
-	function LoadKeyValuesFile(url: string): Object;
+	function LoadKeyValuesFile(url: string): Record<string, unknown>;
 
 	/** Load a named key values file and return as JS object.
 	 * @param url The path to the file, including the extension, relative to the content folder root.
 	 */
-	function LoadKeyValues3File(url: string): Object;
+	function LoadKeyValues3File(url: string): Record<string, unknown>;
 
 	/** Localizes a string.
 	 * @example $.Localize('#HudStatus_Spawn');
@@ -236,18 +245,20 @@ declare namespace $ {
 
 	/** Register an event handler
 	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
+	 * @returns A unique event identifier.
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 *
 	 */
-	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: Panel|string, callback: PanelEventNameMap[T]): void;
-	function RegisterEventHandler(event: string, context: Panel|string, callback: Func): void;
+	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: Panel|string, callback: PanelEventNameMap[T]): number;
+	function RegisterEventHandler(event: string, context: Panel|string, callback: Func): number;
 
 	/** Register a handler for an event that is not otherwise handled
-	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));
+	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));]
+	 * @returns A unique event identifier.
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L18)
 	 */
-	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): void;
-	function RegisterForUnhandledEvent(event: string, callback: Func): void;
+	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): number;
+	function RegisterForUnhandledEvent(event: string, callback: Func): number;
 
 	/** Register a key binding */
 	function RegisterKeyBind(panel: Panel, key: string, event: Func|string): void;
@@ -595,10 +606,17 @@ declare interface Movie extends Panel {
 }
 
 /** An interactive number input.
- * @todo These types are incomplete and unverified!
+ * Values are all integers internally.
  * @example <NumberEntry max="255" />
  */
 declare interface NumberEntry extends Panel {
+	min: int32;
+
+	max: int32;
+
+	value: int32;
+
+	increment: int32;
 }
 
 declare interface ProgressBar extends Panel {
