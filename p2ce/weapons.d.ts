@@ -10,9 +10,11 @@
  * ```
  */
 
-declare interface GlobalEventNameMap {
-	'WeaponStateChange':		(mode: WeaponStateMode, index: int32) => void,
-	'WeaponSelect':				(action: WeaponSelectAction) => void,
+type WeaponHUDState = ValueOf<WeaponHUDStateEnum>;
+interface WeaponHUDStateEnum {
+	Showing:  0,		// Means that the menu should be shown
+	Selected: 1,		// Means that the menu should be hidden instantly, and that the current slot should be selected
+	Expired:  2,		// Means that the menu should fade away without selecting the current slot
 }
 
 /** @group enum */
@@ -31,47 +33,54 @@ declare enum WeaponSelectAction {
 }
 
 interface Weapon {
-    name: string;
-    classname: string;
-    viewmodel: string;
-    playermodel: string;
+	id: uint32;
+	name: string;
+	classname: string;
+	viewmodel: string;
+	playermodel: string;
 
-    slot: number;
-    position: number;
+	slot: number;
+	position: number;
 
-    type: 'melee' | 'gun';
+	usesPrimary: boolean;		// True when this weapon uses primary ammo
+	usesSecondary: boolean;		// True when this weapon uses secondary ammo
 
-    primary: {
-        usesPrimary: boolean;		// True when this weapon uses primary ammo
-        usesClips: boolean;			// True when this weapon uses clips
-        clipSize: number;			// The clip size of the weapon
-        clipAmmo: number;			// The ammo in the current clip
-        ammoType: string;			// The name of the ammo, or an empty string if no name given
-        maxAmmo: number;			// The max amount of primary ammo
-        ammo: number;				// The amount of ammo remaining
-    };
+	primary: {
+		usesClips: boolean;		// True when this weapon uses clips
+		clipSize: number;		// The clip size of the weapon
+		maxAmmo: number;		// The max amount of primary ammo
+		ammoType: string;		// A string representing the ammo type
+	};
 
-    secondary: {
-        usesSecondary: boolean;		// True when this weapon uses secondary ammo
-        usesClips: boolean;			// True when this weapon uses clips
-        clipSize: number;			// The clip size of the weapon
-        clipAmmo: number;			// The ammo in the current clip
-        ammoType: string;			// The name of the ammo, or an empty string if no name given
-        maxAmmo: number;			// The max amount of secondary ammo
-        ammo: number;				// The amount of ammo remaining
-    };
+	secondary: {
+		usesClips: boolean;		// True when this weapon uses clips
+		clipSize: number;		// The clip size of the weapon
+		maxAmmo: number;		// The max amount of primary ammo
+		ammoType: string;		// A string representing the ammo type
+	};
+}
+
+interface WeaponInfo {
+	primaryAmmo: number;
+	primaryClip: number;
+	secondaryAmmo: number;
+	secondaryClip: number;
 }
 
 declare namespace WeaponsAPI {
-    function GetWeaponCount(): uint32;
-    function GetWeapons(): (Weapon | null)[];
-    function GetActiveWeapon(): uint32;
-    function HasWeaponClass(classname: string): boolean;
-    function HasWeapon(id: uint32): boolean;
-    function GetWeaponInfo(id: uint32): Weapon | null;
-    function GetActiveWeaponInfo(): Weapon | null;
-    function CanSwitchToWeapon(id: uint32): boolean;
-    function SwitchToWeapon(id: uint32): boolean;
-    function GetWeaponIndexFromClass(classname: string): uint32;
-    function DropWeapon(id: uint32, throwVecX: number, throwVecY: number, throwVecZ: number): boolean;
+	/** Gets the total number of weapons in the game. */
+	function GetWeaponCount(): uint32;
+	/** Gets info on the specified weapon. */
+	function GetWeapon(id: uint32): Weapon;
+	/** Gets the index of the player's currently held weapon. */
+	function GetActiveWeapon(): uint32;
+
+	/** Returns whether the player owns the specified weapon. */
+	function HasWeapon(id: uint32): boolean;
+	/** Retrieves ammo info for the specified weapon. */
+	function GetWeaponInfo(id: uint32): WeaponInfo;
+	/** Drops the weapon, giving it the specified world velocity. */
+	function DropWeapon(id: uint32, velX?: float, velY?: float, velZ?: float): boolean;
+	/** Selects the specified weapon. */
+	function SelectWeapon(id: uint32): boolean;
 }
