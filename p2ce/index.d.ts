@@ -4,6 +4,7 @@
  */
 
 /// <reference path="../shared/index.d.ts" />
+/// <reference path="./weapons.d.ts" />
 
 /** [API not finalized] The workshop content API. Exclusive to P2:CE! */
 declare namespace WorkshopAPI {
