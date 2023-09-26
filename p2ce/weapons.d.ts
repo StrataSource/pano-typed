@@ -1,6 +1,6 @@
 /**
- * @author Koerismo
- * @see https://github.com/koerismo/pano-typed/
+ * @file P2:CE Weapons API
+ * @see https://github.com/StrataSource/pano-typed/
  */
 
 declare interface GlobalEventNameMap {
