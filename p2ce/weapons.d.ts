@@ -3,6 +3,14 @@
  * @see https://github.com/koerismo/pano-typed/
  */
 
+declare interface GlobalEventNameMap {
+	'PlayerDrop':						(weaponClass: string) => void,
+	'PlayerShoot':						(weaponIndex: number) => void,
+	'PlayerPickup':						(weaponIndex: number) => void,
+	'PlayerSwitched':					(newIndex: number, oldIndex: number) => void,
+	'PlayerAPI.SwitchToWeapon':			(weaponIndex: number) => void,
+}
+
 interface WeaponInfo {
 	classname: string;
 	slot: number;				// Inventory slot occupied - From the weapon script

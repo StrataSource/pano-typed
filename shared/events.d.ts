@@ -71,10 +71,4 @@ interface GlobalEventNameMap {
 	'ShowContentPanel':					() => void,
 	'ShowVoteContextMenu':				() => void,
 	'StaticHudMenu_EntrySelected':		(panel: Panel) => void,
-
-	'PlayerDrop':						(weaponClass: string) => void,
-	'PlayerShoot':						(weaponIndex: number) => void,
-	'PlayerPickup':						(weaponIndex: number) => void,
-	'PlayerSwitched':					(newIndex: number, oldIndex: number) => void,
-	'PlayerAPI.SwitchToWeapon':			(weaponIndex: number) => void,
 }
