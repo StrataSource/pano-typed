@@ -953,6 +953,12 @@ declare interface SettingsSlider extends Panel {
 	RestoreCVarDefault(): void;
 }
 
+declare interface AvatarImage extends Panel {
+	accountid: string;
+	
+	steamid: string;
+}
+
 /* ========================       APIS      ======================== */
 
 /** @group api */
