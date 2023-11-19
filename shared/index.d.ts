@@ -909,6 +909,12 @@ declare interface ChaosSettingsSlider extends Panel {
 	RestoreCVarDefault(): void;
 }
 
+declare interface ChaosAvatarImage extends Panel {
+	accountid: string;
+	
+	steamid: string;
+}
+
 /* ========================       APIS      ======================== */
 
 declare namespace FriendsAPI {
