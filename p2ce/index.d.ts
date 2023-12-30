@@ -6,38 +6,8 @@
 /// <reference path="../shared/index.d.ts" />
 /// <reference path="./weapons.d.ts" />
 
-/** [API not finalized] The workshop content API. Exclusive to P2:CE! */
-declare namespace WorkshopAPI {
-	function GetAddonCount(): number;
-	function GetAddonMeta(index: number): AddonMeta;
-	function GetAddonState(uuid: string): DownloadState;
-
-	function GetAddonSubscribed(uuid: string): boolean;
-	function GetAddonEnabled(uuid: string): boolean;
-
-	function SetAddonSubscribed(uuid: string, subscribed: boolean): boolean;
-	function SetAddonEnabled(uuid: string, enabled: boolean): boolean;
-}
-
-declare interface AddonMeta {
-	uuid: string|null;
-	name: string;
-	desc: string;
-
-	authors: string[];
-	tags: string[];
-	
-	dependencies: {[uuid: string]: { required: boolean }};
-	subscriptions: number;
-	votescore: number;
-	flagged: boolean;
-	
-	icon_small: string;
-	icon_big: string;
-}
-
-declare type DownloadState = DownloadStateEnum[keyof DownloadStateEnum];
-declare interface DownloadStateEnum {
+type DownloadState = ValueOf<DownloadStateEnum>;
+interface DownloadStateEnum {
 	UninstallPending: 0,
 	Uninstalling:     1,
 	Uninstalled:      2,
@@ -45,4 +15,54 @@ declare interface DownloadStateEnum {
 	InstallPending:   3,
 	Installing:       4,
 	Installed:        5,
+}
+
+/** Describes a workshop item. */
+interface AddonMeta {
+	index: number;
+	title: string;
+	description: string;
+	local: boolean;
+
+	authors: string[];
+	tags: string[];
+
+	dependencies: {[uuid: string]: { required: boolean }};
+	subscriptions: number;
+	votescore: number;
+	flagged: boolean;
+
+	cover: string;
+	logo: string;
+}
+
+/** A chapter of an addon. */
+interface AddonChapterMeta {
+	map: string;
+	title: string;
+	description: string;
+
+	unlocked: boolean;
+	thumb: string;
+	background: string;
+}
+
+/** [API not finalized] The workshop content API. Exclusive to P2:CE! */
+declare namespace WorkshopAPI {
+	/** Returns the number of addons in the addons list. */
+	function GetAddonCount(): number;
+	/** Returns the metadata for the addon at the specified index. */
+	function GetAddonMeta(index: number): AddonMeta;
+	/** Returns the metadata of the maps for the addon at the specified index. */
+	function GetAddonChapters(index: number): AddonChapterMeta[];
+	/** Returns the download state of the addon at the specified index. */
+	function GetAddonState(index: number): DownloadState;
+	/** Returns the subscription state of the addon at the specified index. */
+	function GetAddonSubscribed(index: number): boolean;
+	/** Returns the enable state of the addon at the specified index. */
+	function GetAddonEnabled(index: number): boolean;
+	/** Sets the subscription state of the addon at the specified index, returning whether the operation succeeded. */
+	function SetAddonSubscribed(index: number, subscribed: boolean): boolean;
+	/** Sets the enable state of the addon at the specified index, returning whether the operation succeeded. */
+	function SetAddonEnabled(index: number, enabled: boolean): boolean;
 }
