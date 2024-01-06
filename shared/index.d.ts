@@ -619,6 +619,40 @@ declare interface NumberEntry extends Panel {
 	increment: int32;
 }
 
+/** An interactive dropdown menu.
+ * @example <DropDown
+ * 	   id="ColorMode"
+ *	   class="dropdown settings-enum-dropdown__dropdown"
+ * 	   menuclass="dropdown-menu" />
+ */
+declare interface DropDown extends Panel {
+	min: int32;
+
+	max: int32;
+
+	value: int32;
+
+	AddOption(panel: Panel): void;
+
+	HasOption(panelId: string): boolean;
+
+	RemoveOption(panelId: string): void;
+
+	RemoveOptionIndex(index: int32): void;
+
+	RemoveAllOptions(): void;
+
+	GetSelected(): Panel;
+
+	SetSelected(selection: string): void;
+
+	SetSelectedIndex(index: int32): void;
+
+	FindDropDownMenuChild(panelId: string): Panel;
+
+	AccessDropDownMenu(): Panel;
+}
+
 declare interface ProgressBar extends Panel {
 	max: float;
 
