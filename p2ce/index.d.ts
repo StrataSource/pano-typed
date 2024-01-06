@@ -56,6 +56,9 @@ interface AddonChapterMeta {
 declare namespace WorkshopAPI {
 	/** Returns the number of addons in the addons list. */
 	function GetAddonCount(): number;
+	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
+	function GetAddonByMap(mapname: string): number;
+	
 	/** Returns the metadata for the addon at the specified index. */
 	function GetAddonMeta(index: number): AddonMeta;
 	/** Returns the metadata of the maps for the addon at the specified index. */
