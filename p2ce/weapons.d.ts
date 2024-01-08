@@ -72,15 +72,15 @@ declare namespace WeaponsAPI {
 	function GetWeaponCount(): uint32;
 	/** Gets info on the specified weapon. */
 	function GetWeapon(id: uint32): Weapon;
+	/** Retrieves ammo info for the specified weapon. */
+	function GetWeaponInfo(id: uint32): WeaponInfo;
 	/** Gets the index of the player's currently held weapon. */
 	function GetActiveWeapon(): uint32;
 
 	/** Returns whether the player owns the specified weapon. */
 	function HasWeapon(id: uint32): boolean;
-	/** Retrieves ammo info for the specified weapon. */
-	function GetWeaponInfo(id: uint32): WeaponInfo;
-	/** Drops the weapon, giving it the specified world velocity. */
-	function DropWeapon(id: uint32, velX?: float, velY?: float, velZ?: float): boolean;
 	/** Selects the specified weapon. */
 	function SelectWeapon(id: uint32): boolean;
+	/** Drops the weapon, giving it the specified world velocity. */
+	function DropWeapon(id: uint32, velX?: float, velY?: float, velZ?: float): boolean;
 }
