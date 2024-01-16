@@ -34,10 +34,10 @@ interface PanelTagNameMap {
 	'ResizeDragKnob': ResizeDragKnob,
 	'ModelPanel': ModelPanel,
 	'UICanvas': UICanvas,
-	'ChaosBackbufferImagePanel': ChaosBackbufferImagePanel,
-	'ChaosLoadingScreen': ChaosBackbufferImagePanel,
-	'ChaosMainMenu': ChaosMainMenu,
-	'ChaosSettingsSlider': ChaosSettingsSlider,
+	'BackbufferImagePanel': BackbufferImagePanel,
+	'LoadingScreen': BackbufferImagePanel,
+	'MainMenu': MainMenu,
+	'SettingsSlider': SettingsSlider,
 }
 
 /** Defines a panel event source. */
@@ -883,17 +883,17 @@ declare interface UICanvas extends Panel {
 	DrawPoly(count: number, coords: number[], color: string): void;
 }
 
-declare interface ChaosBackbufferImagePanel extends Panel {
+declare interface BackbufferImagePanel extends Panel {
 }
 
-declare interface ChaosLoadingScreen extends Panel {
+declare interface LoadingScreen extends Panel {
 }
 
-declare interface ChaosMainMenu extends Panel {
+declare interface MainMenu extends Panel {
 	IsMultiplayer(): boolean;
 }
 
-declare interface ChaosSettingsSlider extends Panel {
+declare interface SettingsSlider extends Panel {
 	convar: string;
 
 	max: float;
