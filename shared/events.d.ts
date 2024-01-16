@@ -44,10 +44,10 @@ interface PanelEventNameMap {
 
 interface GlobalEventNameMap {
 	'AsyncEvent':						(delay: duration, eventToFire: string) => void,
-	'ChaosHudProcessInput':				() => void,
-	'ChaosHudThink':					() => void,
-	'ChaosShowIntroMovie':				() => void,
-	'ChaosHideIntroMovie':				() => void,
+	'HudProcessInput':					() => void,
+	'HudThink':							() => void,
+	'ShowIntroMovie':					() => void,
+	'HideIntroMovie':					() => void,
 	'DemoPlaybackControl': 				(str: string, flt: float) => void,
 	'Drawer_ExtendAndNavigateToTab':	(tabid: string) => void,
 	'Drawer_NavigateToTab': 			(tabid: string) => void,
