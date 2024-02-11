@@ -44,6 +44,8 @@ interface PanelEventNameMap {
 
 interface GlobalEventNameMap {
 	'AsyncEvent':						(delay: duration, eventToFire: string) => void,
+	'MainMenuResumeGame':				() => void,
+	'MainMenuPauseGame':				() => void,
 	'HudProcessInput':					() => void,
 	'HudThink':							() => void,
 	'ShowIntroMovie':					() => void,
