@@ -240,8 +240,11 @@ declare namespace $ {
 	/** Log a message */
 	function Msg(...messages: any[]): void;
 
-	/** $.PlaySoundEvent(str).  Plays the named sound event. */
-	function PlaySoundEvent(...args: any[]): void;
+	/** Plays the specified soundscript.
+	 * @todo If a game session is active, sounds will not play until the game is unpaused.
+	 * @returns A unique event identifier.
+	 */
+	function PlaySoundEvent(sound: string): uuid;
 
 	/** Register an event handler
 	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
@@ -271,8 +274,8 @@ declare namespace $ {
 	 */
 	function Schedule(time: duration, callback: Func): number;
 
-	/** $.StopSoundEvent(guid, [fadetime]). Stops the sound event. guid was returned from a previous call to PlaySoundEvent. fadetime is optional. */
-	function StopSoundEvent(guid: any, fadetime?: number): void;
+	/** Stops a sound event by the specified uuid returned from a previous call to PlaySoundEvent. fadetime is optional. */
+	function StopSoundEvent(guid: uuid, fadetime?: duration): void;
 
 	/** Remove an event handler */
 	function UnregisterEventHandler(...args: any[]): void;
