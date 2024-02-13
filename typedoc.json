@@ -1,0 +1,22 @@
+{
+	"basePath": "./",
+	"entryPoints": ["shared/**/*.d.ts", "momentum/**/*.d.ts", "p2ce/**/*.d.ts"],
+	"searchInComments": true,
+	"kindSortOrder": [
+		"Module",
+		"Namespace",
+		"Function",
+		"Class",
+		"Interface",
+		"Property",
+	],
+	"searchGroupBoosts": {
+		"api": 30,
+		"enum": 20
+	},
+	"navigationLinks": {
+		"Home": "https://stratasource.org/",
+		"GitHub": "https://github.com/StrataSource/",
+	},
+	"out": "./docs"
+}

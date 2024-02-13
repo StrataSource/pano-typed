@@ -1,6 +1,13 @@
 /**
- * @file P2:CE Weapons API
- * @see https://github.com/StrataSource/pano-typed/
+ * @packageDocumentation
+ * P2:CE Weapons API.
+ * @example Select the crowbar if the player has it.
+ * ```
+ * const crowbar = WeaponsAPI.GetWeaponIndexFromClass("weapon_crowbar");
+ * if (WeaponsAPI.HasWeapon(crowbar)) {
+ *   WeaponsAPI.SwitchToWeapon(crowbar);
+ * }
+ * ```
  */
 
 declare interface GlobalEventNameMap {
@@ -9,6 +16,7 @@ declare interface GlobalEventNameMap {
 }
 
 declare type WeaponStateMode = ValueOf<WeaponStateModeEnum>;
+/** @group enum */
 interface WeaponStateModeEnum {
     Switch: 0,
     Pickup: 1,
@@ -16,6 +24,7 @@ interface WeaponStateModeEnum {
 }
 
 declare type WeaponSelectAction = ValueOf<WeaponSelectActionEnum>;
+/** @group enum */
 interface WeaponSelectActionEnum {
     Next: 0,
     Prev: 1,

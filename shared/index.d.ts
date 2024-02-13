@@ -1,6 +1,6 @@
 /**
- * @file Index
- * @see https://github.com/StrataSource/pano-typed/
+ * @packageDocumentation
+ * Shared types.
  */
 
 /// <reference path="./style.d.ts" />
@@ -42,6 +42,7 @@ interface PanelTagNameMap {
 
 /** Defines a panel event source. */
 declare type PanelEventSource = ValueOf<PanelEventSourceEnum>;
+/** @group enum */
 interface PanelEventSourceEnum {
 	PROGRAM:  0,
 	GAMEPAD:  1,
@@ -52,6 +53,7 @@ interface PanelEventSourceEnum {
 
 /** Defines the current game state. */
 declare type GameUIState = ValueOf<GameUIStateEnum>;
+/** @group enum */
 interface GameUIStateEnum {
 	INVALID:       0,
 	LOADINGSCREEN: 1,
@@ -93,9 +95,30 @@ declare type Keyframes = unknown;
 
 type QueryOutput<E, T> = T extends `.${string}` ? E[] : E;
 
-/** Selects an element. */
+/** Selects an element. 
+ * @param selector The element selector. This can be an id selector (#xyz) or a class selector (.xyz)
+ * @example Basic use.
+ * ```js
+ * const my_button = $("#MyButton");
+ * const my_items = $(".my-item");
+ * ```
+ * When using Typescript, generic parameters can also be used to specify the return types.
+ * ```ts
+ * const my_button = $<Button>("#MyButton")!;
+ * ```
+ * @alias "$"
+ * @alias Query
+ */
 declare function $<E extends Panel, T extends string = string>(selector: T): QueryOutput<E, T>|null;
 
+/** Namespace for common DOM manipulation operations.
+ * For the query selector function, see {@link $ | $(...)}
+ * @example
+ * ```
+ * const my_button = $("#MyButton");
+ * $.RegisterEventHandler("onactivate", my_button, () => $.Msg("Hello world!"));
+ * ```
+ */
 declare namespace $ {
 
 	namespace persistentStorage {
@@ -139,10 +162,16 @@ declare namespace $ {
 	}): void;
 
 	/** Cancel a scheduled function.
-	 * @example $.CancelScheduled(ConsoleNotify.scheduleOpacity);
+	 * @example
+	 * ```
+	 * ConsoleNotify.scheduleOpacity = $.Schedule(5, () => {\/* ... *\/});
+	 * \/* ... *\/ 
+	 * 
+	 * $.CancelScheduled(ConsoleNotify.scheduleOpacity);
+	 * ```
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/console-notify.js#L8)
 	 */
-	function CancelScheduled(event: number): void;
+	function CancelScheduled(event: uuid): void;
 
 	/** Compresses the given string, and encodes result in base64. */
 	function CompressString(str: string): string;
@@ -272,7 +301,7 @@ declare namespace $ {
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
 	 */
-	function Schedule(time: duration, callback: Func): number;
+	function Schedule(time: duration, callback: Func): uuid;
 
 	/** Stops a sound event by the specified uuid returned from a previous call to PlaySoundEvent. fadetime is optional. */
 	function StopSoundEvent(guid: uuid, fadetime?: duration): void;
@@ -926,6 +955,7 @@ declare interface SettingsSlider extends Panel {
 
 /* ========================       APIS      ======================== */
 
+/** @group api */
 declare namespace FriendsAPI {
 	/** Gets the name of the local player */
 	function GetLocalPlayerName(): string;
@@ -935,6 +965,7 @@ declare namespace FriendsAPI {
 
 }
 
+/** @group api */
 declare namespace GameInterfaceAPI {
 	function ConsoleCommand(command: string): void;
 
@@ -968,6 +999,7 @@ declare namespace GameInterfaceAPI {
 	function GetGameUIState(): GameUIState;
 }
 
+/** @group api */
 declare namespace RichPresenceAPI {
 	/** Clears the current rich presence data */
 	function Clear(): void;
@@ -987,6 +1019,7 @@ declare namespace RichPresenceAPI {
 
 }
 
+/** @group api */
 declare namespace SteamOverlayAPI {
 	/** Opens the steam overlay to the given user/group profile by their steam ID. profileID is the 64bit int steam ID in a string. */
 	function OpenToProfileID(profileID: string): void;
@@ -999,6 +1032,7 @@ declare namespace SteamOverlayAPI {
 
 }
 
+/** @group api */
 declare namespace UiToolkitAPI {
 	/** Denies input to the game by filtering input events. Returns a handle used by ReleaseDenyAllInputToGame. */
 	function AddDenyAllInputToGame(panelPtr: unknown, strDebugContextName: string): uint64;
@@ -1175,12 +1209,14 @@ declare namespace UiToolkitAPI {
 
 }
 
+/** @group api */
 declare namespace UserAPI {
 	/** Gets the XUID (steamid as integer) of the local player */
 	function GetXUID(): uint64;
 
 }
 
+/** @group api */
 declare namespace SentryAPI {
 	/** Returns whether or not the user has consented to allow sentry to upload crash dumps. */
 	function GetUserConsent(): boolean;
@@ -1189,6 +1225,7 @@ declare namespace SentryAPI {
 	function IsSentryActive(): boolean;
 }
 
+/** @group api */
 declare namespace VersionAPI {
 	function GetBranch(): string;
 

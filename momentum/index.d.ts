@@ -1,6 +1,6 @@
 /**
- * @file Momentum-specific types
- * @see https://github.com/StrataSource/pano-typed/
+ * @packageDocumentation
+ * Momentum-specific types.
  */
 
 /// <reference path="../shared/index.d.ts" />
