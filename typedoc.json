@@ -1,0 +1,5 @@
+{
+	"basePath": "./",
+	"entryPoints": ["shared/**/*.d.ts", "momentum/**/*.d.ts", "p2ce/**/*.d.ts"],
+	"out": "./docs"
+}

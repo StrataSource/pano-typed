@@ -576,10 +576,22 @@ declare interface Frame extends Panel {
 	SetSource(source: string): void;
 }
 
+/**
+ * @example <Image src="file://{images}/spectatingIcon.svg" textureheight="64" scaling="stretch-to-cover-preserve-aspect" />
+ * @see [Example](https://github.com/momentum-mod/panorama/blob/15bbaf2243166aa5f3a053783906f7304a9e74ac/layout/hud/spectate.xml#L13)
+ */
 declare interface Image extends Panel {
-	SetImage(arg0: string): void;
+	/** The image source. Set this through Image.SetImage(...)! */
+	readonly src: string;
 
-	SetScaling(arg0: string): void;
+	/** The scaling mode of the image. Set this through Image.SetScaling(...)! */
+	readonly scaling: string;
+
+	textureheight: string;
+
+	SetImage(path: string): void;
+
+	SetScaling(mode: 'stretch-to-cover-preserve-aspect'|'stretch-to-fit-preserve-aspect'): void;
 }
 
 declare interface Label extends Panel {
