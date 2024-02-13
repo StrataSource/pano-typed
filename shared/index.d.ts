@@ -122,26 +122,29 @@ declare function $<E extends Panel, T extends string = string>(selector: T): Que
 declare namespace $ {
 
 	namespace persistentStorage {
-		/** $.persistentStorage.length.  Returns an integer representing the number of data items stored in the Storage object. */
+		/** Returns an integer representing the number of data items stored in the Storage object. */
 		const length: int32;
 
-		/** $.persistentStorage.clear().  When invoked, will empty all keys out of the storage. */
+		/** When invoked, will empty all keys out of the storage. */
 		function clear(): void;
 
-		/** $.persistentStorage.key(n).  When passed a number n, this method will return the name of the nth key in the storage. */
+		/** When passed a number n, this method will return the name of the nth key in the storage. */
 		function key(n: int32): string|null;
 
-		/** $.persistentStorage.getItem(keyName).  When passed a key name, will return that key's value.
+		/** When passed a key name, will return that key's value.
 		 * @example $.persistentStorage.getItem('settings.mainMenuMovie');
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/main-menu/main-menu.js#L241)
 		 */
 		function getItem<T extends JsonValue>(keyName: string): T|null;
 
-		/** $.persistentStorage.setItem(keyName, keyValue).  When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
+		/** When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 		 * @example $.persistentStorage.setItem('dontShowAgain.' + key, true);
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/modals/popups/dont-show-again.js#L8)
 		 */
 		function setItem(keyName: string, keyValue: JsonValue): void;
+
+		/** When passed a key name, will remove that key from the storage. */
+		function removeItem(keyName: string): void;
 	}
 
 	/** Make a web request.
@@ -294,9 +297,6 @@ declare namespace $ {
 
 	/** Register a key binding */
 	function RegisterKeyBind(panel: Panel, key: string, event: Func|string): void;
-
-	/** $.persistentStorage.removeItem(keyName).  When passed a key name, will remove that key from the storage. */
-	function removeItem(keyName: string): void;
 
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
