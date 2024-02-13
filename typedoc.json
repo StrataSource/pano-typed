@@ -1,6 +1,7 @@
 {
 	"basePath": "./",
 	"entryPoints": ["shared/**/*.d.ts", "momentum/**/*.d.ts", "p2ce/**/*.d.ts"],
+	"customCss": "docs.css",
 	"searchInComments": true,
 	"kindSortOrder": [
 		"Module",
