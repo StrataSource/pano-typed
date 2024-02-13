@@ -1,5 +1,9 @@
 {
 	"basePath": "./",
 	"entryPoints": ["shared/**/*.d.ts", "momentum/**/*.d.ts", "p2ce/**/*.d.ts"],
+	"navigationLinks": {
+		"Home": "https://stratasource.org/",
+		"GitHub": "https://github.com/StrataSource/",
+	},
 	"out": "./docs"
 }
