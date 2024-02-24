@@ -1003,6 +1003,9 @@ declare namespace GameInterfaceAPI {
 
 	/** Gets the current game state. */
 	function GetGameUIState(): GameUIState;
+
+	/** Gets the current map name, or null if no map is active. */
+	function GetCurrentMap(): string|null;
 }
 
 /** @group api */
