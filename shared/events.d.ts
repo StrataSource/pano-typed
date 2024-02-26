@@ -77,4 +77,5 @@ interface GlobalEventNameMap {
 	'ShowContentPanel':					() => void,
 	'ShowVoteContextMenu':				() => void,
 	'StaticHudMenu_EntrySelected':		(panel: Panel) => void,
+	'UnloadLoadingScreenAndReinit':		() => void,
 }
