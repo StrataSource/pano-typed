@@ -15,21 +15,19 @@ declare interface GlobalEventNameMap {
 	'WeaponSelect':				(action: WeaponSelectAction) => void,
 }
 
-declare type WeaponStateMode = ValueOf<WeaponStateModeEnum>;
 /** @group enum */
-interface WeaponStateModeEnum {
-    Switch: 0,
-    Pickup: 1,
-    Drop: 2,
+declare enum WeaponStateMode {
+    Switch  = 0,
+    Pickup  = 1,
+    Drop    = 2,
 }
 
-declare type WeaponSelectAction = ValueOf<WeaponSelectActionEnum>;
 /** @group enum */
-interface WeaponSelectActionEnum {
-    Next: 0,
-    Prev: 1,
-    Show: 2,
-    Hide: 3,
+declare enum WeaponSelectAction {
+    Next = 0,
+    Prev = 1,
+    Show = 2,
+    Hide = 3,
 }
 
 interface Weapon {
