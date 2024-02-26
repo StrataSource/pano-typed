@@ -10,16 +10,22 @@
  * ```
  */
 
-type DownloadState = ValueOf<DownloadStateEnum>;
 /** @group enum */
-interface DownloadStateEnum {
-	UninstallPending: 0,
-	Uninstalling:     1,
-	Uninstalled:      2,
+declare enum DownloadState {
+	UninstallPending	= 0,
+	Uninstalling		= 1,
+	Uninstalled			= 2,
 
-	InstallPending:   3,
-	Installing:       4,
-	Installed:        5,
+	InstallPending		= 3,
+	Installing			= 4,
+	Installed			= 5,
+}
+
+/** @group enum */
+declare enum AddonRating {
+	None		= 0,
+	ThumbsDown	= 1,
+	ThumbsUp	= 2,
 }
 
 /** Describes a workshop item. */
@@ -62,22 +68,27 @@ declare namespace WorkshopAPI {
 	/** Returns the number of addons in the addons list. */
 	function GetAddonCount(): number;
 	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
-	function GetAddonByMap(mapname: string): number;
+	function GetAddonByMap(mapname: string): number|null;
 	
 	/** Returns the metadata for the addon at the specified index. */
-	function GetAddonMeta(index: number): AddonMeta;
+	function GetAddonMeta(index: uint32): AddonMeta;
 	/** Returns the metadata of the maps for the addon at the specified index. */
-	function GetAddonChapters(index: number): AddonChapterMeta[];
+	function GetAddonChapters(index: uint32): AddonChapterMeta[];
 	/** Returns the download state of the addon at the specified index. */
-	function GetAddonState(index: number): DownloadState;
+	function GetAddonState(index: uint32): DownloadState;
 	/** Returns the subscription state of the addon at the specified index. */
-	function GetAddonSubscribed(index: number): boolean;
+	function GetAddonSubscribed(index: uint32): boolean;
 	/** Returns the enable state of the addon at the specified index. */
-	function GetAddonEnabled(index: number): boolean;
+	function GetAddonEnabled(index: uint32): boolean;
+	/** Returns the current user rating for the given addon, or null if the addon is installed locally. */
+	function GetAddonRating(index: uint32): AddonRating|null;
+
 	/** Sets the subscription state of the addon at the specified index, returning whether the operation succeeded. */
-	function SetAddonSubscribed(index: number, subscribed: boolean): boolean;
+	function SetAddonSubscribed(index: uint32, subscribed: boolean): boolean;
 	/** Sets the enable state of the addon at the specified index, returning whether the operation succeeded. */
-	function SetAddonEnabled(index: number, enabled: boolean): boolean;
+	function SetAddonEnabled(index: uint32, enabled: boolean): boolean;
+	/** Sets the user rating for the given addon, returning whether the operation succeeded. */
+	function SetAddonRating(index: uint32, rating: AddonRating): boolean;
 }
 
 interface GlobalEventNameMap {
