@@ -10,26 +10,26 @@
  * ```
  */
 
-type WeaponHUDState = ValueOf<WeaponHUDStateEnum>;
-interface WeaponHUDStateEnum {
-	Showing:  0,		// Means that the menu should be shown
-	Selected: 1,		// Means that the menu should be hidden instantly, and that the current slot should be selected
-	Expired:  2,		// Means that the menu should fade away without selecting the current slot
+/** @group enum */
+declare enum WeaponHUDState {
+	Showing   = 0,	// Means that the menu should be shown
+	Selected  = 1,	// Means that the menu should be hidden instantly, and that the current slot should be selected
+	Expired   = 2,	// Means that the menu should fade away without selecting the current slot
 }
 
 /** @group enum */
 declare enum WeaponStateMode {
-    Switch  = 0,
-    Pickup  = 1,
-    Drop    = 2,
+	Switch  = 0,
+	Pickup  = 1,
+	Drop    = 2,
 }
 
 /** @group enum */
 declare enum WeaponSelectAction {
-    Next = 0,
-    Prev = 1,
-    Show = 2,
-    Hide = 3,
+	Next  = 0,
+	Prev  = 1,
+	Show  = 2,
+	Hide  = 3,
 }
 
 interface Weapon {
