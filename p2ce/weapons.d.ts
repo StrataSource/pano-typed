@@ -17,17 +17,17 @@ declare interface GlobalEventNameMap {
 
 /** @group enum */
 declare enum WeaponStateMode {
-    Switch  = 0,
-    Pickup  = 1,
-    Drop    = 2,
+	SWITCH  = 0,
+	PICKUP  = 1,
+	DROP    = 2,
 }
 
 /** @group enum */
 declare enum WeaponSelectAction {
-    Next = 0,
-    Prev = 1,
-    Show = 2,
-    Hide = 3,
+	NEXT = 0,
+	PREV = 1,
+	SHOW = 2,
+	HIDE = 3,
 }
 
 interface Weapon {
