@@ -557,6 +557,9 @@ declare interface Panel {
 	UpdateCurrentAnimationKeyframes(animation: Keyframes): void;
 
 	UpdateFocusInContext(): boolean;
+
+	/** Check if this panel is still valid */
+	IsValid(): boolean;
 }
 
 declare interface Button extends Panel {
@@ -594,7 +597,40 @@ declare interface TextEntry extends Panel {
 declare interface ToggleButton extends Panel {
 	text: string;
 
-	SetSelected(arg0: boolean): void;
+	SetSelected(selected: boolean): void;
+}
+
+declare interface RadioButton extends Button {
+	group: string;
+
+	SetSelected(selected: boolean): void;
+
+	GetSelectedButton(): Panel;
+}
+
+/** A simple button type that contains a label */
+declare interface TextButton extends Button {
+	text: string;
+}
+
+declare interface NStateButton extends Button {
+	numstates: int32;
+
+	currentstate: int32;
+
+	/**
+	 * Increment the current state of the button
+	 * Wraps around to 0 when numstates+1 >= currentstate
+	 */
+	IncrementState(): void;
+
+	/**
+	 * Resets the current state to 0
+	 */
+	ResetState(): void;
+}
+
+declare interface HoldButton extends Button {
 }
 
 declare interface Frame extends Panel {
