@@ -956,11 +956,93 @@ declare interface UICanvas extends Panel {
 	DrawLinePoints(count: number, coords: number[], thickness: number, color: string): void;
 
 	/**
+	 * Draws a line, but softer!
+	 * @param count Number of points
+	 * @param coords Array of x/y coordinates. Must be count * 2 in length
+	 * @param thickness Thickness of the line
+	 * @param softness Softness of the line
+	 * @param color Color of the line
+	 */
+	DrawSoftLinePoints(count: number, coords: number[], thickness: number, softness: number, color: string): void;
+
+	/**
+	 * Draws a bunch of discrete points
+	 * @param count Number of points
+	 * @param coords Array of x/y coordinates. Must be count * 2 in length
+	 * @param thickness Thickness of the line
+	 * @param softness Softness of the line
+	 * @param color Color of the line
+	 */
+	DrawSoftLinePointsDisconnected(count: number, coords: number[], thickness: number, softness: number, color: string): void;
+
+	/**
 	 * @param count The number of points to draw.
 	 * @param coords An array of x/y coordinates.
 	 * @param color The color of the line as a string.
 	 */
 	DrawPoly(count: number, coords: number[], color: string): void;
+
+	/**
+	 * @param count Number of points
+	 * @param coords An array of x/y coords. Must be count * 2 in length
+	 * @param colors An array of colors for each point. Must be count in length
+	 */
+	DrawShadedPoly(count: number, coords: number[], colors: string[]): void;
+
+	/**
+	 * Draws a circle with lines (i.e. not filled)
+	 * @param cX X coord of center
+	 * @param cY Y coord of center
+	 * @param radius Radius of the circle
+	 * @param color Color of the lines
+	 */
+	DrawLineCircle(cX: number, cY: number, radius: number, color: string): void;
+
+	/**
+	 * Draws a filled circle
+	 * @param cX X coord of center
+	 * @param cY Y coord of center
+	 * @param radius Radius of the circle
+	 * @param color Color of the circle
+	 */
+	DrawFilledCircle(cX: number, cY: number, radius: number, color: string): void;
+
+	/**
+	 * Draws a filled wedge, basically a slice of a circle
+	 * @param cX X coord of center
+	 * @param cY Y coord of center
+	 * @param radius Radius of the circle
+	 * @param startAngle Starting angle (in radians)
+	 * @param angleDelta Angle delta (in radians)
+	 * @param color Color of the wedge
+	 */
+	DrawFilledWedge(cX: number, cY: number, radius: number, startAngle: number, angleDelta: number, color: string): void;
+
+	SetMaxDrawCommands(max: number): void;
+
+	/**
+	 * Set current draw color
+	 * @param color 
+	 */
+	SetDrawColor(color: string): void;
+
+	/**
+	 * Set current draw size
+	 * @param size
+	 */
+	SetDrawSize(size: float): void;
+
+	/**
+	 * Set additive rendering mode
+	 * @param additive
+	 */
+	SetAdditive(additive: boolean): void;
+
+	/**
+	 * Clear the canvas with the specified color
+	 * @param color Clear color 
+	 */
+	Clear(color: string): void;
 }
 
 declare interface BackbufferImagePanel extends Panel {
@@ -989,10 +1071,72 @@ declare interface SettingsSlider extends Panel {
 	RestoreCVarDefault(): void;
 }
 
+declare interface SettingsKeyBinder extends Panel {
+	bind: string;
+
+	OnShow(): void;
+}
+
+declare interface SettingsToggle extends Panel {
+	convar: string;
+
+	/** Set the cvar back to default */
+	RestoreCVarDefault(): void;
+
+	OnShow(): void;
+}
+
+declare interface SettingsEnum extends Panel {
+	convar: string;
+}
+
+declare interface SettingsEnumDropDown extends Panel {
+	convar: string;
+
+	OnShow(): void;
+
+	RefreshDisplay(): void;
+
+	/** Set the cvar back to default */
+	RestoreCVarDefault(): void;
+}
+
 declare interface AvatarImage extends Panel {
 	accountid: string;
 	
 	steamid: string;
+}
+
+declare interface BaseBlurTarget extends Panel {
+	/**
+	 * Add a panel to the blur list
+	 * @param panel 
+	 */
+	AddBlurTarget(panel: Panel);
+
+	/**
+	 * Remove a panel from the blur list
+	 * @param panel 
+	 */
+	RemoveBlurPanel(panel: Panel);
+}
+
+declare interface TripleMonitorBackground extends Panel {
+}
+
+interface ClockTypeEnum {
+	NONE: 'none',
+	REALTIME: 'realtime',
+	WALL: 'wall',
+	GAME: 'game',
+	GAMETICK: 'game-tick',
+	GAMESERVER: 'game-server'
+}
+
+declare interface CountdownTimer extends Panel {
+	timeleft: number;
+	
+	clocktype: ClockTypeEnum;
 }
 
 /* ========================       APIS      ======================== */
@@ -1281,4 +1425,11 @@ declare namespace VersionAPI {
 	function GetPlatform(): string;
 
 	function GetVersion(): string;
+}
+
+/** @group api */
+declare namespace OptionsMenuAPI {
+	function RestoreKeybdMouseBindingDefaults(): void;
+
+	function ShowSteamControllerBindingsPanel(): void;
 }
