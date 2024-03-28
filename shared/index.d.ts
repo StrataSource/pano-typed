@@ -949,7 +949,7 @@ declare interface StaticConsoleMessageTarget extends Panel {
 declare interface UICanvas extends Panel {
 	/**
 	 * @param count The number of points to draw.
-	 * @param coords An array of x/y coordinates.
+	 * @param coords An array of float x/y coordinates.
 	 * @param thickness The thickness of the line.
 	 * @param color The color of the line as a string.
 	 */
@@ -958,7 +958,7 @@ declare interface UICanvas extends Panel {
 	/**
 	 * Draws a line, but softer!
 	 * @param count Number of points
-	 * @param coords Array of x/y coordinates. Must be count * 2 in length
+	 * @param coords Array of float x/y coordinates. Must be count * 2 in length
 	 * @param thickness Thickness of the line
 	 * @param softness Softness of the line
 	 * @param color Color of the line
@@ -968,7 +968,7 @@ declare interface UICanvas extends Panel {
 	/**
 	 * Draws a bunch of discrete points
 	 * @param count Number of points
-	 * @param coords Array of x/y coordinates. Must be count * 2 in length
+	 * @param coords Array of float x/y coordinates. Must be count * 2 in length
 	 * @param thickness Thickness of the line
 	 * @param softness Softness of the line
 	 * @param color Color of the line
@@ -977,14 +977,14 @@ declare interface UICanvas extends Panel {
 
 	/**
 	 * @param count The number of points to draw.
-	 * @param coords An array of x/y coordinates.
+	 * @param coords An array of float x/y coordinates.
 	 * @param color The color of the line as a string.
 	 */
 	DrawPoly(count: number, coords: number[], color: string): void;
 
 	/**
 	 * @param count Number of points
-	 * @param coords An array of x/y coords. Must be count * 2 in length
+	 * @param coords An array of float x/y coords. Must be count * 2 in length
 	 * @param colors An array of colors for each point. Must be count in length
 	 */
 	DrawShadedPoly(count: number, coords: number[], colors: string[]): void;
@@ -1124,7 +1124,10 @@ declare interface BaseBlurTarget extends Panel {
 declare interface TripleMonitorBackground extends Panel {
 }
 
-interface ClockTypeEnum {
+declare type ClockType = ValueOf<ClockTypeEnum>;
+
+/** @group enum */
+declare interface ClockTypeEnum {
 	NONE: 'none',
 	REALTIME: 'realtime',
 	WALL: 'wall',
@@ -1136,7 +1139,7 @@ interface ClockTypeEnum {
 declare interface CountdownTimer extends Panel {
 	timeleft: number;
 	
-	clocktype: ClockTypeEnum;
+	clocktype: ClockType;
 }
 
 /* ========================       APIS      ======================== */
