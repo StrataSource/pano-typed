@@ -1142,6 +1142,16 @@ declare interface CountdownTimer extends Panel {
 	clocktype: ClockType;
 }
 
+declare interface Carousel extends Panel {
+	SetSelectedChild(panel: Panel);
+
+	GetFocusChild(): Panel;
+
+	GetFocusIndex(): number;
+
+	SetAutoScrollEnabled(enabled: boolean);
+}
+
 /* ========================       APIS      ======================== */
 
 /** @group api */
