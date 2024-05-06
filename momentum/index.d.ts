@@ -57,3 +57,32 @@ declare interface GlobalEventNameMap {
 	'OnSaveStateUpdate':				(count: number, current: unknown, usingMenu: boolean) => void,
 	'OnMomentumReplayStopped':			() => void,
 }
+
+/**
+ * API for reading and writing HUD config files.
+ * 
+ * C++ side is agnostic to what you pass it, and storing the entire layout structure in this
+ * repo is annoying, so types here are deliberately very weak; types in the HUD customizer
+ * files are much stronger.
+ * 
+ * Note that cfg/hud_default.kv3 is stored in a the licensee-only game repo, just let someone
+ * (probably Tom) know if you need to update it.
+ */
+declare namespace HudCustomizerAPI {
+	/** 
+	 * Saves the given object to cfg/hud.kv3.
+	 */
+	function SaveLayoutFromJS(data: Record<string, any>): void;
+
+	/** 
+	 * Tries to get the contents of cfg/hud.kv3 as a JS object.
+	 * 
+	 * If cfg/hud.kv3 doesn't exist, loads cfg/hud_default.kv3.
+	 */
+	function GetLayout(): Record<string, any>;
+
+	/**
+	 * Gets the contents of cfg/hud_default.kv3 as a JS object.
+	 */
+	function GetDefaultLayout(): Record<string, any>;
+}
