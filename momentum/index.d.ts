@@ -66,22 +66,15 @@ interface TrackZones extends JsonObject {
 	segments: Segment[];
 	end: Zone;
 }
-  
-interface TrackMovementParams extends JsonObject {
-	maxVelocity: number;
-	defragFlags: number;
-}
 
-interface TrackBase extends JsonObject {
+interface MainTrack extends JsonObject {
 	zones: TrackZones;
-	movementParams: TrackMovementParams;
-}
-
-interface MainTrack extends TrackBase {
 	stagesEndAtStageStarts: boolean;
 }
 
-interface BonusTrack extends TrackBase {
+interface BonusTrack extends JsonObject {
+	zones: TrackZones;
+	defragFlags: number;
 }
 
 interface MapTracks extends JsonObject {
@@ -92,6 +85,7 @@ interface MapTracks extends JsonObject {
 interface ZoneDef extends JsonObject {
 	formatVersion: number;
 	dataTimestamp: number;
+	maxVelocity: number;
 	tracks: MapTracks;
 }
   /**************************************************************************************************************/
