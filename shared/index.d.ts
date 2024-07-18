@@ -295,8 +295,17 @@ declare namespace $ {
 	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>(event: T, callback: GlobalEventNameMap[T]): number;
 	function RegisterForUnhandledEvent(event: string, callback: Func): number;
 
-	/** Register a key binding */
+	/**
+	 * Register a key binding
+	 * @param key A key formatted as `key_<keyname>` (ex. `key_w`)
+	 */
 	function RegisterKeyBind(panel: Panel, key: string, event: Func|string): void;
+
+	/**
+	 * Registers a key binding, similarly to `RegisterKeyBind` but that responds to in-game keypresses.
+	 * @param key A key formatted as `key_<keyname>` (ex. `key_w`)
+	 */
+	function RegisterGameKeyBind(key: string, event: Func|string): void;
 
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
