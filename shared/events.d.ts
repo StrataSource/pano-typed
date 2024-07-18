@@ -6,6 +6,10 @@
 interface PanelEventNameMap {
 	'AddStyle':							(cls: string) => void,
 	'AddStyleToEachChild':				(cls: string) => void,
+	'CarouselAutoScroll':				(autoscroll_id: number) => void,
+	'CarouselChildrenChanged':			(panel: Panel) => void,
+	'CarouselNavIncrementSelectedIndex':(inc: number) => void,
+	'CarouselNavSetSelectedIndex':		(index: number) => void,
 	'DragStart':						(source: unknown, info: DragEventInfo) => void,
 	'DropInputFocus':					() => void,
 	'IfHasClassEvent':					(cls: string, eventToFire: string) => void,
@@ -26,12 +30,14 @@ interface PanelEventNameMap {
 	'PanoramaCastVoteYes':				() => void,
 	'RemoveStyle':						(cls: string) => void,
 	'RemoveStyleFromEachChild':			(cls: string) => void,
+	'ResetCarouselMouseWheelCounts':	() => void,
 	'ScrollPanelDown':					() => void,
 	'ScrollPanelLeft':					() => void,
 	'ScrollPanelRight':					() => void,
 	'ScrollPanelUp':					() => void,
 	'ScrollToBottom':					() => void,
 	'ScrollToTop':						() => void,
+	'SetCarouselSelectedChild':			(panel: Panel) => void,
 	'SetChildPanelsSelected':			(selected: boolean) => void,
 	'SetInputFocus':					() => void,
 	'SetPanelEnabled':					(enabled: boolean) => void,
@@ -40,6 +46,7 @@ interface PanelEventNameMap {
 	'TogglePanelSelected':				() => void,
 	'ToggleStyle':						(cls: string) => void,
 	'TriggerStyle':						(cls: string) => void,
+	'UpdateFocusAndDirtyChildStyles':	() => void,
 }
 
 interface GlobalEventNameMap {
