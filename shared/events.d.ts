@@ -65,6 +65,7 @@ interface GlobalEventNameMap {
 	'Drawer_ExtendAndNavigateToTab':	(tabid: string) => void,
 	'Drawer_NavigateToTab': 			(tabid: string) => void,
 	'Drawer_UpdateLobbyButton':			(imgsrc: string, playercount: unknown) => void,
+	'GameEventFired':					(event: string) => void,
 	'HideContentPanel':					() => void,
 	'LayoutReloaded':					() => void,
 	'MainMenuTabHidden':				(tabid: string) => void,

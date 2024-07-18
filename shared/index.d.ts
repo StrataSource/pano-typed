@@ -1237,10 +1237,10 @@ declare namespace SteamOverlayAPI {
 /** @group api */
 declare namespace UiToolkitAPI {
 	/** Denies input to the game by filtering input events. Returns a handle used by ReleaseDenyAllInputToGame. */
-	function AddDenyAllInputToGame(panelPtr: unknown, strDebugContextName: string): uint64;
+	function AddDenyAllInputToGame(panelPtr: Panel, strDebugContextName: string): uint64;
 
 	/** Denies mouse input to the game by filtering mouse input events. Returns a handle used by ReleaseDenyMouseInputToGame. */
-	function AddDenyMouseInputToGame(panelPtr: unknown, strDebugContextName: string): uint64;
+	function AddDenyMouseInputToGame(panelPtr: Panel, strDebugContextName: string): uint64;
 
 	/** Force closing all visible popups */
 	function CloseAllVisiblePopups(): void;
