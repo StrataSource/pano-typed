@@ -39,11 +39,11 @@ interface MapData {
  /***************************************************************************************** */
 
 interface Region extends JsonObject {
-	points: Vec2D[];
+	points: number[];
 	bottom: number;
 	height: number;
 	teleDestTargetName: string; // mutually exclusive to other two teleport fields
-	teleDestPos: Vec3D; // TODO: This below are required if region is part of a volume used by stafe or major checkpoint zone
+	teleDestPos: number; // TODO: This below are required if region is part of a volume used by stafe or major checkpoint zone
 	teleDestYaw: number; // See convo in mom red 25/09/23 02:00 GMT
 	safeHeight: number;
 }
