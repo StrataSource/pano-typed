@@ -21,19 +21,13 @@ declare enum DownloadState {
 	Installed			= 5,
 }
 
-/** @group enum */
-declare enum AddonRating {
-	None		= 0,
-	ThumbsDown	= 1,
-	ThumbsUp	= 2,
-}
-
 /** Describes a workshop item. */
 interface AddonMeta {
 	type: string;
 	index: number;
 	title: string;
 	description: string;
+	workshopid: number;
 	local: boolean;
 
 	authors: string[];
@@ -80,15 +74,15 @@ declare namespace WorkshopAPI {
 	function GetAddonSubscribed(index: uint32): boolean;
 	/** Returns the enable state of the addon at the specified index. */
 	function GetAddonEnabled(index: uint32): boolean;
-	/** Returns the current user rating for the given addon, or null if the addon is installed locally. */
-	function GetAddonRating(index: uint32): AddonRating|null;
+	/** Returns the current user rating for the given addon */
+	function GetAddonRating(workshopId: uint64): boolean;
 
-	/** Sets the subscription state of the addon at the specified index, returning whether the operation succeeded. */
-	function SetAddonSubscribed(index: uint32, subscribed: boolean): boolean;
-	/** Sets the enable state of the addon at the specified index, returning whether the operation succeeded. */
-	function SetAddonEnabled(index: uint32, enabled: boolean): boolean;
-	/** Sets the user rating for the given addon, returning whether the operation succeeded. */
-	function SetAddonRating(index: uint32, rating: AddonRating): boolean;
+	/** Sets the subscription state of the addon at the specified index */
+	function SetAddonSubscribed(workshopId: uint64, subscribed: boolean): void;
+	/** Sets the enable state of the addon at the specified index */
+	function SetAddonEnabled(index: uint32, enabled: boolean): void;
+	/** Sets the user rating for the given addon */
+	function SetAddonRating(workshopId: uint64, thumbsUp: boolean): void;
 }
 
 interface GlobalEventNameMap {
