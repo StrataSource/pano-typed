@@ -10,17 +10,17 @@ declare interface Style {
 	font: string;
 	fontFamily: string;
 	fontSize: number;
-	fontStyle: 'normal'|'italic';
-	fontWeight: 'light'|'thin'|'normal'|'medium'|'bold'|'black';
+	fontStyle: 'normal' | 'italic';
+	fontWeight: 'light' | 'thin' | 'normal' | 'medium' | 'bold' | 'black';
 	letterSpacing: string;
 	lineHeight: string;
-	textAlign: 'left'|'center'|'right';
-	textDecoration: 'none'|'underline'|'line-through';
-	textOverflow: 'ellipses'|'clip'|'shrink'|'noclip';
+	textAlign: 'left' | 'center' | 'right';
+	textDecoration: 'none' | 'underline' | 'line-through';
+	textOverflow: 'ellipses' | 'clip' | 'shrink' | 'noclip';
 	textShadow: string;
 	textShadowFast: string;
 	textTransform: string;
-	whiteSpace: 'normal'|'nowrap';
+	whiteSpace: 'normal' | 'nowrap';
 
 	// Background
 	backgroundColor: string;
@@ -32,8 +32,8 @@ declare interface Style {
 
 	// Alignment
 	align: string;
-	verticalAlign: 'bottom'|'center'|'top';
-	horizontalAlign: 'left'|'center'|'right';
+	verticalAlign: 'bottom' | 'center' | 'top';
+	horizontalAlign: 'left' | 'center' | 'right';
 
 	// Layout
 	position: string;
@@ -42,7 +42,7 @@ declare interface Style {
 	overflow: string;
 	height: string;
 	width: string;
-	flowChildren: 'none'|'left'|'right'|'up'|'down';
+	flowChildren: 'none' | 'left' | 'right' | 'up' | 'down';
 	maxHeight: string;
 	maxWidth: string;
 	minHeight: string;
@@ -142,6 +142,6 @@ declare interface Style {
 	opacityMaskScrollUpDown: string;
 
 	// Visibility
-	visibility: 'visible'|'collapse';
+	visibility: 'visible' | 'collapse';
 	zIndex: number;
 }

@@ -27,33 +27,39 @@ interface MapData {
 	name: string;
 	thumbnail: {
 		urlLarge: string;
-	}
+	};
 	mainTrack: {
 		difficulty: number;
 		numZones: number;
 		isLinear: boolean;
-	}
-	credits: { type: string, user: { alias: string } }[];
+	};
+	credits: { type: string; user: { alias: string } }[];
 }
 
 declare type TimerEvent = TimerEventEnum[keyof TimerEventEnum];
 declare interface TimerEventEnum {
-	Started:     0,
-	Finished:    1,
-	Stopped:     2,
-	Failed:      3,
+	Started: 0;
+	Finished: 1;
+	Stopped: 2;
+	Failed: 3;
 }
 
 declare type TimerState = TimerStateEnum[keyof TimerStateEnum];
 declare interface TimerStateEnum {
-	NotRunning:  0,
-	Running:     1,
-	Practice:    2,
+	NotRunning: 0;
+	Running: 1;
+	Practice: 2;
 }
 
 declare interface GlobalEventNameMap {
-	'OnMomentumTimerStateChange':		(ent: unknown, type: TimerEvent) => void,
-	'OnMomentumZoneChange':				(enter: unknown, linear: unknown, curZone: unknown, curTrack: unknown, timerState: TimerState) => void,
-	'OnSaveStateUpdate':				(count: number, current: unknown, usingMenu: boolean) => void,
-	'OnMomentumReplayStopped':			() => void,
+	OnMomentumTimerStateChange: (ent: unknown, type: TimerEvent) => void;
+	OnMomentumZoneChange: (
+		enter: unknown,
+		linear: unknown,
+		curZone: unknown,
+		curTrack: unknown,
+		timerState: TimerState
+	) => void;
+	OnSaveStateUpdate: (count: number, current: unknown, usingMenu: boolean) => void;
+	OnMomentumReplayStopped: () => void;
 }

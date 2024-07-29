@@ -1,17 +1,15 @@
-
 interface Achievement {
-	name: string;						// Name of the achievement
-	index: number;						// Index of the achievement (for use with the API)
-	achieved: boolean;					// True if this has been achieved
-	available: boolean;					// True if this is available
-	hide_until_achieved: boolean;		// True if this is a "hidden" achievement. It should not be displayed in its full glory until achieved
+	name: string; // Name of the achievement
+	index: number; // Index of the achievement (for use with the API)
+	achieved: boolean; // True if this has been achieved
+	available: boolean; // True if this is available
+	hide_until_achieved: boolean; // True if this is a "hidden" achievement. It should not be displayed in its full glory until achieved
 	flags: number;
-	count: number;						// Current count, if a stat is involved with this achievement. The achievement is granted when count >= goal
-	goal: number;						// Stat goal for this achievement
+	count: number; // Current count, if a stat is involved with this achievement. The achievement is granted when count >= goal
+	goal: number; // Stat goal for this achievement
 }
 
 declare namespace AchievementsAPI {
-
 	/**
 	 * Returns true if cheats were turned on at any point during this session
 	 */
