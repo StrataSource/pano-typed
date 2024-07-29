@@ -3,5 +3,20 @@
 	"version": "1.0.0",
 	"description": "Near-full coverage of Panorama's APIs and data structures with Typescript definitions.",
 	"author": "Koerismo",
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"husky": "9.1.4",
+		"lint-staged": "15.2.7",
+		"prettier": "3.3.3"
+	},
+	"lint-staged": {
+		"**/*.ts": [
+			"prettier --write"
+		]
+	},
+	"scripts": {
+		"prepare": "husky",
+		"format:fix": "prettier --write **/*.ts",
+		"format:check": "prettier --check **/*.ts"
+	}
 }
