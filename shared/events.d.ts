@@ -3,6 +3,14 @@
  * @see https://github.com/StrataSource/pano-typed/
  */
 
+/** Represents the info object provided by a DragEvent */
+interface DragEventInfo {
+	removePositionBeforeDrop: boolean;
+	offsetX: number;
+	offsetY: number;
+	displayPanel: Panel | null;
+}
+
 interface PanelEventNameMap {
 	'AddStyle':							(cls: string) => void,
 	'AddStyleToEachChild':				(cls: string) => void,
