@@ -1,8 +1,18 @@
-interface PanelTagNameMap {
+/**
+ * Mapping of panel names to their types, unfortunately TypeScript doesn't have a way to do this automatically.
+ * This allows type narrowing based on panel names/paneltype values, and for functions like $.CreatePanel to infer
+ * types correctly.
+ */
+declare interface PanelTagNameMap {
 	Panel: Panel;
 	Button: Button;
 	TextEntry: TextEntry;
+	TextButton: TextButton;
 	ToggleButton: ToggleButton;
+	RadioButton: RadioButton;
+	NStateButton: NStateButton;
+	HoldButton: HoldButton;
+	DropDown: DropDown;
 	Frame: Frame;
 	Image: Image;
 	Label: Label;
@@ -16,9 +26,32 @@ interface PanelTagNameMap {
 	LoadingScreen: BackbufferImagePanel;
 	MainMenu: MainMenu;
 	SettingsSlider: SettingsSlider;
+	SettingsKeyBinder: SettingsKeyBinder;
+	SettingsToggle: SettingsToggle;
+	SettingsEnum: SettingsEnum;
+	SettingsEnumDropDown: SettingsEnumDropDown;
+	AvatarImage: AvatarImage;
+	BaseBlurTarget: BaseBlurTarget;
+	TripleMonitorBackground: TripleMonitorBackground;
+	CountdownTimer: CountdownTimer;
+	Carousel: Carousel;
+	Slider: Slider;
+	DualSlider: DualSlider;
+	StaticConsoleMessageTarget: StaticConsoleMessageTarget;
 }
 
-declare interface Panel {
+/**
+ * Some kind of panel, containing at minimum the properties of Panel. Use paneltype === 'panel name' to narrow!
+ * @see {@link AbstractPanel}
+ */
+declare type GenericPanel = PanelTagNameMap[keyof PanelTagNameMap];
+
+/**
+ * Interface describing base panel properties that all other panels extend.
+ */
+declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
+	readonly paneltype: PanelName;
+
 	activationenabled: boolean;
 
 	readonly actuallayoutheight: float;
@@ -57,8 +90,6 @@ declare interface Panel {
 
 	readonly layoutfile: string;
 
-	readonly paneltype: string;
-
 	rememberchildfocus: boolean;
 
 	readonly scrolloffset_x: float;
@@ -89,7 +120,7 @@ declare interface Panel {
 
 	CanSeeInParentScroll(): boolean;
 
-	Children(): Panel[];
+	Children(): GenericPanel[];
 
 	ClearPanelEvent(event: string): void;
 
@@ -108,13 +139,13 @@ declare interface Panel {
 	DeleteKeyframes(animation: Keyframes): void;
 
 	/** Searches this element's direct children and returns a child with the specified id. */
-	FindChild(id: string): Panel | null;
+	FindChild(id: string): GenericPanel | null;
 
-	FindChildInLayoutFile(id: string): Panel | null;
+	FindChildInLayoutFile(id: string): GenericPanel | null;
 
-	FindChildrenWithClassTraverse(classname: string): Panel[];
+	FindChildrenWithClassTraverse(classname: string): GenericPanel[];
 
-	FindChildTraverse(id: string): Panel | null;
+	FindChildTraverse(id: string): GenericPanel | null;
 
 	GetAttributeInt(attribute: string, fallback: int32): int32;
 
@@ -122,19 +153,19 @@ declare interface Panel {
 
 	GetAttributeUInt32(attribute: string, fallback: uint32): uint32;
 
-	GetChild(index: int32): Panel | null;
+	GetChild(index: int32): GenericPanel | null;
 
 	GetChildCount(): int32;
 
-	GetChildIndex(child: Panel): int32;
+	GetChildIndex(child: GenericPanel): int32;
 
-	GetFirstChild(): Panel | null;
+	GetFirstChild(): GenericPanel | null;
 
-	GetLastChild(): Panel | null;
+	GetLastChild(): GenericPanel | null;
 
 	GetLayoutFileDefine(def: string): unknown;
 
-	GetParent(): Panel | null;
+	GetParent(): GenericPanel | null;
 
 	GetPositionWithinWindow(): unknown;
 
@@ -230,7 +261,7 @@ declare interface Panel {
 	 */
 	SetPanelEvent(event: string, callback: Func): void;
 
-	SetParent(parent: Panel): void;
+	SetParent(parent: GenericPanel): void;
 
 	SetReadyForDisplay(arg0: boolean): void;
 
@@ -255,7 +286,9 @@ declare interface Panel {
 	IsValid(): boolean;
 }
 
-declare interface Button extends Panel {}
+declare interface Panel extends AbstractPanel<'Panel'> {}
+
+declare interface Button extends AbstractPanel<'Button'> {}
 
 /** An interactive text input.
  * @todo These types are incomplete and unverified!
@@ -266,7 +299,7 @@ declare interface Button extends Panel {}
  *     maxchars="3"
  *     ontextentrychange="LobbySettings.onChanged()" />
  */
-declare interface TextEntry extends Panel {
+declare interface TextEntry extends AbstractPanel<'TextEntry'> {
 	text: string;
 
 	ClearSelection(): void;
@@ -286,13 +319,13 @@ declare interface TextEntry extends Panel {
 	Submit(): boolean;
 }
 
-declare interface ToggleButton extends Panel {
+declare interface ToggleButton extends AbstractPanel<'ToggleButton'> {
 	text: string;
 
 	SetSelected(selected: boolean): void;
 }
 
-declare interface RadioButton extends Button {
+declare interface RadioButton extends AbstractPanel<'RadioButton'> {
 	group: string;
 
 	SetSelected(selected: boolean): void;
@@ -301,11 +334,11 @@ declare interface RadioButton extends Button {
 }
 
 /** A simple button type that contains a label */
-declare interface TextButton extends Button {
+declare interface TextButton extends AbstractPanel<'TextButton'> {
 	text: string;
 }
 
-declare interface NStateButton extends Button {
+declare interface NStateButton extends AbstractPanel<'NStateButton'> {
 	numstates: int32;
 
 	currentstate: int32;
@@ -322,9 +355,9 @@ declare interface NStateButton extends Button {
 	ResetState(): void;
 }
 
-declare interface HoldButton extends Button {}
+declare interface HoldButton extends AbstractPanel<'HoldButton'> {}
 
-declare interface Frame extends Panel {
+declare interface Frame extends AbstractPanel<'Frame'> {
 	/** Sets the Frame content to the specified snippet. */
 	SetSnippet(snippet: string): void;
 
@@ -336,7 +369,7 @@ declare interface Frame extends Panel {
  * @example <Image src="file://{images}/spectatingIcon.svg" textureheight="64" scaling="stretch-to-cover-preserve-aspect" />
  * @see [Example](https://github.com/momentum-mod/panorama/blob/15bbaf2243166aa5f3a053783906f7304a9e74ac/layout/hud/spectate.xml#L13)
  */
-declare interface Image extends Panel {
+declare interface Image extends AbstractPanel<'Image'> {
 	/** The image source. Set this through Image.SetImage(...)! */
 	readonly src: string;
 
@@ -350,11 +383,11 @@ declare interface Image extends Panel {
 	SetScaling(mode: 'stretch-to-cover-preserve-aspect' | 'stretch-to-fit-preserve-aspect'): void;
 }
 
-declare interface Label extends Panel {
+declare interface Label extends AbstractPanel<'Label'> {
 	text: string;
 }
 
-declare interface Movie extends Panel {
+declare interface Movie extends AbstractPanel<'Movie'> {
 	IsAdjustingVolume(): boolean;
 
 	Pause(): void;
@@ -380,7 +413,7 @@ declare interface Movie extends Panel {
  * Values are all integers internally.
  * @example <NumberEntry max="255" />
  */
-declare interface NumberEntry extends Panel {
+declare interface NumberEntry extends AbstractPanel<'NumberEntry'> {
 	min: int32;
 
 	max: int32;
@@ -396,14 +429,14 @@ declare interface NumberEntry extends Panel {
  *	   class="dropdown settings-enum-dropdown__dropdown"
  * 	   menuclass="dropdown-menu" />
  */
-declare interface DropDown extends Panel {
+declare interface DropDown extends AbstractPanel<'DropDown'> {
 	min: int32;
 
 	max: int32;
 
 	value: int32;
 
-	AddOption(panel: Panel): void;
+	AddOption(panel: GenericPanel): void;
 
 	HasOption(panelId: string): boolean;
 
@@ -424,7 +457,7 @@ declare interface DropDown extends Panel {
 	AccessDropDownMenu(): Panel;
 }
 
-declare interface ProgressBar extends Panel {
+declare interface ProgressBar extends AbstractPanel<'ProgressBar'> {
 	max: float;
 
 	min: float;
@@ -432,7 +465,45 @@ declare interface ProgressBar extends Panel {
 	value: float;
 }
 
-declare interface ResizeDragKnob extends Panel {
+declare interface Slider extends AbstractPanel<'Slider'> {
+	max: float;
+
+	min: float;
+
+	value: float;
+
+	increment: float;
+
+	default: float;
+
+	showdefault: boolean;
+
+	snaptoincrement: boolean;
+
+	requiresselection: boolean;
+
+	/** @param direction 0 for horizontal, 1 for vertical */
+	SetDirection(direction: 0 | 1): void;
+
+	SetValueNoEvent(value: float): void;
+}
+
+declare interface DualSlider extends AbstractPanel<'DualSlider'> {
+	value2: float;
+
+	default2: float;
+
+	lowerValue: float;
+
+	upperValue: float;
+
+	showdefault2: boolean;
+
+	SetValues(value1: float, value2: float): void;
+
+	SetValue2NoEvent(value: float): void;
+}
+declare interface ResizeDragKnob extends AbstractPanel<'ResizeDragKnob'> {
 	horizontalDrag: boolean;
 
 	readonly target: unknown;
@@ -466,7 +537,7 @@ interface PoseParameter {
  *     antialias="true"
  *     mouse_rotate="false" />
  */
-declare interface ModelPanel extends Panel {
+declare interface ModelPanel extends AbstractPanel<'ModelPanel'> {
 	/** The model that this ModelPanel should display, relative to `/` */
 	src: string;
 
@@ -629,12 +700,12 @@ declare interface ModelPanel extends Panel {
 }
 
 /** A console message target. */
-declare interface StaticConsoleMessageTarget extends Panel {}
+declare interface StaticConsoleMessageTarget extends AbstractPanel<'StaticConsoleMessageTarget'> {}
 
 /** Renders 2d shapes in the UI.
  * @todo These types are incomplete and unverified!
  */
-declare interface UICanvas extends Panel {
+declare interface UICanvas extends AbstractPanel<'UICanvas'> {
 	/**
 	 * @param count The number of points to draw.
 	 * @param coords An array of float x/y coordinates.
@@ -739,15 +810,15 @@ declare interface UICanvas extends Panel {
 	Clear(color: string): void;
 }
 
-declare interface BackbufferImagePanel extends Panel {}
+declare interface BackbufferImagePanel extends AbstractPanel<'BackbufferImagePanel'> {}
 
-declare interface LoadingScreen extends Panel {}
+declare interface LoadingScreen extends AbstractPanel<'LoadingScreen'> {}
 
-declare interface MainMenu extends Panel {
+declare interface MainMenu extends AbstractPanel<'MainMenu'> {
 	IsMultiplayer(): boolean;
 }
 
-declare interface SettingsSlider extends Panel {
+declare interface SettingsSlider extends AbstractPanel<'SettingsSlider'> {
 	convar: string;
 
 	max: float;
@@ -763,13 +834,13 @@ declare interface SettingsSlider extends Panel {
 	RestoreCVarDefault(): void;
 }
 
-declare interface SettingsKeyBinder extends Panel {
+declare interface SettingsKeyBinder extends AbstractPanel<'SettingsKeyBinder'> {
 	bind: string;
 
 	OnShow(): void;
 }
 
-declare interface SettingsToggle extends Panel {
+declare interface SettingsToggle extends AbstractPanel<'SettingsToggle'> {
 	convar: string;
 
 	/** Set the cvar back to default */
@@ -778,11 +849,11 @@ declare interface SettingsToggle extends Panel {
 	OnShow(): void;
 }
 
-declare interface SettingsEnum extends Panel {
+declare interface SettingsEnum extends AbstractPanel<'SettingsEnum'> {
 	convar: string;
 }
 
-declare interface SettingsEnumDropDown extends Panel {
+declare interface SettingsEnumDropDown extends AbstractPanel<'SettingsEnumDropDown'> {
 	convar: string;
 
 	OnShow(): void;
@@ -793,27 +864,27 @@ declare interface SettingsEnumDropDown extends Panel {
 	RestoreCVarDefault(): void;
 }
 
-declare interface AvatarImage extends Panel {
+declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 	accountid: string;
 
 	steamid: string;
 }
 
-declare interface BaseBlurTarget extends Panel {
+declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
 	/**
 	 * Add a panel to the blur list
 	 * @param panel
 	 */
-	AddBlurTarget(panel: Panel);
+	AddBlurTarget<T>(panel: GenericPanel);
 
 	/**
 	 * Remove a panel from the blur list
 	 * @param panel
 	 */
-	RemoveBlurPanel(panel: Panel);
+	RemoveBlurPanel(panel: GenericPanel);
 }
 
-declare interface TripleMonitorBackground extends Panel {}
+declare interface TripleMonitorBackground extends AbstractPanel<'TripleMonitorBackground'> {}
 
 declare type ClockType = ValueOf<ClockTypeEnum>;
 
@@ -827,14 +898,14 @@ declare interface ClockTypeEnum {
 	GAMESERVER: 'game-server';
 }
 
-declare interface CountdownTimer extends Panel {
+declare interface CountdownTimer extends AbstractPanel<'CountdownTimer'> {
 	timeleft: number;
 
 	clocktype: ClockType;
 }
 
-declare interface Carousel extends Panel {
-	SetSelectedChild(panel: Panel);
+declare interface Carousel extends AbstractPanel<'Carousel'> {
+	SetSelectedChild(panel: GenericPanel);
 
 	GetFocusChild(): Panel;
 
