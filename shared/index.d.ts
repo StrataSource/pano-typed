@@ -41,3 +41,9 @@ declare type JsonPrimitive = string | number | boolean | null;
 declare type JsonObject = { [Key in string]: JsonValue } & { [Key in string]?: JsonValue | undefined };
 declare type JsonArray = JsonValue[] | readonly JsonValue[];
 declare type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+
+/** Encourages IDEs to flatten types when displaying. */
+declare type Simplify<T> = { [Key in keyof T]: T[Key] } & {};
+
+/** Make a type incompatible with types that'd otherwise be compatible. */
+declare type Brand<Type, Brand> = Type & { __brand: Brand };
