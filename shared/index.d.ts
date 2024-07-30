@@ -33,11 +33,11 @@ declare type Keyframes = unknown;
 // Many of these are from https://github.com/sindresorhus/type-fest
 // We'd rather avoid the dependency, but feel free to pinch stuff from there.
 
-type ValueOf<T> = T[keyof T];
-type Func = (...args: any[]) => any;
-type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+declare type Func<Args extends unknown[] = any[], Return = void> = (...args: Args) => Return;
+declare type ValueOf<T> = T[keyof T];
+declare type Primitive = null | undefined | string | number | boolean | symbol | bigint;
 
-type JsonPrimitive = string | number | boolean | null;
-type JsonObject = { [Key in string]: JsonValue } & { [Key in string]?: JsonValue | undefined };
-type JsonArray = JsonValue[] | readonly JsonValue[];
-type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+declare type JsonPrimitive = string | number | boolean | null;
+declare type JsonObject = { [Key in string]: JsonValue } & { [Key in string]?: JsonValue | undefined };
+declare type JsonArray = JsonValue[] | readonly JsonValue[];
+declare type JsonValue = JsonPrimitive | JsonObject | JsonArray;
