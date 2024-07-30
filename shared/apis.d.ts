@@ -14,7 +14,7 @@ type QueryOutput<E, T> = T extends `.${string}` ? E[] : E;
  * @alias "$"
  * @alias Query
  */
-declare function $<E extends Panel, T extends string = string>(selector: T): QueryOutput<E, T> | null;
+declare function $<E extends GenericPanel, T extends string = string>(selector: T): QueryOutput<E, T> | null;
 
 /** Namespace for common DOM manipulation operations.
  * For the query selector function, see {@link $ | $(...)}
@@ -87,8 +87,8 @@ declare namespace $ {
 	 * @example $.CreatePanel('Split', wrapper, '', { class: 'split--hud split--latest' });
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L107)
 	 */
-	function CreatePanel<T extends keyof PanelTagNameMap>( type: T, parent: Panel, id: string, properties?: Record<string, unknown> ): PanelTagNameMap[T];
-	function CreatePanel(type: string, parent: Panel, id: string, properties?: Record<string, unknown>): Panel;
+	function CreatePanel<T extends keyof PanelTagNameMap>( type: T, parent: GenericPanel, id: string, properties?: Record<string, unknown> ): PanelTagNameMap[T];
+	function CreatePanel(type: string, parent: Panel, id: string, properties?: Record<string, unknown>): GenericPanel;
 
 	/** Call during JS startup code to check if script is being reloaded */
 	function DbgIsReloadingScript(...args: any[]): void;
@@ -135,13 +135,13 @@ declare namespace $ {
 	/** Find an element.
 	 *  @todo There don't appear to be any uses of this in Momentum UI. This needs to be documented!
 	 */
-	function FindChildInContext(...args: any[]): Panel | undefined;
+	function FindChildInContext(...args: any[]): GenericPanel | undefined;
 
 	/** Gets the root panel of the current Javascript context.
 	 *  @example $.GetContextPanel().color = color;
 	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
 	 */
-	function GetContextPanel<T extends Panel = Panel>(): T;
+	function GetContextPanel<T extends GenericPanel = Panel>(): T;
 
 	/**
 	 * $.HTMLEscape(str, truncate=false).  Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe version.  If truncate=true, too long strings will be truncated instead of throwing an exception
@@ -188,8 +188,8 @@ declare namespace $ {
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 *
 	 */
-	function RegisterEventHandler<T extends keyof PanelEventNameMap>( event: T, context: Panel | string, callback: PanelEventNameMap[T] ): number;
-	function RegisterEventHandler(event: string, context: Panel | string, callback: Func): number;
+	function RegisterEventHandler<T extends keyof PanelEventNameMap>( event: T, context: GenericPanel | string, callback: PanelEventNameMap[T] ): number;
+	function RegisterEventHandler(event: string, context: GenericPanel | string, callback: Func): number;
 
 	/** Register a handler for an event that is not otherwise handled
 	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));]
@@ -200,7 +200,7 @@ declare namespace $ {
 	function RegisterForUnhandledEvent(event: string, callback: Func): number;
 
 	/** Register a key binding */
-	function RegisterKeyBind(panel: Panel, key: string, event: Func | string): void;
+	function RegisterKeyBind(panel: GenericPanel, key: string, event: Func | string): void;
 
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
@@ -306,10 +306,10 @@ declare namespace SteamOverlayAPI {
 /** @group api */
 declare namespace UiToolkitAPI {
 	/** Denies input to the game by filtering input events. Returns a handle used by ReleaseDenyAllInputToGame. */
-	function AddDenyAllInputToGame(panelPtr: Panel, strDebugContextName: string): uint64;
+	function AddDenyAllInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64;
 
 	/** Denies mouse input to the game by filtering mouse input events. Returns a handle used by ReleaseDenyMouseInputToGame. */
-	function AddDenyMouseInputToGame(panelPtr: Panel, strDebugContextName: string): uint64;
+	function AddDenyMouseInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64;
 
 	/** Force closing all visible popups */
 	function CloseAllVisiblePopups(): void;
