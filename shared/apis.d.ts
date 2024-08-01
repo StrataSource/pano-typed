@@ -135,7 +135,7 @@ declare namespace $ {
 	/** Find an element.
 	 *  @todo There don't appear to be any uses of this in Momentum UI. This needs to be documented!
 	 */
-	function FindChildInContext(...args: any[]): GenericPanel | undefined;
+	function FindChildInContext<T extends GenericPanel = GenericPanel>(...args: any[]): T | undefined;
 
 	/** Gets the root panel of the current Javascript context.
 	 *  @example $.GetContextPanel().color = color;
@@ -359,13 +359,13 @@ declare namespace UiToolkitAPI {
 	function ReleaseDenyMouseInputToGame(handle: uint64): void;
 
 	/** Show a context menu with a specific id and using the given layout. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
-	function ShowCustomLayoutContextMenu(targetPanelID: string, contentmenuID: string, layoutFile: string): unknown;
+	function ShowCustomLayoutContextMenu<T extends GenericPanel = GenericPanel>( targetPanelID: string, contentmenuID: string, layoutFile: string ): T;
 
 	/** Show a context menu with a specific id and using the given layout and parameters. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
-	function ShowCustomLayoutContextMenuParameters( targetPanelID: string, contentmenuID: string, layoutFile: string, parameters: string ): unknown;
+	function ShowCustomLayoutContextMenuParameters<T extends GenericPanel = GenericPanel>( targetPanelID: string, contentmenuID: string, layoutFile: string, parameters: string ): T;
 
 	/** Show a context menu with a specific id and using the given layout and parameters and call a function when dismissed. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
-	function ShowCustomLayoutContextMenuParametersDismissEvent( targetPanelID: string, contentmenuID: string, layoutFile: string, parameters: string, dismissJsFunc: unknown ): unknown;
+	function ShowCustomLayoutContextMenuParametersDismissEvent<T extends GenericPanel = GenericPanel>( targetPanelID: string, contentmenuID: string, layoutFile: string, parameters: string, dismissJsFunc: unknown ): T;
 	
 	/** Show a tooltip with a specifix id and using the given layout and parameters. */
 	function ShowCustomLayoutParametersTooltip( targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string ): void;
@@ -374,10 +374,10 @@ declare namespace UiToolkitAPI {
 	function ShowCustomLayoutParametersTooltipStyled( targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string, style: string ): void;
 
 	/** Show a popup that lets you specify a layout. */
-	function ShowCustomLayoutPopup(popupID: string, layoutFile: string): unknown;
+	function ShowCustomLayoutPopup<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string): T;
 
 	/** Show a popup that lets you specify a layout and parameters. */
-	function ShowCustomLayoutPopupParameters(popupID: string, layoutFile: string, parameters: string): unknown;
+	function ShowCustomLayoutPopupParameters<T extends GenericPanel = GenericPanel>( popupID: string, layoutFile: string, parameters: string ): T;
 
 	/** Show a tooltip with a specifix id and using the given layout. */
 	function ShowCustomLayoutTooltip(targetPanelID: string, tooltipID: string, layoutFile: string): void;
@@ -386,64 +386,64 @@ declare namespace UiToolkitAPI {
 	function ShowCustomLayoutTooltipStyled( targetPanelID: string, tooltipID: string, layoutFile: string, style: string ): void;
 
 	/** Show a popup with the given title add message and optional style. Button present: "OK". */
-	function ShowGenericPopup(title: string, message: string, style: string): unknown;
+	function ShowGenericPopup<T extends GenericPanel = GenericPanel>(title: string, message: string, style: string): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "OK". */
-	function ShowGenericPopupBgStyle(title: string, message: string, style: string, bgStyle: string): unknown;
+	function ShowGenericPopupBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style. Button present: "Cancel". */
-	function ShowGenericPopupCancel(title: string, message: string, style: string, cancelJSFunc: unknown): unknown;
+	function ShowGenericPopupCancel<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, cancelJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "Cancel". */
-	function ShowGenericPopupCancelBgStyle( title: string, message: string, style: string, cancelJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupCancelBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, cancelJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style. Button present: "OK". */
-	function ShowGenericPopupOk(title: string, message: string, style: string, okJSFunc: unknown): unknown;
+	function ShowGenericPopupOk<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, okJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "OK". */
-	function ShowGenericPopupOkBgStyle( title: string, message: string, style: string, okJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupOkBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, okJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style. Button present: "Ok"/"Cancel". */
-	function ShowGenericPopupOkCancel( title: string, message: string, style: string, okJSFunc: unknown, cancelJSFunc: unknown ): unknown;
+	function ShowGenericPopupOkCancel<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, okJSFunc: unknown, cancelJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "Ok"/"Cancel". */
-	function ShowGenericPopupOkCancelBgStyle( title: string, message: string, style: string, okJSFunc: unknown, cancelJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupOkCancelBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, okJSFunc: unknown, cancelJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style and let you specify the name of one button. */
-	function ShowGenericPopupOneOption( title: string, message: string, style: string, optionName: string, optionJSFunc: unknown ): unknown;
+	function ShowGenericPopupOneOption<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, optionName: string, optionJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style and let you specify the name of one button. You can specify the background style ("none", "dim" or "blur").  */
-	function ShowGenericPopupOneOptionBgStyle( title: string, message: string, style: string, optionName: string, optionJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupOneOptionBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, optionName: string, optionJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style and let you specify the name of two button. */
-	function ShowGenericPopupThreeOptions( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, option3Name: string, option3JSFunc: unknown ): unknown;
+	function ShowGenericPopupThreeOptions<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, option3Name: string, option3JSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style and let you specify the name of two button. You can specify the background style ("none", "dim" or "blur").  */
-	function ShowGenericPopupThreeOptionsBgStyle( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, option3Name: string, option3JSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupThreeOptionsBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, option3Name: string, option3JSFunc: unknown, bgStyle: string ): T;
 	
 	/** Show a popup with the given title add message and optional style and let you specify the name of two button. */
-	function ShowGenericPopupTwoOptions( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown ): unknown;
+	function ShowGenericPopupTwoOptions<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style and let you specify the name of two button. You can specify the background style ("none", "dim" or "blur").  */
-	function ShowGenericPopupTwoOptionsBgStyle( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupTwoOptionsBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, option1Name: string, option1JSFunc: unknown, option2Name: string, option2JSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style. Button present: "Yes"/"No". */
-	function ShowGenericPopupYesNo( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown ): unknown;
+	function ShowGenericPopupYesNo<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "Yes"/"No". */
-	function ShowGenericPopupYesNoBgStyle( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupYesNoBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup with the given title add message and optional style. Button present: "Yes"/"No"/"Cancel". */
-	function ShowGenericPopupYesNoCancel( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, cancelJSFunc: unknown ): unknown;
+	function ShowGenericPopupYesNoCancel<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, cancelJSFunc: unknown ): T;
 
 	/** Show a popup with the given title add message and optional style. You can specify the background style ("none", "dim" or "blur"). Button present: "Yes"/"No"/"Cancel". */
-	function ShowGenericPopupYesNoCancelBgStyle( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, cancelJSFunc: unknown, bgStyle: string ): unknown;
+	function ShowGenericPopupYesNoCancelBgStyle<T extends GenericPanel = GenericPanel>( title: string, message: string, style: string, yesJSFunc: unknown, noJSFunc: unknown, cancelJSFunc: unknown, bgStyle: string ): T;
 
 	/** Show a popup on the 'global popups top level window' that lets you specify a layout. */
-	function ShowGlobalCustomLayoutPopup(popupID: string, layoutFile: string): unknown;
+	function ShowGlobalCustomLayoutPopup<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string): T;
 
 	/** Show a popup on 'global popups top level window' that lets you specify a layout and parameters. */
-	function ShowGlobalCustomLayoutPopupParameters(popupID: string, layoutFile: string, parameters: string): unknown;
+	function ShowGlobalCustomLayoutPopupParameters<T extends GenericPanel = GenericPanel>( popupID: string, layoutFile: string, parameters: string ): T;
 
 	/** Show a context menu with a specific id and populate the context menu item list using the given "items" array. Each elements of the items array is a javascript object of the form {label, jsCallback, style, icon}. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
 	function ShowSimpleContextMenu(targetPanelID: string, contentmenuID: string, items: unknown): unknown;
