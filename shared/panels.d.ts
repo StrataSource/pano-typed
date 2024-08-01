@@ -139,13 +139,13 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 	DeleteKeyframes(animation: Keyframes): void;
 
 	/** Searches this element's direct children and returns a child with the specified id. */
-	FindChild(id: string): GenericPanel | null;
+	FindChild<T extends GenericPanel = GenericPanel>(id: string): T | null;
 
-	FindChildInLayoutFile(id: string): GenericPanel | null;
+	FindChildInLayoutFile<T extends GenericPanel = GenericPanel>(id: string): T | null;
 
-	FindChildrenWithClassTraverse(classname: string): GenericPanel[];
+	FindChildrenWithClassTraverse<T extends GenericPanel = GenericPanel>(classname: string): T[];
 
-	FindChildTraverse(id: string): GenericPanel | null;
+	FindChildTraverse<T extends GenericPanel = GenericPanel>(id: string): T | null;
 
 	GetAttributeInt(attribute: string, fallback: int32): int32;
 
@@ -153,19 +153,19 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	GetAttributeUInt32(attribute: string, fallback: uint32): uint32;
 
-	GetChild(index: int32): GenericPanel | null;
+	GetChild<T extends GenericPanel = GenericPanel>(index: int32): T | null;
 
 	GetChildCount(): int32;
 
 	GetChildIndex(child: GenericPanel): int32;
 
-	GetFirstChild(): GenericPanel | null;
+	GetFirstChild<T extends GenericPanel = GenericPanel>(): T | null;
 
-	GetLastChild(): GenericPanel | null;
+	GetLastChild<T extends GenericPanel = GenericPanel>(): T | null;
 
 	GetLayoutFileDefine(def: string): unknown;
 
-	GetParent(): GenericPanel | null;
+	GetParent<T extends GenericPanel = GenericPanel>(): T | null;
 
 	GetPositionWithinWindow(): unknown;
 
@@ -330,7 +330,7 @@ declare interface RadioButton extends AbstractPanel<'RadioButton'> {
 
 	SetSelected(selected: boolean): void;
 
-	GetSelectedButton(): Panel;
+	GetSelectedButton<T extends GenericPanel = RadioButton>(): T;
 }
 
 /** A simple button type that contains a label */
@@ -446,15 +446,15 @@ declare interface DropDown extends AbstractPanel<'DropDown'> {
 
 	RemoveAllOptions(): void;
 
-	GetSelected(): Panel;
+	GetSelected<T extends GenericPanel = GenericPanel>(): T;
 
 	SetSelected(selection: string): void;
 
 	SetSelectedIndex(index: int32): void;
 
-	FindDropDownMenuChild(panelId: string): Panel;
+	FindDropDownMenuChild<T extends GenericPanel = GenericPanel>(panelId: string): T;
 
-	AccessDropDownMenu(): Panel;
+	AccessDropDownMenu<T extends GenericPanel = GenericPanel>(): T;
 }
 
 declare interface ProgressBar extends AbstractPanel<'ProgressBar'> {
@@ -907,7 +907,7 @@ declare interface CountdownTimer extends AbstractPanel<'CountdownTimer'> {
 declare interface Carousel extends AbstractPanel<'Carousel'> {
 	SetSelectedChild(panel: GenericPanel);
 
-	GetFocusChild(): Panel;
+	GetFocusChild<T extends GenericPanel = GenericPanel>(): T;
 
 	GetFocusIndex(): number;
 
