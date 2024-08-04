@@ -30,6 +30,7 @@ declare interface PanelTagNameMap {
 	SettingsToggle: SettingsToggle;
 	SettingsEnum: SettingsEnum;
 	SettingsEnumDropDown: SettingsEnumDropDown;
+	ConVarEnabler: ConVarEnabler;
 	AvatarImage: AvatarImage;
 	BaseBlurTarget: BaseBlurTarget;
 	TripleMonitorBackground: TripleMonitorBackground;
@@ -38,6 +39,9 @@ declare interface PanelTagNameMap {
 	Slider: Slider;
 	DualSlider: DualSlider;
 	StaticConsoleMessageTarget: StaticConsoleMessageTarget;
+	ColorDisplay: ColorDisplay;
+	RangeColorDisplay: RangeColorDisplay;
+	ColorPicker: ColorPicker;
 }
 
 /**
@@ -294,6 +298,12 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 	IsValid(): boolean;
 }
 
+declare interface AbstractHudPanel<T extends keyof PanelTagNameMap> extends AbstractPanel<T> {
+	hiddenHUDBits: int64;
+
+	alterateTicks: boolean;
+}
+
 declare interface Panel extends AbstractPanel<'Panel'> {}
 
 declare interface Button extends AbstractPanel<'Button'> {}
@@ -392,7 +402,20 @@ declare interface Image extends AbstractPanel<'Image'> {
 }
 
 declare interface Label extends AbstractPanel<'Label'> {
+	/** Setting is assumes text is unsafe, won't process dialog variables. */
 	text: string;
+
+	/** Same underlying property as text, but setting will try to parse this as html. */
+	html: string;
+
+	/** Whether Panorama will try to load <img> tags in HTML strings */
+	loadimages: boolean;
+
+	SetTextWithDialogVariables(text: string): void;
+
+	SetLocalizationString(text: string): void;
+
+	SetProceduralTextThatIPromiseIsLocalizedAndEscape(text: string): void;
 }
 
 declare interface Movie extends AbstractPanel<'Movie'> {
@@ -879,6 +902,12 @@ declare interface SettingsEnumDropDown extends AbstractPanel<'SettingsEnumDropDo
 	RestoreCVarDefault(): void;
 }
 
+declare type SettingsPanel = SettingsSlider | SettingsKeyBinder | SettingsToggle | SettingsEnum | SettingsEnumDropDown;
+
+declare interface ConVarEnabler extends AbstractPanel<'ConVarEnabler'> {
+	convar: string;
+}
+
 declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 	accountid: string;
 
@@ -886,17 +915,11 @@ declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 }
 
 declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
-	/**
-	 * Add a panel to the blur list
-	 * @param panel
-	 */
-	AddBlurTarget<T>(panel: GenericPanel);
+	/** Add a panel to the blur list */
+	AddBlurPanel(panel: GenericPanel): void;
 
-	/**
-	 * Remove a panel from the blur list
-	 * @param panel
-	 */
-	RemoveBlurPanel(panel: GenericPanel);
+	/** Remove a panel from the blur list */
+	RemoveBlurPanel(panel: GenericPanel): void;
 }
 
 declare interface TripleMonitorBackground extends AbstractPanel<'TripleMonitorBackground'> {}
@@ -920,11 +943,27 @@ declare interface CountdownTimer extends AbstractPanel<'CountdownTimer'> {
 }
 
 declare interface Carousel extends AbstractPanel<'Carousel'> {
-	SetSelectedChild(panel: GenericPanel);
+	SetSelectedChild(panel: GenericPanel): void;
 
 	GetFocusChild<T extends GenericPanel = GenericPanel>(): T;
 
 	GetFocusIndex(): number;
 
-	SetAutoScrollEnabled(enabled: boolean);
+	SetAutoScrollEnabled(enabled: boolean): void;
+}
+
+declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
+	color: color;
+	
+	alpha: float;
+}
+
+declare interface RangeColorDisplay extends AbstractPanel<'RangeColorDisplay'> {
+	color: color;
+
+	SetBounds(min: float, max: float): void;
+}
+
+declare interface ColorPicker extends AbstractPanel<'ColorPicker'> {
+	currColor: color;
 }

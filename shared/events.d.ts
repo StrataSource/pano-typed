@@ -24,6 +24,7 @@ interface PanelEventNameMap {
 	IfHoverOtherEvent: (otherPanelID: string, eventToFire: string) => void;
 	IfNotHasClassEvent: (cls: string, eventToFire: string) => void;
 	IfNotHoverOtherEvent: (otherPanelID: string, eventToFire: string) => void;
+	InputFocusLost: (panel: GenericPanel) => void;
 	ImageFailedLoad: () => void;
 	MovePanelDown: (repeatCount: int32) => void;
 	MovePanelLeft: (repeatCount: int32) => void;
@@ -61,23 +62,14 @@ interface GlobalEventNameMap {
 	AsyncEvent: (delay: duration, eventToFire: string) => void;
 	MainMenuResumeGame: () => void;
 	MainMenuPauseGame: () => void;
-	ShowPauseMenu: () => void;
-	HidePauseMenu: () => void;
-	ShowMainMenu: () => void;
-	HideMainMenu: () => void;
 	HudProcessInput: () => void;
 	HudThink: () => void;
 	ShowIntroMovie: () => void;
 	HideIntroMovie: () => void;
 	DemoPlaybackControl: (str: string, flt: float) => void;
-	Drawer_ExtendAndNavigateToTab: (tabid: string) => void;
-	Drawer_NavigateToTab: (tabid: string) => void;
-	Drawer_UpdateLobbyButton: (imgsrc: string, playercount: unknown) => void;
 	GameEventFired: (event: string) => void;
 	HideContentPanel: () => void;
 	LayoutReloaded: () => void;
-	MainMenuTabHidden: (tabid: string) => void;
-	MainMenuTabShown: (tabid: string) => void;
 	PageDown: () => void;
 	PageLeft: () => void;
 	PageRight: () => void;
@@ -88,10 +80,10 @@ interface GlobalEventNameMap {
 	ScrollLeft: () => void;
 	ScrollRight: () => void;
 	ScrollUp: () => void;
-	SettingsNavigateToPanel: (category: string, panel: Panel) => void;
 	ShowCenterPrintText: (message: string, priority: unknown) => void;
 	ShowContentPanel: () => void;
 	ShowVoteContextMenu: () => void;
 	StaticHudMenu_EntrySelected: (panel: Panel) => void;
 	UnloadLoadingScreenAndReinit: () => void;
+	LevelInitPostEntity: () => void;
 }
