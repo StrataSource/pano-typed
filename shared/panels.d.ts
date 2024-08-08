@@ -403,10 +403,10 @@ declare interface Image extends AbstractPanel<'Image'> {
 
 declare interface Label extends AbstractPanel<'Label'> {
 	/** Setting is assumes text is unsafe, won't process dialog variables. */
-	text: string;
+	text: string | number;
 
 	/** Same underlying property as text, but setting will try to parse this as html. */
-	html: string;
+	html: string | number;
 
 	/** Whether Panorama will try to load <img> tags in HTML strings */
 	loadimages: boolean;

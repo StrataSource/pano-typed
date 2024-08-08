@@ -216,14 +216,14 @@ declare namespace $ {
 				: unknown
 	): uuid;
 
-	/** Register an event handler
-	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
-	 * @returns A unique event identifier.
-	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
-	 * @deprecated The given event is not a member of either the GlobalEventNameMap or PanelEventNameMap interfaces, which
-	 * are used to provide type safety and documentation for event handlers. Add it!
-	 */
-	function RegisterEventHandler(event: string, context: GenericPanel | string, callback: Func): uuid;
+	// /** Register an event handler
+	//  * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
+	//  * @returns A unique event identifier.
+	//  * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
+	//  * @deprecated The given event is not a member of either the GlobalEventNameMap or PanelEventNameMap interfaces, which
+	//  * are used to provide type safety and documentation for event handlers. Add it!
+	//  */
+	// function RegisterEventHandler(event: string, context: GenericPanel | string, callback: Func): uuid;
 
 	/** Register a handler for an event that is not otherwise handled
 	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));]
@@ -242,7 +242,7 @@ declare namespace $ {
 	 * @deprecated The given event is not a member of the GlobalEventNameMap interface, which is used to provide type
 	 * safety and documentation for event handlers. Add it!
 	 */
-	function RegisterForUnhandledEvent(event: string, callback: Func): uuid;
+	// function RegisterForUnhandledEvent(event: string, callback: Func): uuid;
 
 	/** Register a key binding */
 	function RegisterKeyBind(panel: GenericPanel, key: string, event: Func | string): void;

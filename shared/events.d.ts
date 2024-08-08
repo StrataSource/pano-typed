@@ -86,4 +86,5 @@ interface GlobalEventNameMap {
 	StaticHudMenu_EntrySelected: (panel: Panel) => void;
 	UnloadLoadingScreenAndReinit: () => void;
 	LevelInitPostEntity: () => void;
+	NewConsoleMessages: () => void;
 }
