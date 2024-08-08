@@ -137,7 +137,10 @@ declare namespace $ {
 	 */
 	function DispatchEventAsync(...args: any[]): void;
 
-	/** Call a function on each given item. Functionally identical to (...).forEach(...) */
+	/**
+	 * Call a function on each given item. Functionally identical to (...).forEach(...).
+	 * @deprecated This was probably added by Valve before .forEach was added to JavaScript. There's no benefit to this over .forEach.
+	 **/
 	function Each<T>(items: T[], callback: (item: T, index: number) => void): void;
 
 	/** Find an element.
@@ -145,9 +148,17 @@ declare namespace $ {
 	 */
 	function FindChildInContext(...args: any[]): GenericPanel | undefined;
 
-	/** Gets the root panel of the current Javascript context.
-	 *  @example $.GetContextPanel().color = color;
-	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
+	/**
+	 * Get the current Javascript context object.
+	 * For scripts, this is the context the script runs in.
+	 * For modules, they run in an encapsulated context; this function is the only way a module can access the current context.
+	 */
+	function GetContextObject(): Record<string, any>;
+
+	/**
+	 * Gets the root panel of the current Javascript context.
+	 * @example $.GetContextPanel().color = color;
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
 	 */
 	function GetContextPanel<T extends GenericPanel = Panel>(): T;
 
