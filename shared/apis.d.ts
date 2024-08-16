@@ -1,7 +1,17 @@
 type QueryOutput<E, T> = T extends `.${string}` ? E[] : E;
 
-/** Selects an element.
+/**
+ * Selects an element, by #id or .class.
+ *
+ * If an ID is given, the functions performs a FindChildInContext, which searches the layout file first, then any other
+ * associated panels in the current context. `$('#MyPanel')` is therefore equivalent to
+ * `$.GetContextPanel().FindChildInContext('MyPanel')`.
+ *
+ * If a class is given, the function performs a FindChildrenWithClass. `$('.MyPanel')` is therefore equivalent to
+ * `$.GetContextPanel().FindChildrenWithClass('MyPanel')`.
+ *
  * @param selector The element selector. This can be an id selector (#xyz) or a class selector (.xyz)
+ *
  * @example Basic use.
  * ```js
  * const my_button = $("#MyButton");
@@ -11,12 +21,14 @@ type QueryOutput<E, T> = T extends `.${string}` ? E[] : E;
  * ```ts
  * const my_button = $<Button>("#MyButton")!;
  * ```
+ *
  * @alias "$"
  * @alias Query
  */
 declare function $<E extends GenericPanel, T extends string = string>(selector: T): QueryOutput<E, T> | null;
 
-/** Namespace for common DOM manipulation operations.
+/**
+ * Namespace for common DOM manipulation operations.
  * For the query selector function, see {@link $ | $(...)}
  * @example
  * ```
@@ -35,13 +47,15 @@ declare namespace $ {
 		/** When passed a number n, this method will return the name of the nth key in the storage. */
 		function key(n: int32): string | null;
 
-		/** When passed a key name, will return that key's value.
+		/**
+		 * When passed a key name, will return that key's value.
 		 * @example $.persistentStorage.getItem('settings.mainMenuMovie');
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/main-menu/main-menu.js#L241)
 		 */
 		function getItem<T extends JsonValue>(keyName: string): T | null;
 
-		/** When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
+		/**
+		 * When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 		 * @example $.persistentStorage.setItem('dontShowAgain.' + key, true);
 		 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/modals/popups/dont-show-again.js#L8)
 		 */
@@ -51,7 +65,8 @@ declare namespace $ {
 		function removeItem(keyName: string): void;
 	}
 
-	/** Make a web request.
+	/**
+	 * Make a web request.
 	 * @example $.AsyncWebRequest(DATA_URL, {
 	 *  type: 'GET',
 	 * 	complete: (data) =>
@@ -68,13 +83,13 @@ declare namespace $ {
 		}
 	): void;
 
-	/** Cancel a scheduled function.
+	/**
+	 * Cancel a scheduled function.
 	 * @example
-	 * ```
-	 * ConsoleNotify.scheduleOpacity = $.Schedule(5, () => {\/* ... *\/});
-	 * \/* ... *\/
-	 *
-	 * $.CancelScheduled(ConsoleNotify.scheduleOpacity);
+	 * ```ts
+	 * const scheduleOpacity = $.Schedule(5, () => { ... });
+	 * ...
+	 * $.CancelScheduled(scheduleOpacity);
 	 * ```
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/console-notify.js#L8)
 	 */
@@ -83,8 +98,11 @@ declare namespace $ {
 	/** Compresses the given string, and encodes result in base64. */
 	function CompressString(str: string): string;
 
-	/** Create a new panel.
+	/**
+	 * Create a new panel.
+	 *
 	 * @example $.CreatePanel('Split', wrapper, '', { class: 'split--hud split--latest' });
+	 *
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L107)
 	 */
 	function CreatePanel<T extends keyof PanelTagNameMap>( type: T, parent: GenericPanel, id: string, properties?: Record<string, unknown> ): PanelTagNameMap[T];
@@ -96,76 +114,102 @@ declare namespace $ {
 	/** Decompresses the given base64 encoded input into a string. */
 	function DecompressString(str: string): string;
 
-	/** Define an event.
-	 *  @param event The event name.
-	 *  @param argscount The number of arguments that this event takes.
-	 *  @param argsdesc An optional description for the event arguments.
-	 *  @param desc An option description for the event.
-	 *  @example $.DefineEvent( eventName, NumArguments, [optional] ArgumentsDescription, [optional] Description )
-	 *  @example $.DefineEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
-	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L6)
+	/**
+	 * Define an event.
+	 * @param event The event name.
+	 * @param argscount The number of arguments that this event takes.
+	 * @param argsdesc An optional description for the event arguments.
+	 * @param desc An option description for the event.
+	 * @example $.DefineEvent( eventName, NumArguments, [optional] ArgumentsDescription, [optional] Description )
+	 * @example $.DefineEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L6)
 	 */
 	function DefineEvent(event: string, argscount: number, argsdesc?: string, desc?: string): void;
 
-	/** Appears to be identical to $.DefineEvent(...). This function is not used anywhere in Momentum UI.
-	 *  @param event The event name.
-	 *  @param argscount The number of arguments that this event takes.
-	 *  @param argsdesc An optional description for the event arguments.
-	 *  @param desc An option description for the event.
-	 *  @example $.DefinePanelEvent( eventName, NumArguments, [optional] ArgumentsDescription, [optional] Description )
-	 *  @example $.DefinePanelEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
-	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L7)
+	/**
+	 * Appears to be identical to $.DefineEvent(...). This function is not used anywhere in Momentum UI.
+	 *
+	 * @param event The event name.
+	 * @param argscount The number of arguments that this event takes.
+	 * @param argsdesc An optional description for the event arguments.
+	 * @param desc An option description for the event.
+	 *
+	 * @example $.DefinePanelEvent( eventName, NumArguments, [optional] ArgumentsDescription, [optional] Description )
+	 *
+	 * @example $.DefinePanelEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
+	 *
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L7)
 	 */
 	function DefinePanelEvent(event: string, argscount: number, argsdesc?: string, desc?: string): void;
 
-	/** Dispatch an event.
-	 *  @example $.DispatchEvent('SettingsNavigateToPanel', matches.tabID, matches.panel);
-	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/settings/search.js#L262)
+	/**
+	 * Dispatch an event.
+	 * @example $.DispatchEvent('SettingsNavigateToPanel', matches.tabID, matches.panel);
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/settings/search.js#L262)
 	 */
 	function DispatchEvent<T extends string>( event: T, ...args: T extends keyof GlobalEventNameMap ? Parameters<GlobalEventNameMap[T]> : any[] ): void;
 
-	/** Dispatch an event to occur later.
-	 *  @todo There don't appear to be any uses of this in Momentum UI. This needs to be documented!
+	/**
+	 * Dispatch an event to occur later.
 	 */
 	function DispatchEventAsync(...args: any[]): void;
 
-	/** Call a function on each given item. Functionally identical to (...).forEach(...) */
+	/**
+	 * Call a function on each given item. Functionally identical to (...).forEach(...).
+	 * @deprecated This was probably added by Valve before .forEach was added to JavaScript. There's no benefit to this over .forEach.
+	 **/
 	function Each<T>(items: T[], callback: (item: T, index: number) => void): void;
 
-	/** Find an element.
-	 *  @todo There don't appear to be any uses of this in Momentum UI. This needs to be documented!
+	/**
+	 * Find an element within the current panel context.
+	 *
+	 * This function first calls FindChildInLayoutFile, and if that fails, search other panels in the current context.
 	 */
 	function FindChildInContext<T extends GenericPanel = GenericPanel>(...args: any[]): T | undefined;
 
-	/** Gets the root panel of the current Javascript context.
-	 *  @example $.GetContextPanel().color = color;
-	 *  @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
+	/**
+	 * Gets the root panel of the current Javascript context.
+	 *
+	 * @example $.GetContextPanel().color = color;
+	 *
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/color-display.js#L17)
 	 */
 	function GetContextPanel<T extends GenericPanel = Panel>(): T;
 
 	/**
-	 * $.HTMLEscape(str, truncate=false).  Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe version.  If truncate=true, too long strings will be truncated instead of throwing an exception
-	 * @todo There don't appear to be any uses of this in Momentum UI. This needs to be documented!
+	 * Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe
+	 * version.
+	 *
+	 * If truncate=true, too long strings will be truncated instead of throwing an exception.
 	 */
 	function HTMLEscape(str: string, truncate?: boolean): string;
 
 	/** Get the current language */
 	function Language(): string;
 
-	/** Load a named key values file and return as JS object.
+	/**
+	 * Load a named key values file and return as JS object.
+	 *
 	 * @param url The path to the file, including the extension, relative to the content folder root.
+	 *
 	 * @example $.LoadKeyValuesFile('panorama/data/changelog.vdf');
+	 *
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/drawer/about.js#L76)
 	 */
 	function LoadKeyValuesFile(url: string): Record<string, unknown>;
 
-	/** Load a named key values file and return as JS object.
+	/**
+	 * Load a named key values file and return as JS object.
+	 *
 	 * @param url The path to the file, including the extension, relative to the content folder root.
 	 */
 	function LoadKeyValues3File(url: string): Record<string, unknown>;
 
-	/** Localizes a string.
+	/**
+	 * Localizes a string.
+	 *
 	 * @example $.Localize('#HudStatus_Spawn');
+	 *
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/status.js#L47)
 	 */
 	function Localize(str: string): string | null;
@@ -176,24 +220,34 @@ declare namespace $ {
 	/** Log a message */
 	function Msg(...messages: any[]): void;
 
-	/** Plays the specified soundscript.
+	/**
+	 * Plays the specified soundscript.
+	 *
 	 * @todo If a game session is active, sounds will not play until the game is unpaused.
 	 * @returns A unique event identifier.
 	 */
 	function PlaySoundEvent(sound: string): uuid;
 
-	/** Register an event handler
-	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
-	 * @returns A unique event identifier.
-	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
+	/**
+	 * Register an event handler for an existing event. You should define this event in PanelEventNameMap or
+	 * GlobalEventNameMap!
 	 *
+	 * @example $.RegisterEventHandler('OnNewChatEntry', $.GetContextPanel(), this.onNewChatEntry.bind(this));
+	 *
+	 * @returns A unique event identifier.
+	 *
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 */
 	function RegisterEventHandler<T extends keyof PanelEventNameMap>( event: T, context: GenericPanel | string, callback: PanelEventNameMap[T] ): number;
 	function RegisterEventHandler(event: string, context: GenericPanel | string, callback: Func): number;
 
-	/** Register a handler for an event that is not otherwise handled
+	/**
+	 * Register a handler for an event that is not otherwise handled.
+	 *
 	 * @example $.RegisterForUnhandledEvent('OnMomentumTimerStateChange', this.onTimerEvent.bind(this));]
+	 *
 	 * @returns A unique event identifier.
+	 *
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/comparisons.js#L18)
 	 */
 	function RegisterForUnhandledEvent<T extends keyof GlobalEventNameMap>( event: T, callback: GlobalEventNameMap[T] ): number;
@@ -216,10 +270,10 @@ declare namespace $ {
 	/** Remove an unhandled event handler */
 	function UnregisterForUnhandledEvent(...args: any[]): void;
 
-	/** $.UrlDecode(str).  Decodes str, which must be 2048 utf-8 bytes or shorter, from URL-encoded form. */
+	/** Decodes str, which must be 2048 utf-8 bytes or shorter, from URL-encoded form. */
 	function UrlDecode(...args: any[]): void;
 
-	/** $.UrlEncode(str).  Encodes str, which must be 2048 utf-8 bytes or shorter, into URL-encoded form. */
+	/** Encodes str, which must be 2048 utf-8 bytes or shorter, into URL-encoded form. */
 	function UrlEncode(...args: any[]): void;
 
 	/** Log a warning */
@@ -231,8 +285,15 @@ declare namespace FriendsAPI {
 	/** Gets the name of the local player */
 	function GetLocalPlayerName(): string;
 
-	/** Gets the name of the player with the given XUID. This will only be known by the local user if the given user is in their friends list, on the same game server, in a chat room or lobby, or in a small group with the local user */
-	function GetNameForXUID(xuid: uint64): string;
+	/**
+	 * Gets the name of the player with the given XUID.
+	 *
+	 * This will only be known by the local user if the given user is in their friends list, on the same game server,
+	 * in a chat room or lobby, or in a small group with the local user.
+	 *
+	 * @see https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendPersonaName
+	 */
+	function GetNameForXUID(xuid: steamID): string;
 }
 
 /** @group api */
