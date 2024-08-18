@@ -30,6 +30,7 @@ declare interface PanelTagNameMap {
 	SettingsToggle: SettingsToggle;
 	SettingsEnum: SettingsEnum;
 	SettingsEnumDropDown: SettingsEnumDropDown;
+	ConVarEnabler: ConVarEnabler;
 	AvatarImage: AvatarImage;
 	BaseBlurTarget: BaseBlurTarget;
 	TripleMonitorBackground: TripleMonitorBackground;
@@ -37,7 +38,14 @@ declare interface PanelTagNameMap {
 	Carousel: Carousel;
 	Slider: Slider;
 	DualSlider: DualSlider;
+	Spinner: Spinner;
 	StaticConsoleMessageTarget: StaticConsoleMessageTarget;
+	ColorDisplay: ColorDisplay;
+	ConVarColorDisplay: ConVarColorDisplay;
+	RangeColorDisplay: RangeColorDisplay;
+	ColorPicker: ColorPicker;
+	Tooltip: Tooltip;
+	TextTooltip: TextTooltip;
 }
 
 /**
@@ -285,6 +293,12 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 	IsValid(): boolean;
 }
 
+declare interface AbstractHudPanel<T extends keyof PanelTagNameMap> extends AbstractPanel<T> {
+	hiddenHUDBits: int32;
+
+	alterateTicks: boolean;
+}
+
 declare interface Panel extends AbstractPanel<'Panel'> {}
 
 declare interface Button extends AbstractPanel<'Button'> {}
@@ -525,6 +539,15 @@ declare interface DualSlider extends AbstractPanel<'DualSlider'> {
 
 	SetValue2NoEvent(value: float): void;
 }
+
+declare interface Spinner extends AbstractPanel<'Spinner'> {
+	value: float;
+
+	spinlock: boolean;
+
+	SetValueNoEvents(value: float): void;
+}
+
 declare interface ResizeDragKnob extends AbstractPanel<'ResizeDragKnob'> {
 	horizontalDrag: boolean;
 
@@ -886,6 +909,22 @@ declare interface SettingsEnumDropDown extends AbstractPanel<'SettingsEnumDropDo
 	RestoreCVarDefault(): void;
 }
 
+declare interface ConVarColorDisplay extends AbstractPanel<'ConVarColorDisplay'> {
+	convar: string;
+}
+
+declare type SettingsPanel =
+	| SettingsSlider
+	| SettingsKeyBinder
+	| SettingsToggle
+	| SettingsEnum
+	| SettingsEnumDropDown
+	| ConVarColorDisplay;
+
+declare interface ConVarEnabler extends AbstractPanel<'ConVarEnabler'> {
+	convar: string;
+}
+
 declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 	accountid: string;
 
@@ -929,4 +968,28 @@ declare interface Carousel extends AbstractPanel<'Carousel'> {
 
 	SetAutoScrollEnabled(enabled: boolean): void;
 }
+
+declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
+	color: color;
+
+	alpha: float;
+}
+
+declare interface RangeColorDisplay extends AbstractPanel<'RangeColorDisplay'> {
+	color: rgbaColor;
+
+	SetBounds(min: float, max: float): void;
+}
+
+declare interface ColorPicker extends AbstractPanel<'ColorPicker'> {
+	currColor: color;
+	prevColor: color;
+}
+
+declare interface Tooltip extends AbstractPanel<'Tooltip'> {
+	GetTooltipTarget(): GenericPanel;
+}
+
+declare interface TextTooltip extends AbstractPanel<'TextTooltip'> {
+	GetTooltipTarget(): GenericPanel;
 }
