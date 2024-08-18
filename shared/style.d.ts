@@ -135,7 +135,7 @@ declare interface Style {
 	preTransformScale2d: string;
 
 	// Opacity
-	opacity: string;
+	opacity: string | float;
 	opacityMask: string;
 	opacityMaskScrollDown: string;
 	opacityMaskScrollUp: string;
