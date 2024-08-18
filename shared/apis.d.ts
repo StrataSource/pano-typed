@@ -188,6 +188,18 @@ declare namespace $ {
 	function GetContextPanel<T extends GenericPanel = Panel>(): T;
 
 	/**
+	 * Get the current Javascript context object.
+	 *
+	 * Scripts (non-modules) run in this context directly. Any variables defined in the outermost scope of those scripts
+	 * are accessible by one-another and are effectively properties of that context object, as well as event handlers
+	 * and <script> blocks in XML.
+	 *
+	 * Modules run in an encapsulated context, and have no access to the outside context without use of this function.
+	 * To expose values from a module, call this function and set properties on the returned object.
+	 */
+	function GetContextObject(): Record<string, any>;
+
+	/**
 	 * Converts str, which must be 2048 utf-8 bytes or shorter, into an HTML-safe
 	 * version.
 	 *
@@ -295,6 +307,12 @@ declare namespace $ {
 	/** Register a key binding */
 	function RegisterKeyBind(panel: GenericPanel, key: string, event: Func | string): void;
 
+	/** Register a handler for whenever a convar changes */
+	function RegisterConVarChangeListener(convar: string, callback: (value: string) => void): uuid;
+
+	/** Unregister a handler for a convar change */
+	function UnregisterConVarChangeListener(id: uuid): void;
+
 	/** Schedule a function to be called later
 	 * @returns A unique event identifier.
 	 */
@@ -302,6 +320,9 @@ declare namespace $ {
 
 	/** Stops a sound event by the specified uuid returned from a previous call to PlaySoundEvent. fadetime is optional. */
 	function StopSoundEvent(guid: uuid, fadetime?: duration): void;
+
+	/** Returns whether the OS's theme is in dark mode */
+	function SystemInDarkMode(): boolean;
 
 	/** Remove an event handler */
 	function UnregisterEventHandler<T extends keyof PanelEventNameMap | keyof GlobalEventNameMap>(event: T, context: GenericPanel, eventHandler: uuid): void;

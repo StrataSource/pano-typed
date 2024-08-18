@@ -12,13 +12,18 @@
 declare type float = number;
 declare type double = number;
 
+declare type uint8 = number;
 declare type uint16 = number;
 declare type uint32 = number;
 declare type uint64 = number;
 
+declare type int8 = number;
 declare type int16 = number;
 declare type int32 = number;
 declare type int64 = number;
+
+declare type vec2 = { x: number; y: number };
+declare type vec3 = { x: number; y: number; z: number };
 
 /** A duration in seconds. */
 declare type duration = number;
@@ -28,6 +33,12 @@ declare type uuid = int32;
 
 /** Represents a keyframes animation return. */
 declare type Keyframes = unknown;
+
+/** rgba, hex etc. color string */
+declare type color = string;
+
+/** rgba color string */
+declare type rgbaColor = string;
 
 // ======== Utility Types ========
 // Many of these are from https://github.com/sindresorhus/type-fest
