@@ -269,8 +269,7 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	SetTopOfInputContext(arg0: boolean): void;
 
-	/** @todo Verify this typing! */
-	SortChildrenOnAttribute(attribute: string, reverse: boolean): void;
+	SortChildrenOnAttribute(attribute: string, ascending: boolean): void;
 
 	SwitchClass(oldclass: string, newclass: string): void;
 
@@ -291,7 +290,6 @@ declare interface Panel extends AbstractPanel<'Panel'> {}
 declare interface Button extends AbstractPanel<'Button'> {}
 
 /** An interactive text input.
- * @todo These types are incomplete and unverified!
  * @example <TextEntry
  *     id="MaxPlayers"
  *     textmode="numeric"
@@ -308,7 +306,12 @@ declare interface TextEntry extends AbstractPanel<'TextEntry'> {
 
 	GetMaxCharCount(): uint32;
 
-	RaiseChangeEvents(arg0: boolean): void;
+	/**
+	 * Sets the TextEntryChanged event will be raised by this TextEntry.
+	 *
+	 * This is expensive, so defaults to disabled and has to be manually enabled.
+	 */
+	RaiseChangeEvents(enable: boolean): void;
 
 	SetCursorOffset(offset: int32): void;
 
@@ -384,7 +387,22 @@ declare interface Image extends AbstractPanel<'Image'> {
 }
 
 declare interface Label extends AbstractPanel<'Label'> {
-	text: string;
+	/** Setting is assumes text is unsafe, won't process dialog variables. */
+	get text(): string;
+	set text(str: string | number);
+
+	/** Same underlying property as text, but setting will try to parse this as html. */
+	get html(): string;
+	set html(str: string | number);
+
+	/** Whether Panorama will try to load <img> tags in HTML strings */
+	loadimages: boolean;
+
+	SetTextWithDialogVariables(text: string): void;
+
+	SetLocalizationString(text: string): void;
+
+	SetProceduralTextThatIPromiseIsLocalizedAndEscaped(text: string, allowDialogVariables: boolean): void;
 }
 
 declare interface Movie extends AbstractPanel<'Movie'> {
@@ -482,10 +500,14 @@ declare interface Slider extends AbstractPanel<'Slider'> {
 
 	requiresselection: boolean;
 
+	readonly mousedown: boolean;
+
+	readonly dragging: boolean;
+
 	/** @param direction 0 for horizontal, 1 for vertical */
 	SetDirection(direction: 0 | 1): void;
 
-	SetValueNoEvent(value: float): void;
+	SetValueNoEvents(value: float): void;
 }
 
 declare interface DualSlider extends AbstractPanel<'DualSlider'> {
@@ -871,17 +893,11 @@ declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 }
 
 declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
-	/**
-	 * Add a panel to the blur list
-	 * @param panel
-	 */
-	AddBlurTarget<T>(panel: GenericPanel);
+	/** Add a panel to the blur list */
+	AddBlurPanel(panel: GenericPanel): void;
 
-	/**
-	 * Remove a panel from the blur list
-	 * @param panel
-	 */
-	RemoveBlurPanel(panel: GenericPanel);
+	/** Remove a panel from the blur list */
+	RemoveBlurPanel(panel: GenericPanel): void;
 }
 
 declare interface TripleMonitorBackground extends AbstractPanel<'TripleMonitorBackground'> {}
@@ -905,11 +921,12 @@ declare interface CountdownTimer extends AbstractPanel<'CountdownTimer'> {
 }
 
 declare interface Carousel extends AbstractPanel<'Carousel'> {
-	SetSelectedChild(panel: GenericPanel);
+	SetSelectedChild(panel: GenericPanel): void;
 
 	GetFocusChild<T extends GenericPanel = GenericPanel>(): T;
 
 	GetFocusIndex(): number;
 
-	SetAutoScrollEnabled(enabled: boolean);
+	SetAutoScrollEnabled(enabled: boolean): void;
+}
 }

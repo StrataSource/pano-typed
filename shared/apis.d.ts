@@ -248,7 +248,12 @@ declare namespace $ {
 	 *
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 */
-	function RegisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: GenericPanel | string, callback: PanelEventNameMap[T]): uuid;
+	function RegisterEventHandler<T extends keyof PanelEventNameMap | keyof GlobalEventNameMap>(
+		event: T, context: GenericPanel | string,
+		callback: T extends keyof PanelEventNameMap 
+			? PanelEventNameMap[T] : T extends keyof GlobalEventNameMap
+				? GlobalEventNameMap[T] : never
+	): uuid;
 
 	/**
 	 * Register an event handler for an event unknown to TypeScript.
@@ -299,7 +304,7 @@ declare namespace $ {
 	function StopSoundEvent(guid: uuid, fadetime?: duration): void;
 
 	/** Remove an event handler */
-	function UnregisterEventHandler<T extends keyof PanelEventNameMap>(event: T, context: GenericPanel, eventHandler: uuid): void;
+	function UnregisterEventHandler<T extends keyof PanelEventNameMap | keyof GlobalEventNameMap>(event: T, context: GenericPanel, eventHandler: uuid): void;
 
 	/** Remove an event handler */
 	function UnregisterEventHandler(event: ALLOW_MISSING_EVENTS extends true ? string : 'Define this event in PanelEventNameMap or GlobalEventNameMap!', context: GenericPanel, eventHandler: uuid): ALLOW_MISSING_EVENTS extends true ? void : never;
@@ -342,7 +347,7 @@ declare namespace GameInterfaceAPI {
 
 	function GetSettingBool(key: string): boolean;
 
-	function GetSettingColor(key: string): unknown;
+	function GetSettingColor(key: string): string;
 
 	function GetSettingFloat(key: string): float;
 
@@ -416,7 +421,7 @@ declare namespace UiToolkitAPI {
 	function CloseAllVisiblePopups(): void;
 
 	/** Returns a global object that can be used to store global variables you would like to share across js files. */
-	function GetGlobalObject(): unknown;
+	function GetGlobalObject(): Record<string, unknown>;
 
 	/** Hide the tooltip with the given id. */
 	function HideCustomLayoutTooltip(tooltipID: string): void;
@@ -468,10 +473,10 @@ declare namespace UiToolkitAPI {
 	/** Show a context menu with a specific id and using the given layout and parameters and call a function when dismissed. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
 	function ShowCustomLayoutContextMenuParametersDismissEvent<T extends GenericPanel = GenericPanel>(targetPanelID: string, contentmenuID: string, layoutFile: string, parameters: string, dismissJsFunc: unknown): T; 
 	/** Show a tooltip with a specifix id and using the given layout and parameters. */
-	function ShowCustomLayoutParametersTooltip(targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string): void;
+	function ShowCustomLayoutParametersTooltip(targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string): boolean;
 	
 	/** Show a tooltip with a specifix id and using the given layout and parameters. Also apply a CSS class named "style" (to the tooltip root panel) in order to allow custom styling (eg. "Tooltip_NoArrow" to remove tooltip's arrow). */
-	function ShowCustomLayoutParametersTooltipStyled(targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string, style: string): void;
+	function ShowCustomLayoutParametersTooltipStyled(targetPanelID: string, tooltipID: string, layoutFile: string, parameters: string, style: string): boolean;
 
 	/** Show a popup that lets you specify a layout. */
 	function ShowCustomLayoutPopup<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string): T;
@@ -480,10 +485,10 @@ declare namespace UiToolkitAPI {
 	function ShowCustomLayoutPopupParameters<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string, parameters: string): T;
 
 	/** Show a tooltip with a specifix id and using the given layout. */
-	function ShowCustomLayoutTooltip(targetPanelID: string, tooltipID: string, layoutFile: string): void;
+	function ShowCustomLayoutTooltip(targetPanelID: string, tooltipID: string, layoutFile: string): boolean;
 
 	/** Show a tooltip with a specifix id and using the given layout. Also apply a CSS class named "style" (to the tooltip root panel) in order to allow custom styling (eg. "Tooltip_NoArrow" to remove tooltip's arrow). */
-	function ShowCustomLayoutTooltipStyled(targetPanelID: string, tooltipID: string, layoutFile: string, style: string): void;
+	function ShowCustomLayoutTooltipStyled(targetPanelID: string, tooltipID: string, layoutFile: string, style: string): boolean;
 
 	/** Show a popup with the given title add message and optional style. Button present: "OK". */
 	function ShowGenericPopup<T extends GenericPanel = GenericPanel>(title: string, message: string, style: string): T;
@@ -545,35 +550,50 @@ declare namespace UiToolkitAPI {
 	/** Show a popup on 'global popups top level window' that lets you specify a layout and parameters. */
 	function ShowGlobalCustomLayoutPopupParameters<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string, parameters: string): T;
 
-	/** Show a context menu with a specific id and populate the context menu item list using the given "items" array. Each elements of the items array is a javascript object of the form {label, jsCallback, style, icon}. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
-	function ShowSimpleContextMenu(targetPanelID: string, contentmenuID: string, items: unknown): unknown;
+	interface SimpleContextMenuItem {
+		label: string;
+		jsCallback: () => void;
+		style?: string;
+		icon?: string;
+	}
 
-	/** Show a context menu with a specific id and populate the context menu item list using the given "items" array. Each elements of the items array is a javascript object of the form {label, jsCallback, style, icon}. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
-	function ShowSimpleContextMenuWithDismissEvent(targetPanelID: string, contentmenuID: string, items: unknown, dismissJsFunc: unknown): unknown;
+	/**
+	 * Show a context menu with a specific id and populate the context menu item list using the given "items" array.
+	 * targetPanelID can be the empty string in which case the cursor position is used to position the context menu.
+	 * Returns context menu panel.
+	 */
+	function ShowSimpleContextMenu<T extends GenericPanel = GenericPanel>(targetPanelID: string, contentmenuID: string, items: SimpleContextMenuItem[]): T;
+
+	/**
+	 * Show a context menu with a specific id and populate the context menu item list using the given "items" array.
+	 * targetPanelID can be the empty string in which case the cursor position is used to position the context menu.
+	 * Returns context menu panel.
+	 */
+	function ShowSimpleContextMenuWithDismissEvent<T extends GenericPanel = GenericPanel>(targetPanelID: string, contentmenuID: string, items: SimpleContextMenuItem[], dismissJsFunc: unknown): T;
 
 	/** Show a tooltip with the given text */
-	function ShowTextTooltip(targetPanelID: string, text: string): void;
+	function ShowTextTooltip(targetPanelID: string, text: string): boolean;
 
 	/** Show a tooltip with the given text on given panel */
-	function ShowTextTooltipOnPanel(targetPanel: unknown, text: string): void;
+	function ShowTextTooltipOnPanel(targetPanel: unknown, text: string): boolean;
 
 	/** Show a tooltip with the given text on given panel. Also apply a CSS class named "style" to allow custom styling. */
-	function ShowTextTooltipOnPanelStyled(targetPanel: unknown, text: string, style: string): void;
+	function ShowTextTooltipOnPanelStyled(targetPanel: unknown, text: string, style: string): boolean;
 
 	/** Show a tooltip with the given text. Also apply a CSS class named "style" to allow custom styling. */
-	function ShowTextTooltipStyled(targetPanelID: string, text: string, style: string): void;
+	function ShowTextTooltipStyled(targetPanelID: string, text: string, style: string): boolean;
 
 	/** Show a tooltip with the given title, image and text. */
-	function ShowTitleImageTextTooltip(targetPanelID: string, title: string, image: string, text: string): void;
+	function ShowTitleImageTextTooltip(targetPanelID: string, title: string, image: string, text: string): boolean;
 
 	/** Show a tooltip with the giben title, image and text. Also apply a CSS class named "style" to allow custom styling. */
-	function ShowTitleImageTextTooltipStyled(targetPanelID: string, title: string, image: string, text: string, style: string): void;
+	function ShowTitleImageTextTooltipStyled(targetPanelID: string, title: string, image: string, text: string, style: string): boolean;
 
 	/** Show a tooltip with the given title and text. */
-	function ShowTitleTextTooltip(targetPanelID: string, title: string, text: string): void;
+	function ShowTitleTextTooltip(targetPanelID: string, title: string, text: string): boolean;
 
 	/** Show a tooltip with the given title and text. Also apply a CSS class named "style" to allow custom styling. */
-	function ShowTitleTextTooltipStyled(targetPanelID: string, title: string, text: string, style: string): void;
+	function ShowTitleTextTooltipStyled(targetPanelID: string, title: string, text: string, style: string): boolean;
 
 	/** Unregister a javascript callback previously registered with RegisterJSCallback. */
 	function UnregisterJSCallback(jsCallbackHandle: int32): void;
