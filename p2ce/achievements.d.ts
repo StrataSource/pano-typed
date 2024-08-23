@@ -1,12 +1,19 @@
 interface Achievement {
-	name: string; // Name of the achievement
-	index: number; // Index of the achievement (for use with the API)
-	achieved: boolean; // True if this has been achieved
-	available: boolean; // True if this is available
-	hide_until_achieved: boolean; // True if this is a "hidden" achievement. It should not be displayed in its full glory until achieved
+	/** Name of the achievement */
+	name: string; 
+	/** Index of the achievement (for use with the API) */
+	index: number; 
+	/** True if this has been achieved */
+	achieved: boolean; 
+	/** True if this is available */
+	available: boolean; 
+	/** 	True if this is a "hidden" achievement. It should not be displayed in its full glory until achieved */
+	hide_until_achieved: boolean; 
 	flags: number;
-	count: number; // Current count, if a stat is involved with this achievement. The achievement is granted when count >= goal
-	goal: number; // Stat goal for this achievement
+	/** Current count, if a stat is involved with this achievement. The achievement is granted when count >= goal */
+	count: number; 
+	/**Stat goal for this achievement */
+	goal: number; 
 }
 
 declare namespace AchievementsAPI {
