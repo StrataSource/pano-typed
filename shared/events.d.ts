@@ -94,6 +94,4 @@ interface GlobalEventNameMap {
 	'ShowVoteContextMenu':				() => void,
 	'StaticHudMenu_EntrySelected':		(panel: Panel) => void,
 	'UnloadLoadingScreenAndReinit':		() => void,
-	'AchievementInfoLoaded':			() => void,
-	'AchievementEarned':				(player_index: number, achievement_index: number) => void,
 }
