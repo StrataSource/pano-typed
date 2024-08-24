@@ -433,10 +433,10 @@ declare namespace SteamOverlayAPI {
 /** @group api */
 declare namespace UiToolkitAPI {
 	/** Denies input to the game by filtering input events. Returns a handle used by ReleaseDenyAllInputToGame. */
-	function AddDenyAllInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64;
+	function AddDenyAllInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64_str;
 
 	/** Denies mouse input to the game by filtering mouse input events. Returns a handle used by ReleaseDenyMouseInputToGame. */
-	function AddDenyMouseInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64;
+	function AddDenyMouseInputToGame(panelPtr: GenericPanel, strDebugContextName: string): uint64_str;
 
 	/** Force closing all visible popups */
 	function CloseAllVisiblePopups(): void;
@@ -480,10 +480,10 @@ declare namespace UiToolkitAPI {
 	function RegisterPanel2d(panelTypeName: string, layoutFile: string): void;
 
 	/** ReleaseDenyAllInputToGame takes a handle as parameters previously returned by AddDenyAllInputToGame */
-	function ReleaseDenyAllInputToGame(handle: uint64): void;
+	function ReleaseDenyAllInputToGame(handle: uint64_num | uint64_str): void;
 
 	/** ReleaseDenyMouseInputToGame takes a handle as parameters previously returned by AddDenyMouseInputToGame */
-	function ReleaseDenyMouseInputToGame(handle: uint64): void;
+	function ReleaseDenyMouseInputToGame(handle: uint64_num | uint64_str): void;
 
 	/** Show a context menu with a specific id and using the given layout. targetPanelID  can be the empty string in which case the cursor position is used to position the context menu. Returns context menu panel. */
 	function ShowCustomLayoutContextMenu<T extends GenericPanel = GenericPanel>(targetPanelID: string, contentmenuID: string, layoutFile: string): T;
@@ -622,8 +622,8 @@ declare namespace UiToolkitAPI {
 
 /** @group api */
 declare namespace UserAPI {
-	/** Gets the XUID (steamid as integer) of the local player */
-	function GetXUID(): uint64;
+	/** Gets the XUID (numeric uint64 steamid as string) of the local player */
+	function GetXUID(): steamID;
 }
 
 /** @group api */
