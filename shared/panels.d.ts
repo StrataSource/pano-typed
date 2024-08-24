@@ -251,7 +251,7 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	SetDialogVariableInt(arg0: string, arg1: int32): void;
 
-	SetDialogVariableTime(arg0: string, arg1: int64): void;
+	SetDialogVariableTime(arg0: string, arg1: int64_num | int64_str): void;
 
 	SetDisableFocusOnMouseDown(istrue: boolean): void;
 
@@ -928,7 +928,7 @@ declare interface ConVarEnabler extends AbstractPanel<'ConVarEnabler'> {
 declare interface AvatarImage extends AbstractPanel<'AvatarImage'> {
 	accountid: string;
 
-	steamid: string;
+	steamid: steamID;
 }
 
 declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
