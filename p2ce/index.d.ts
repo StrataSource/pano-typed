@@ -4,7 +4,9 @@
  */
 
 /// <reference path="../shared/index.d.ts" />
+/// <reference path="./events.d.ts" />
 /// <reference path="./weapons.d.ts" />
+/// <reference path="./achievements.d.ts" />
 
 declare namespace GameStateAPI {
 	/** Returns true if this is a playtest build of P2CE */
