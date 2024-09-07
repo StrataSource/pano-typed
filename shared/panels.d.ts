@@ -382,6 +382,17 @@ declare interface Frame extends AbstractPanel<'Frame'> {
 	SetSource(source: string): void;
 }
 
+declare const enum ImageScalingMode {
+	NONE = 'none',
+	STRETCH = 'stretch',
+	STRETCH_X = 'stretchx',
+	STRETCH_Y = 'stretchy',
+	STRETCH_TO_FIT_PRESERVSE_ASPECT = 'stretch-to-fit-preserve-aspect',
+	STRETCH_TO_FIT_X_PRESERVE_ASPECT = 'stretch-to-fit-x-preserve-aspect',
+	STRETCH_TO_FIT_Y_PRESERVE_ASPECT = 'stretch-to-fit-y-preserve-aspect',
+	STRETCH_TO_COVER_PRESERVE_ASPECT = 'stretch-to-cover-preserve-aspect'
+}
+
 /**
  * @example <Image src="file://{images}/spectatingIcon.svg" textureheight="64" scaling="stretch-to-cover-preserve-aspect" />
  * @see [Example](https://github.com/momentum-mod/panorama/blob/15bbaf2243166aa5f3a053783906f7304a9e74ac/layout/hud/spectate.xml#L13)
@@ -397,7 +408,8 @@ declare interface Image extends AbstractPanel<'Image'> {
 
 	SetImage(path: string): void;
 
-	SetScaling(mode: 'stretch-to-cover-preserve-aspect' | 'stretch-to-fit-preserve-aspect'): void;
+	/** Valve appear not to have bothered define this in CSS, setting via JS appears to be the only way to set this. */
+	SetScaling(mode: ImageScalingMode): void;
 }
 
 declare interface Label extends AbstractPanel<'Label'> {
