@@ -406,9 +406,10 @@ declare interface Image extends AbstractPanel<'Image'> {
 
 	textureheight: string;
 
+	/** Can also be set via `src` XML attribute */
 	SetImage(path: string): void;
 
-	/** Valve appear not to have bothered define this in CSS, setting via JS appears to be the only way to set this. */
+	/** Can also be set via `scaling` XML attribute */
 	SetScaling(mode: ImageScalingMode): void;
 }
 
