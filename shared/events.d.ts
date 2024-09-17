@@ -126,6 +126,7 @@ interface GlobalEventNameMap {
 	'SliderProgressChanged':				(sourceID: string) => void,
 	'SliderValueChanged':					(sourceID: string, value: float) => void,
 	'SpinnerValueChanged':					(sourceID: string, value: float) => void,
+	'ObserverTargetChanged':				(entIndex: int32) => void,
 }
 
 /** Represents the info object provided by a DragEvent */
