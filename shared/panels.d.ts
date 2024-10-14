@@ -417,9 +417,9 @@ declare interface Label extends AbstractPanel<'Label'> {
 	get text(): string;
 	set text(str: string | number);
 
-	/** Same underlying property as text, but setting will try to parse this as html. */
-	get html(): string;
-	set html(str: string | number);
+	/** Sets whether the provided text should be parsed as HTML. */
+	get html(): boolean;
+	set html(value: boolean);
 
 	/** Whether Panorama will try to load <img> tags in HTML strings */
 	loadimages: boolean;
