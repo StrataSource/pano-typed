@@ -127,6 +127,7 @@ interface GlobalEventNameMap {
 	'SliderValueChanged':					(sourceID: string, value: float) => void,
 	'SpinnerValueChanged':					(sourceID: string, value: float) => void,
 	'ObserverTargetChanged':				(entIndex: int32) => void,
+	'GameSaved':							(save_name: string, save_type: SaveType) => void,
 }
 
 /** Represents the info object provided by a DragEvent */
