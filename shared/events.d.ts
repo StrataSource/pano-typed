@@ -127,6 +127,9 @@ interface GlobalEventNameMap {
 	'SliderValueChanged':					(sourceID: string, value: float) => void,
 	'SpinnerValueChanged':					(sourceID: string, value: float) => void,
 	'ObserverTargetChanged':				(entIndex: int32) => void,
+	'MapLoaded':							(map_name: string, is_background: boolean) => void,
+	'MapUnloaded':							() => void,
+	'Cancelled':							(sourceID: string, source: PanelEventSource) => void,
 }
 
 /** Represents the info object provided by a DragEvent */
