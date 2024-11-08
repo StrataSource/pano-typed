@@ -131,6 +131,7 @@ interface GlobalEventNameMap {
 	'MapUnloaded':							() => void,
 	'Cancelled':							(sourceID: string, source: PanelEventSource) => void,
 	'PopulateLoadingScreen':				(mapName: string) => void,
+	'GameSaved':							(save_name: string, save_type: SaveType) => void,
 }
 
 /** Represents the info object provided by a DragEvent */
