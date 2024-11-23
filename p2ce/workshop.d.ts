@@ -96,6 +96,9 @@ declare namespace WorkshopAPI {
 	/** Sets the user rating for the given addon */
 	function SetAddonUserRating(index: uint32, rating: AddonRating): void;
 
+	/** Enables or disables a set of addons in one fell swoop. Use this if you're planning to enable/disable multiple at once */
+	function SetAddonListEnabled(addons: Record<int32, boolean>): void;
+
 	/****** Below here are @TODO items!! *******/
 	
 	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
