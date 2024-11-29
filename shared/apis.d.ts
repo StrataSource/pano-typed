@@ -420,14 +420,44 @@ declare namespace RichPresenceAPI {
 
 /** @group api */
 declare namespace SteamOverlayAPI {
-	/** Opens the steam overlay to the given user/group profile by their steam ID. profileID is the 64bit int steam ID in a string. */
-	function OpenToProfileID(profileID: string): void;
+	/**
+	 * Opens the Steam overlay to the given user/group profile by their Steam ID.
+	 * @param profileID - 64bit int Steam ID in a string.
+	 */
+	function OpenToProfileID(profileID: steamID): void;
 
-	/** Opens the steam overlay browser at the given URL */
+	/** Opens the Steam overlay browser at the given URL */
 	function OpenURL(url: string): void;
 
-	/** Opens the steam overlay browser at the given URL in a modal window (no other windows in overlay, and overlay closes when window closes) */
+	/** Opens the Steam overlay browser at the given URL in a modal window (no other windows in overlay, and overlay closes when window closes) */
 	function OpenURLModal(url: string): void;
+
+	/** Opens the Steam overlay achievements dialog */
+	function OpenGameOverlayAchievements(): void;
+
+	/** Opens the Steam overlay community dialog */
+	function OpenGameOverlayCommunity(): void;
+
+	/** Opens the Steam overlay friends dialog */
+	function OpenGameOverlayFriends(): void;
+
+	/** Opens the Steam overlay offical game group dialog */
+	function OpenGameOverlayOfficialGameGroup(): void;
+
+	/** Opens the Steam overlay players dialog */
+	function OpenGameOverlayPlayers(): void;
+
+	/** Opens the Steam overlay settings dialog */
+	function OpenGameOverlaySettings(): void;
+
+	/** Opens the Steam overlay stats dialog */
+	function OpenGameOverlayStats(): void;
+
+	/**
+	 * Opens the Steam store for a specified app or DLC ID.
+	 * @see https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlayToStore
+	 */
+	function OpenGameOverlayStore(appID: int32, flags: Flags<OverlayToStoreFlags>): void;
 }
 
 /** @group api */

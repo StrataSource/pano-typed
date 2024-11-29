@@ -46,3 +46,9 @@ declare const enum SpectateMode {
 	/** Free roaming (noclip-like) */
 	ROAMING = 	6
 }
+
+declare const enum OverlayToStoreFlags {
+	NONE = 0,
+	ADD_TO_CART = 1,
+	ADD_TO_CART_AND_SHOW = 2
+}
