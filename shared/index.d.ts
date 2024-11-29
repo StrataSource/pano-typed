@@ -89,3 +89,6 @@ declare type Simplify<T> = { [Key in keyof T]: T[Key] } & {};
 
 /** Make a type incompatible with types that'd otherwise be compatible. */
 declare type Brand<Type, Brand> = Type & { __brand: Brand };
+
+/** Type to signify flags/bitfield of some enum, ultimately just a `number`. */
+declare type Flags<_Enum, Underlying = number> = Underlying;
