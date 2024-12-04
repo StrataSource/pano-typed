@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * P2:CE-specific types.
  */
 

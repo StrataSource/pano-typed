@@ -1,5 +1,5 @@
 /**
- * @file Defines built-in events from Panorama's events system
+ * @packageDocumentation Defines built-in events from Panorama's events system
  * @see https://github.com/StrataSource/pano-typed/
  */
 
