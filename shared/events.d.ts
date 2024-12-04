@@ -3,6 +3,7 @@
  * @see https://github.com/StrataSource/pano-typed/
  */
 
+/** Defines built-in panel events from Panorama's events system. */
 interface PanelEventNameMap {
 	'Activated':							(sourceID: string, source: PanelEventSource) => void,
 	'AddStyle':								(cls: string) => void,
@@ -92,6 +93,7 @@ interface PanelEventNameMap {
 	'UpdateFocusAndDirtyChildStyles':		() => void,
 }
 
+/** Defines built-in global events from Panorama's events system. */
 interface GlobalEventNameMap {
 	'AsyncEvent':							(delay: duration, eventToFire: string) => void,
 	'MainMenuResumeGame':					() => void,
