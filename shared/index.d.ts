@@ -1,5 +1,5 @@
 /**
- * @packageDocumentation
+ * @module shared/primitives
  * Shared types.
  */
 
@@ -85,11 +85,11 @@ declare type JsonObject = { [Key in string]: JsonValue } & { [Key in string]?: J
 declare type JsonArray = JsonValue[] | readonly JsonValue[];
 declare type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
-/** Encourages IDEs to flatten types when displaying. */
+/** @internal Encourages IDEs to flatten types when displaying. */
 declare type Simplify<T> = { [Key in keyof T]: T[Key] } & {};
 
-/** Make a type incompatible with types that'd otherwise be compatible. */
+/** @internal Make a type incompatible with types that'd otherwise be compatible. */
 declare type Brand<Type, Brand> = Type & { __brand: Brand };
 
-/** Type to signify flags/bitfield of some enum, ultimately just a `number`. */
+/** @internal Type to signify flags/bitfield of some enum, ultimately just a `number`. */
 declare type Flags<_Enum, Underlying = number> = Underlying;

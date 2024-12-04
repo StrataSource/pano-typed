@@ -1,8 +1,10 @@
 {
 	"basePath": "./",
+	"name": "Strata Panorama Types",
 	"entryPoints": ["shared/**/*.d.ts", "p2ce/**/*.d.ts"],
 	"customCss": "docs.css",
 	"searchInComments": true,
+	"excludeInternal": true,
 	"kindSortOrder": [
 		"Module",
 		"Namespace",
@@ -10,6 +12,8 @@
 		"Class",
 		"Interface",
 		"Property",
+		"TypeAlias",
+		"TypeLiteral"
 	],
 	"searchGroupBoosts": {
 		"api": 30,
