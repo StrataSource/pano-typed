@@ -1,5 +1,58 @@
-:root {
-	--dark-color-background: #222;
-	--dark-color-background-secondary: #191919;
-	--color-accent: #444;
+@layer typedoc, custom;
+
+@layer custom {
+	:root {
+		--dark-color-background: #222;
+		--dark-color-background-secondary: #191919;
+		--color-accent: #444;
+		/* --color-link: #ff6861; */
+		--color-active-menu-item: #fff2;
+
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+	}
+
+	.tsd-breadcrumb li {
+		line-height: 1.95;
+		font-size: 10pt;
+	}
+
+	.tsd-breadcrumb a {
+		color: #ff5b56;
+		text-decoration: none;
+		padding: 2px 5px;
+		border-radius: 3px;
+		background-color: #f0423c30;
+	}
+
+	.tsd-breadcrumb li::after {
+		content: "/";
+		padding: 0 4px;
+
+		color: #ff5b56;
+	}
+
+	g.tsd-no-select rect {
+		rx: 4px;
+	}
+
+	g.tsd-no-select text {
+		transform: translate(-1%, -3%);
+		font-weight: bold;
+		fill: #ccc;
+		font-size: 10pt;
+	}
+	
+	.tsd-navigation .tsd-kind-icon ~ span {
+		--color-text: #ccc;
+	}
+
+	.tsd-navigation .current {
+		border-radius: 5px;
+	}
+	
+	.tsd-navigation .current .tsd-kind-icon ~ span {
+		--color-text: #fff;
+	}
 }

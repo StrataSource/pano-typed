@@ -1,6 +1,4 @@
 /**
- * @packageDocumentation
- * P2:CE Workshop API.
  * @example List all subscribed addons' names.
  * ```
  * const addon_count = WorkshopAPI.GetAddonCount();
