@@ -251,12 +251,24 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	SetAttributeUInt32(attribute: string, value: uint32): void;
 
+	/** Sets a dialog variable for the Panel.
+	 * @see [Dialog variables documentation](https://wiki.stratasource.org/shared/panorama/overview/dialog-variables)
+	 */
 	SetDialogVariable(name: string, value: string): void;
 
+	/** Sets a float dialog variable for the Panel.
+	 * @see [Dialog variables documentation](https://wiki.stratasource.org/shared/panorama/overview/dialog-variables)
+	 */
 	SetDialogVariableFloat(name: string, value: float): void;
 
+	/** Sets an integer dialog variable for the Panel.
+	 * @see [Dialog variables documentation](https://wiki.stratasource.org/shared/panorama/overview/dialog-variables)
+	 */
 	SetDialogVariableInt(name: string, value: int32): void;
 
+	/** Sets a time dialog variable for the Panel.
+	 * @see [Dialog variables documentation](https://wiki.stratasource.org/shared/panorama/overview/dialog-variables)
+	 */
 	SetDialogVariableTime(name: string, value: int64_num | int64_str): void;
 
 	SetDisableFocusOnMouseDown(istrue: boolean): void;
