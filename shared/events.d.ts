@@ -1,6 +1,5 @@
 /**
  * @packageDocumentation Defines built-in events from Panorama's events system
- * @see https://github.com/StrataSource/pano-typed/
  */
 
 /** Defines built-in panel events from Panorama's events system. */
