@@ -2,11 +2,11 @@
 
 @layer custom {
 	:root {
-		--dark-color-background: #222;
-		--dark-color-background-secondary: #191919;
-		--color-accent: #444;
-		--color-link: #ff5b56;
-		--color-active-menu-item: #aaa3;
+		--dark-color-background: #222 !important;
+		--dark-color-background-secondary: #191919 !important;
+		--color-accent: #444 !important;
+		--color-link: #ff5b56 !important;
+		--color-active-menu-item: #aaa3 !important;
 
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
