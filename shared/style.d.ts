@@ -1,6 +1,5 @@
 /**
  * @packageDocumentation Defines style properties accessible through scripting
- * @see https://github.com/StrataSource/pano-typed/
  */
 
 /** Generic panel styling properties. */

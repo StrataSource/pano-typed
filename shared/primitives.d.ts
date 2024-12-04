@@ -1,4 +1,6 @@
-/** @packageDocumentation Simple primitive types, separated to keep documentation clean. */
+/**
+ * @packageDocumentation Simple primitive types, separated to keep documentation clean.
+ */
 
 declare type float = number;
 declare type double = number;
