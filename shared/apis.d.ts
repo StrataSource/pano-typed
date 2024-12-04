@@ -601,6 +601,7 @@ declare namespace UiToolkitAPI {
 	/** Show a popup on 'global popups top level window' that lets you specify a layout and parameters. */
 	function ShowGlobalCustomLayoutPopupParameters<T extends GenericPanel = GenericPanel>(popupID: string, layoutFile: string, parameters: string): T;
 
+	/** Defines a context menu item. Used by various UIToolkitAPI methods. */
 	interface SimpleContextMenuItem {
 		label: string;
 		jsCallback: () => void;
