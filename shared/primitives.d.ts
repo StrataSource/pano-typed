@@ -1,13 +1,5 @@
-/** @packageDocumentation Shared types. */
+/** @packageDocumentation Simple primitive types, separated to keep documentation clean. */
 
-/// <reference path="./primitives.d.ts" />
-/// <reference path="./panels.d.ts" />
-/// <reference path="./apis.d.ts" />
-/// <reference path="./style.d.ts" />
-/// <reference path="./events.d.ts" />
-/// <reference path="./enums.d.ts" />
-
-// ======== Primitives ========
 declare type float = number;
 declare type double = number;
 
