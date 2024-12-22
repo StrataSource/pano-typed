@@ -110,8 +110,8 @@ declare namespace WorkshopAPI {
 	/** Returns the download state of the addon at the specified index. */
 	function GetAddonState(index: uint32): DownloadState;
 
-	/** Returns the list of files currently being provided by the addon. Files overridden by other addons are not listed here. */
-	function GetAddonContributions(index: uint32): string[];
+	/** Returns the types of files contributed by the addon at the specified index. */
+	function GetAddonContributions(index: uint32): ('sounds'|'models'|'materials'|'maps'|'scripts'|'panorama')[];
 }
 
 interface GlobalEventNameMap {
