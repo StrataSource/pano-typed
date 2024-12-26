@@ -7,6 +7,7 @@
 /// <reference path="./apis.d.ts" />
 /// <reference path="./style.d.ts" />
 /// <reference path="./events.d.ts" />
+/// <reference path="./enums.d.ts" />
 
 // ======== Primitives ========
 declare type float = number;
