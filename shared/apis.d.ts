@@ -230,12 +230,13 @@ declare namespace $ {
 
 	/**
 	 * Localizes a string.
-	 *
-	 * @example $.Localize('#HudStatus_Spawn');
-	 *
+	 * @example
+	 * $.Localize('#Weapon_StickybombLauncher'); // Returns "Kleefbommenwerper" in Dutch in Momentum
+	 * $.Localize('#SomeNonexistentToken'); // Returns "#SomeNonexistentToken"
+	 * @returns Localized string in the current language, if exists, otherwise the provided argument.
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/status.js#L47)
 	 */
-	function Localize(str: string): string | null;
+	function Localize(str: string): string;
 
 	/** Localize a string, but return empty string if the localization token is not found */
 	function LocalizeSafe(str: string): string;
