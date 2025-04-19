@@ -288,10 +288,15 @@ declare namespace $ {
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/components/chat.js#L8)
 	 */
 	function RegisterEventHandler<T extends keyof PanelEventNameMap | keyof GlobalEventNameMap>(
-		event: T, context: GenericPanel | string,
-		callback: T extends keyof PanelEventNameMap 
-			? PanelEventNameMap[T] : T extends keyof GlobalEventNameMap
-				? GlobalEventNameMap[T] : never
+		event: T,
+		context: GenericPanel | string,
+		callback: T extends keyof PanelEventNameMap
+			? PanelEventNameMap[T] extends (...args: infer U) => void
+				? (sourceID: string, ...args: U) => void
+				: never
+			: T extends keyof GlobalEventNameMap
+				? GlobalEventNameMap[T]
+				: never
 	): uuid;
 
 	/**
