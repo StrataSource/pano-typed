@@ -135,7 +135,19 @@ declare namespace $ {
 	 * @example $.DefineEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L6)
 	 */
-	function DefineEvent(event: string, argscount: number, argsdesc?: string, desc?: string): void;
+	function DefineEvent<T extends keyof GlobalEventNameMap>(event: T, argscount: number, argsdesc?: string, desc?: string): void;
+
+	/**
+	 * Define an event.
+	 * @param event The event name.
+	 * @param argscount The number of arguments that this event takes.
+	 * @param argsdesc An optional description for the event arguments.
+	 * @param desc An option description for the event.
+	 * @example $.DefineEvent(eventName, NumArguments, [optional] ArgumentsDescription, [optional] Description)
+	 * @example $.DefineEvent('SettingsNavigateToPanel', 2, 'category, settingPanel', 'Navigates to a setting by panel handle');
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/util/event-definition.js#L6)
+	 */
+	function DefineEvent(event: ALLOW_MISSING_EVENTS extends true ? string : 'Define this event in GlobalEventNameMap!', argscount: number, argsdesc?: string, desc?: string): void;
 
 	/**
 	 * Appears to be identical to $.DefineEvent(...). This function is not used anywhere in Momentum UI.
@@ -153,12 +165,26 @@ declare namespace $ {
 	 */
 	function DefinePanelEvent(event: string, argscount: number, argsdesc?: string, desc?: string): void;
 
+
+	/**
+	 * Dispatch on a specific panel.
+	 * @example $.DispatchEvent('SettingsNavigateToPanel', matches.tabID, matches.panel);
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/settings/search.js#L262)
+	 */
+	function DispatchEvent<T extends keyof PanelEventNameMap>(event: T, panel: GenericPanel, ...args: Parameters<PanelEventNameMap[T]> ): void;
+
 	/**
 	 * Dispatch an event.
 	 * @example $.DispatchEvent('SettingsNavigateToPanel', matches.tabID, matches.panel);
 	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/settings/search.js#L262)
 	 */
-	function DispatchEvent<T extends string>(event: T, ...args: T extends keyof GlobalEventNameMap ? Parameters<GlobalEventNameMap[T]> : any[]): void;
+	function DispatchEvent<T extends keyof GlobalEventNameMap>(event: T, ...args: Parameters<GlobalEventNameMap[T]> ): void;
+	/**
+	 * Dispatch an event.
+	 * @example $.DispatchEvent('SettingsNavigateToPanel', matches.tabID, matches.panel);
+	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/pages/settings/search.js#L262)
+	 */
+	function DispatchEvent(event: ALLOW_MISSING_EVENTS extends true ? string : 'Define this event in GlobalEventNameMap or PanelEventNameMap!', ...args: any[]): void;
 
 	/**
 	 * Dispatch an event to occur later.
