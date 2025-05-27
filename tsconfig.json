@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"rootDir": "./",
+		"noEmit": true
+	},
+	"include": ["p2ce", "shared"]
+}
