@@ -120,7 +120,7 @@ declare namespace $ {
 	function CreatePanel(type: ALLOW_MISSING_PANELS extends true ? string : 'Define this panel in PanelTagNameMap!', parent: Panel, id: string, properties?: Record<string, unknown>): ALLOW_MISSING_PANELS extends true ? GenericPanel : never;
 	
 	/** Call during JS startup code to check if script is being reloaded */
-	function DbgIsReloadingScript(...args: any[]): void;
+	function DbgIsReloadingScript(): boolean;
 
 	/** Decompresses the given base64 encoded input into a string. */
 	function DecompressString(str: string): string;
