@@ -885,6 +885,24 @@ declare interface SettingsSlider extends AbstractPanel<'SettingsSlider'> {
 
 	value: float;
 
+	/** When true, display value as a percentage */
+	percentage: boolean;
+
+	/** Minimum display percentage. Setting this to 0.1 will cause the slider to bottom out at 10% */
+	mindisplaypercentage: float;
+
+	/** Invert the convar's value. Requires min and max to be set */
+	invert: boolean;
+
+	/** The '100%' value. If this is set to 4 and the convar value is 2, the percentage is 50% */
+	value100percent: float;
+
+	/** Clamp the convar value to the range defined by min and max */
+	constrainrange: boolean;
+
+	/** Precision of the numeric display label */
+	displayprecision: int32;
+
 	ActualValue(): float;
 
 	OnShow(): void;
