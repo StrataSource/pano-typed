@@ -273,7 +273,7 @@ declare namespace $ {
 	/**
 	 * Plays the specified soundscript.
 	 *
-	 * @returns A unique event identifier for use for StopSoundEvent.
+	 * @returns A unique event identifier for use with StopSoundEvent.
 	 * @todo If a game session is active, sounds will not play until the game is unpaused.
 	 */
 	function PlaySoundEvent(sound: string): uuid;

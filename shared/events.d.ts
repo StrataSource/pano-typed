@@ -109,6 +109,7 @@ interface GlobalEventNameMap {
 	'HidePauseMenu':						() => void,
 	'ShowMainMenu':							() => void,
 	'HideMainMenu':							() => void,
+	'GameUIStateChanged':					(oldState: GameUIState, newState: GameUIState) => void,
 	'HudProcessInput':						() => void,
 	'HudThink':								() => void,
 	'ShowIntroMovie':						() => void,
