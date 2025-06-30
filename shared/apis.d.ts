@@ -273,8 +273,8 @@ declare namespace $ {
 	/**
 	 * Plays the specified soundscript.
 	 *
+	 * @returns A unique event identifier for use for StopSoundEvent.
 	 * @todo If a game session is active, sounds will not play until the game is unpaused.
-	 * @returns A unique event identifier.
 	 */
 	function PlaySoundEvent(sound: string): uuid;
 
@@ -350,8 +350,8 @@ declare namespace $ {
 	 */
 	function Schedule(time: duration, callback: Func): uuid;
 
-	/** Stops a sound event by the specified uuid returned from a previous call to PlaySoundEvent. fadetime is optional. */
-	function StopSoundEvent(guid: uuid, fadetime?: duration): void;
+	/** Stops a sound event by the specified uuid returned from a previous call to PlaySoundEvent. */
+	function StopSoundEvent(guid: uuid): void;
 
 	/** Returns whether the OS's theme is in dark mode */
 	function SystemInDarkMode(): boolean;
