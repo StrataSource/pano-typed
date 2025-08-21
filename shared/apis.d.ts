@@ -339,7 +339,10 @@ declare namespace $ {
 	/** Register a key binding */
 	function RegisterKeyBind(panel: GenericPanel, key: string, event: Func | string): void;
 
-	/** Register a handler for whenever a convar changes */
+	/**
+	 * Register a handler for whenever a convar changes.
+	 * WARNING: Don't use this with convars defined in server DLL. Doing so will make the game crash on exit.
+	 */
 	function RegisterConVarChangeListener(convar: string, callback: (value: string) => void): uuid;
 
 	/** Unregister a handler for a convar change */
