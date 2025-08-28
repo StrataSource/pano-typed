@@ -1,4 +1,4 @@
-
+/** Defines the structure of a single achievement. */
 interface Achievement {
 	name: string;						// Name of the achievement
 	index: number;						// Index of the achievement (for use with the API)
