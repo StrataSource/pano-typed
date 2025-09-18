@@ -98,6 +98,12 @@ interface PanelEventNameMap {
 	'TooltipHidden':						() => void,
 	'TriggerStyle':							(cls: string) => void,
 	'UpdateFocusAndDirtyChildStyles':		() => void,
+	'AdvanceAnimatedImageStripFrame':		() => void,
+	'VUMeterBarsChanged':					(numactivebars: number) => void,
+	'ToastContainerCheckShowNewToasts':		() => void,
+	'DismissToast':							() => void,
+	'ToastShown':							() => void,
+	'ToastHidden':							() => void,
 }
 
 /** Defines built-in global events from Panorama's events system. */

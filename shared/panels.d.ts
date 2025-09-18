@@ -46,6 +46,7 @@ declare interface PanelTagNameMap {
 	ColorPicker: ColorPicker;
 	Tooltip: Tooltip;
 	TextTooltip: TextTooltip;
+	AnimatedImageStrip: AnimatedImageStrip;
 }
 
 /**
@@ -245,13 +246,13 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	SetAttributeUInt32(attribute: string, value: uint32): void;
 
-	SetDialogVariable(arg0: string, arg1: string): void;
+	SetDialogVariable(name: string, value: string): void;
 
-	SetDialogVariableFloat(arg0: string, arg1: float): void;
+	SetDialogVariableFloat(name: string, value: float): void;
 
-	SetDialogVariableInt(arg0: string, arg1: int32): void;
+	SetDialogVariableInt(name: string, value: int32): void;
 
-	SetDialogVariableTime(arg0: string, arg1: int64_num | int64_str): void;
+	SetDialogVariableTime(name: string, value: int64_num | int64_str): void;
 
 	SetDisableFocusOnMouseDown(istrue: boolean): void;
 
@@ -1023,4 +1024,15 @@ declare interface Tooltip extends AbstractPanel<'Tooltip'> {
 
 declare interface TextTooltip extends AbstractPanel<'TextTooltip'> {
 	GetTooltipTarget(): GenericPanel;
+}
+
+declare interface AnimatedImageStrip extends AbstractPanel<'Image'> {
+	/** Starting frame */
+	defaultframe: int32;
+
+	/** Period between frames */
+	frametime: duration;
+
+	/** Whether to start animating or not */
+	animating: boolean;
 }
