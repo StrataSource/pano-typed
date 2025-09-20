@@ -15,6 +15,7 @@ declare interface PanelTagNameMap {
 	DropDown: DropDown;
 	Frame: Frame;
 	Image: Image;
+	AnimatedImageStrip: AnimatedImageStrip;
 	Label: Label;
 	Movie: Movie;
 	NumberEntry: NumberEntry;
@@ -46,7 +47,6 @@ declare interface PanelTagNameMap {
 	ColorPicker: ColorPicker;
 	Tooltip: Tooltip;
 	TextTooltip: TextTooltip;
-	AnimatedImageStrip: AnimatedImageStrip;
 }
 
 /**
@@ -394,11 +394,8 @@ declare const enum ImageScalingMode {
 	STRETCH_TO_COVER_PRESERVE_ASPECT = 'stretch-to-cover-preserve-aspect'
 }
 
-/**
- * @example <Image src="file://{images}/spectatingIcon.svg" textureheight="64" scaling="stretch-to-cover-preserve-aspect" />
- * @see [Example](https://github.com/momentum-mod/panorama/blob/15bbaf2243166aa5f3a053783906f7304a9e74ac/layout/hud/spectate.xml#L13)
- */
-declare interface Image extends AbstractPanel<'Image'> {
+
+declare interface AbstractImagePanel<T extends keyof PanelTagNameMap> extends AbstractPanel<T> {
 	/** The image source. Set this through Image.SetImage(...)! */
 	readonly src: string;
 
@@ -412,6 +409,24 @@ declare interface Image extends AbstractPanel<'Image'> {
 
 	/** Can also be set via `scaling` XML attribute */
 	SetScaling(mode: ImageScalingMode): void;
+}
+
+/**
+ * @example <Image src="file://{images}/spectatingIcon.svg" textureheight="64" scaling="stretch-to-cover-preserve-aspect" />
+ * @see [Example](https://github.com/momentum-mod/panorama/blob/15bbaf2243166aa5f3a053783906f7304a9e74ac/layout/hud/spectate.xml#L13)
+ */
+declare interface Image extends AbstractImagePanel<'Image'> {
+}
+
+declare interface AnimatedImageStrip extends AbstractImagePanel<'AnimatedImageStrip'> {
+	/** Starting frame */
+	defaultframe: int32;
+
+	/** Period between frames */
+	frametime: duration;
+
+	/** Whether to start animating or not */
+	animating: boolean;
 }
 
 declare interface Label extends AbstractPanel<'Label'> {
@@ -1024,15 +1039,4 @@ declare interface Tooltip extends AbstractPanel<'Tooltip'> {
 
 declare interface TextTooltip extends AbstractPanel<'TextTooltip'> {
 	GetTooltipTarget(): GenericPanel;
-}
-
-declare interface AnimatedImageStrip extends AbstractPanel<'Image'> {
-	/** Starting frame */
-	defaultframe: int32;
-
-	/** Period between frames */
-	frametime: duration;
-
-	/** Whether to start animating or not */
-	animating: boolean;
 }
