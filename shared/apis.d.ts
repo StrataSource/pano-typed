@@ -84,6 +84,15 @@ declare namespace $ {
 	): void;
 
 	/**
+	 * Convert a string containing BBCode to supported HTML elements.
+	 * @example
+	 * ```ts
+	 * const html = $.BBCodeToHTML('[b]Bold text[/b]');
+	 * // html === '<b>Bold text</b>'
+	 */
+	function BBCodeToHTML(bbcode: string): string;
+
+	/**
 	 * Cancel a scheduled function.
 	 * @example
 	 * ```ts
