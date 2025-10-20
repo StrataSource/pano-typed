@@ -30,6 +30,7 @@ declare interface PanelTagNameMap {
 	SettingsKeyBinder: SettingsKeyBinder;
 	SettingsToggle: SettingsToggle;
 	SettingsEnum: SettingsEnum;
+	SettingsEnumBitField: SettingsEnumBitField;
 	SettingsEnumDropDown: SettingsEnumDropDown;
 	ConVarEnabler: ConVarEnabler;
 	AvatarImage: AvatarImage;
@@ -945,6 +946,10 @@ declare interface SettingsEnum extends AbstractPanel<'SettingsEnum'> {
 	convar: string;
 }
 
+declare interface SettingsEnumBitField extends AbstractPanel<'SettingsEnumBitField'> {
+	convar: string;
+}
+
 declare interface SettingsEnumDropDown extends AbstractPanel<'SettingsEnumDropDown'> {
 	convar: string;
 
@@ -965,6 +970,7 @@ declare type SettingsPanel =
 	| SettingsKeyBinder
 	| SettingsToggle
 	| SettingsEnum
+	| SettingsEnumBitField
 	| SettingsEnumDropDown
 	| ConVarColorDisplay;
 
