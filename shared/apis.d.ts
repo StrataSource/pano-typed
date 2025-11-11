@@ -388,6 +388,16 @@ declare namespace $ {
 
 	/** Log a warning */
 	function Warning(...args: any[]): void;
+	
+	/* 
+	 * Deeply clones a JavaScript value, recursing through objects, arrays, maps etc. cloning all values with new
+	 * underlying references.
+	 * 
+	 * Loosely follows the [Structured Clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm),
+	 * though doesn't support certain Object types like ArrayBuffers. In total it supports primitives, plain objects,
+	 * arrays, maps, sets, regexes, dates, and boxed primitives. Note this does *not* include Functions!
+	 */
+	function StructuredClone<T>(value: T): T;
 }
 
 /** @group api */
