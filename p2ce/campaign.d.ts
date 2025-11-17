@@ -28,6 +28,7 @@ declare namespace CampaignAPI {
 
     function SetActiveCampaign(name: string): boolean;
     function StartCampaign(campaign: string, chapter: string): boolean;
+    function ContinueCampaign(campaign: string): boolean;
 
     function GetCampaignUnlockProgress(campaign: string): number;
 }
