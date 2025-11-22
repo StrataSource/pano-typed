@@ -410,6 +410,13 @@ declare namespace FriendsAPI {
 declare namespace GameInterfaceAPI {
 	function ConsoleCommand(command: string): void;
 
+	interface GameMap {
+		name: string;
+		timestamp: Date;
+		valid: boolean;
+	}
+	function GetMaps(): Array<GameMap>;
+
 	function GetSettingBool(key: string): boolean;
 
 	function GetSettingColor(key: string): string;
