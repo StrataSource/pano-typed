@@ -3,6 +3,11 @@
  * P2:CE Campaign API.
  */
 
+interface ChapterMap {
+    name: string;
+    transition_screen: number;
+}
+
 interface ChapterInfo {
     id: string; 
     title: string;
