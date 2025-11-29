@@ -715,6 +715,9 @@ declare namespace UiToolkitAPI {
 
 	/** Unregister a javascript callback previously registered with RegisterJSCallback. */
 	function UnregisterJSCallback(jsCallbackHandle: int32): void;
+	
+	/** Gets all available system fonts. */
+	function GetSortedValidFontNames(): string[];
 }
 
 /** @group api */

@@ -1002,6 +1002,8 @@ declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
 	RemoveBlurPanel(panel: GenericPanel): void;
 }
 
+declare interface HudBlurTarget extends BaseBlurTarget {}
+
 declare interface TripleMonitorBackground extends AbstractPanel<'TripleMonitorBackground'> {}
 
 declare type ClockType = ValueOf<ClockTypeEnum>;
@@ -1033,13 +1035,15 @@ declare interface Carousel extends AbstractPanel<'Carousel'> {
 }
 
 declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
-	color: color;
+	title: string;
+	
+	color: string; // TODO: color?
 
 	alpha: float;
 }
 
 declare interface RangeColorDisplay extends AbstractPanel<'RangeColorDisplay'> {
-	color: rgbaColor;
+	color: color;
 
 	SetBounds(min: float, max: float): void;
 }

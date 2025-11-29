@@ -9,7 +9,7 @@ declare interface Style {
 	color: string;
 	font: string;
 	fontFamily: string;
-	fontSize: number;
+	fontSize: `${number}px`;
 	fontStyle: 'normal'|'italic';
 	fontWeight: 'light'|'thin'|'normal'|'medium'|'bold'|'black';
 	letterSpacing: string;
@@ -23,7 +23,7 @@ declare interface Style {
 	whiteSpace: 'normal'|'nowrap';
 
 	// Background
-	backgroundColor: string;
+	backgroundColor: color;
 	backgroundImage: string;
 	backgroundImgOpacity: number;
 	backgroundPosition: string;
@@ -84,7 +84,7 @@ declare interface Style {
 	borderLeftColor: string;
 	borderLeftStyle: string;
 	borderLeftWidth: string;
-	borderRadius: string;
+	borderRadius: `${number}px` | `${number}%`;
 	borderRight: string;
 	borderRightColor: string;
 	borderRightStyle: string;
