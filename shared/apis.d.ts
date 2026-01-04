@@ -458,6 +458,9 @@ declare namespace GameInterfaceAPI {
 
 	/** Gets the current map name, or null if no map is active. */
 	function GetCurrentMap(): string | null;
+
+    /** Returns the list of maps in the game */
+    function GetMaps(): { name: string; timestamp: number; valid: boolean }[];
 	
 	/** Get the AppIDs of all currently mounted Steam apps. */
 	function GetMountedSteamApps(): number[];
