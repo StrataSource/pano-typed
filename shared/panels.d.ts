@@ -259,7 +259,7 @@ declare interface AbstractPanel<PanelName extends keyof PanelTagNameMap> {
 
 	SetDraggable(istrue: boolean): void;
 
-	SetFocus(focus: boolean): boolean;
+	SetFocus(): boolean;
 
 	SetHasClass(classname: string, hasclass: boolean): void;
 
