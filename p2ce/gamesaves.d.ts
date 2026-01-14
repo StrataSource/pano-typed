@@ -3,7 +3,7 @@ interface GameSave {
 	comment: string;
 	elapsedSeconds: number;
 	fileName: string;			// Name of the .sav file on disk, includes the extension
-	fileTime: string;			// Save time
+	fileTime: Date;				// Save time
 	fullFileName: string;		// Full path from the base game directory to the .sav file
 	isAutoSave: boolean;
 	isCloudSave: boolean;
