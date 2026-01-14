@@ -11,6 +11,7 @@ interface ChapterMap {
 interface ChapterInfo {
     id: string; 
     title: string;
+    maps: ChapterMap[];
 
     meta: any;
 }
