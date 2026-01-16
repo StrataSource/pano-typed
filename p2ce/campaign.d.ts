@@ -35,7 +35,7 @@ declare namespace CampaignAPI {
 
     function GetCampaignMeta(name: string|null): any;
 
-    function SetActiveCampaign(name: string): boolean;
+    function SetActiveCampaign(name: string|null): boolean;
     function StartCampaign(campaign: string, chapter: string): boolean;
     function ContinueCampaign(campaign: string): boolean;
 
@@ -43,5 +43,5 @@ declare namespace CampaignAPI {
 }
 
 interface GlobalEventNameMap {
-    PanoramaComponent_Campaign_OnActiveCampaignChanged: (campaign: string) => void;
+    PanoramaComponent_Campaign_OnActiveCampaignChanged: (campaign: string|null) => void;
 }
