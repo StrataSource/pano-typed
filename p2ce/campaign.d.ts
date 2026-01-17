@@ -32,7 +32,8 @@ declare namespace CampaignAPI {
 
     function GetAllCampaigns(): CampaignInfo[];
     function GetActiveCampaign(): CampaignInfo|null;
-
+    function IsCampaignActive(): boolean;
+    
     function GetCampaignMeta(name: string|null): any;
 
     function SetActiveCampaign(name: string|null): boolean;
