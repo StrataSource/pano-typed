@@ -13,6 +13,8 @@
 declare interface GlobalEventNameMap {
 	'WeaponStateChange':		(mode: WeaponStateMode, index: int32) => void,
 	'WeaponSelect':				(action: WeaponSelectAction) => void,
+	'WeaponEquipped':			(classname: string) => void,
+	'WeaponsDropped':			() => void,
 }
 
 /** @group enum */
