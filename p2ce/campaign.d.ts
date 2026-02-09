@@ -6,7 +6,7 @@
 interface ChapterMap {
     name: string;
 
-    meta: any;
+    meta: Map<string, string>;
 }
 
 interface ChapterInfo {
@@ -14,7 +14,7 @@ interface ChapterInfo {
     title: string;
     maps: ChapterMap[];
 
-    meta: any;
+    meta: Map<string, string>;
 }
 
 interface CampaignInfo {
@@ -22,7 +22,7 @@ interface CampaignInfo {
     title: string; 
     chapters: ChapterInfo[];
 
-    meta: any;
+    meta: Map<string, string>;
 }
 
 // Holds multiple campaigns
@@ -31,7 +31,7 @@ interface CampaignBucket {
     addon_id: number; // Workshop Addon ID or -1 if not present
 	campaigns: CampaignInfo[];
 
-	meta: any;
+	meta: Map<string, string>;
 }
 
 interface CampaignPair
@@ -49,7 +49,7 @@ declare namespace CampaignAPI {
     function IsCampaignActive(): boolean;
     function FindCampaign(campaign: string): CampaignPair|null;
 
-    function GetCampaignMeta(name: string|null): any;
+    function GetCampaignMeta(name: string|null): Map<string, string>;
 
     function SetActiveCampaign(name: string|null): boolean;
     function StartCampaign(campaign: string, chapter: string): boolean;
