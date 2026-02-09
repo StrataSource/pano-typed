@@ -21,19 +21,34 @@ interface CampaignInfo {
     id: string; 
     title: string; 
     chapters: ChapterInfo[];
-    addon_id: number; // Workshop Addon ID or -1 if not present
 
     meta: any;
+}
+
+// Holds multiple campaigns
+interface CampaignBucket {
+	id: string;
+    addon_id: number; // Workshop Addon ID or -1 if not present
+	campaigns: CampaignInfo[];
+
+	meta: any;
+}
+
+interface CampaignPair
+{
+	bucket: CampaignBucket;
+	campaign: CampaignInfo;
 }
 
 /** [API not finalized] The Campaign API. Exclusive to P2:CE! */
 declare namespace CampaignAPI {
     function ReloadCampaigns();
 
-    function GetAllCampaigns(): CampaignInfo[];
-    function GetActiveCampaign(): CampaignInfo|null;
+    function GetAllCampaignBuckets(): CampaignBucket[];
+    function GetActiveCampaign(): CampaignPair|null;
     function IsCampaignActive(): boolean;
-    
+    function FindCampaign(campaign: string): CampaignPair|null;
+
     function GetCampaignMeta(name: string|null): any;
 
     function SetActiveCampaign(name: string|null): boolean;
