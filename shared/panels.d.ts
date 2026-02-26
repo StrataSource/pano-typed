@@ -454,6 +454,12 @@ declare interface Label extends AbstractPanel<'Label'> {
 	SetLocalizationString(text: string): void;
 
 	SetProceduralTextThatIPromiseIsLocalizedAndEscaped(text: string, allowDialogVariables: boolean): void;
+
+	/**
+	 * Approximates the height this label would have
+	 * if the passed in text was set, given a pre-determined width.
+	 */ 
+	GetHeightForText(width: number, text: string): number;
 }
 
 declare interface Movie extends AbstractPanel<'Movie'> {
