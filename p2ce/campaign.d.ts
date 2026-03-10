@@ -52,7 +52,7 @@ declare namespace CampaignAPI {
     function GetCampaignMeta(name: string|null): Map<string, string>;
 
     function SetActiveCampaign(name: string|null): boolean;
-    function StartCampaign(campaign: string, chapter: string): boolean;
+    function StartCampaign(campaign: string, chapter: string, map: number): boolean;
     function ContinueCampaign(campaign: string): boolean;
 
     function GetCampaignUnlockProgress(campaign: string): number;
