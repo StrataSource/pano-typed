@@ -447,6 +447,18 @@ declare interface Label extends AbstractPanel<'Label'> {
 	SetLocalizationString(text: string): void;
 
 	SetProceduralTextThatIPromiseIsLocalizedAndEscaped(text: string, allowDialogVariables: boolean): void;
+
+	/**
+	 * Sets the color for a specified range of characters.
+	 * This doesn't work if you are trying to set a color for range of 0 - x, set the base style instead!
+	 */
+	SetTextColorRange(startChar: number, endChar: number, colorR: number, colorG: number, colorB: number, colorA: number ): void;
+
+	/**
+	 * Approximates the height this label would have
+	 * if the passed in text was set, given a pre-determined width.
+	 */ 
+	GetHeightForText(width: number, text: string): number;
 }
 
 declare interface Movie extends AbstractPanel<'Movie'> {

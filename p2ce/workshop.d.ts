@@ -99,6 +99,9 @@ declare namespace WorkshopAPI {
 	/** Enables or disables a set of addons in one fell swoop. Use this if you're planning to enable/disable multiple at once */
 	function SetAddonListEnabled(addons: Record<int32, boolean>): void;
 
+	/** Returns the content path of an addon at the specified index. */
+	function GetAddonNamedPath(index: number): string;
+
 	/****** Below here are @TODO items!! *******/
 	
 	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
