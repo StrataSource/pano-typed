@@ -24,7 +24,7 @@ declare interface PanelTagNameMap {
 	ModelPanel: ModelPanel;
 	UICanvas: UICanvas;
 	BackbufferImagePanel: BackbufferImagePanel;
-	LoadingScreen: BackbufferImagePanel;
+	LoadingScreen: LoadingScreen;
 	MainMenu: MainMenu;
 	SettingsSlider: SettingsSlider;
 	SettingsKeyBinder: SettingsKeyBinder;
