@@ -48,6 +48,10 @@ declare interface PanelTagNameMap {
 	ColorPicker: ColorPicker;
 	Tooltip: Tooltip;
 	TextTooltip: TextTooltip;
+	TooltipPanel: TooltipPanel;
+	SteamInputAction: SteamInputAction;
+	SteamInputActionLabel: SteamInputActionLabel;
+	SteamInputActionGlyph: SteamInputActionGlyph;
 }
 
 /**
@@ -1045,4 +1049,20 @@ declare interface Tooltip extends AbstractPanel<'Tooltip'> {
 
 declare interface TextTooltip extends AbstractPanel<'TextTooltip'> {
 	GetTooltipTarget(): GenericPanel;
+}
+
+declare interface TooltipPanel extends AbstractPanel<'TooltipPanel'> {
+	
+}
+
+declare interface SteamInputAction extends AbstractPanel<'SteamInputAction'> {
+
+}
+
+declare interface SteamInputActionLabel extends AbstractPanel<'SteamInputActionLabel'> {
+
+}
+
+declare interface SteamInputActionGlyph extends AbstractPanel<'SteamInputActionGlyph'> {
+
 }
