@@ -102,6 +102,9 @@ declare namespace WorkshopAPI {
 	/** Returns the content path of an addon at the specified index. */
 	function GetAddonNamedPath(index: number): string;
 
+	/** Launched the game from Hammer or using the -workshop_tools launch option */
+	function IsWorkshopToolsMode(): string;
+
 	/****** Below here are @TODO items!! *******/
 	
 	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
