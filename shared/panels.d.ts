@@ -1035,7 +1035,7 @@ declare interface Carousel extends AbstractPanel<'Carousel'> {
 }
 
 declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
-	title: string;
+	text: string;
 	
 	color: string; // TODO: color?
 
