@@ -49,15 +49,20 @@ declare namespace CampaignAPI {
     function IsCampaignActive(): boolean;
     function FindCampaign(campaign: string): CampaignPair|null;
 
-    function GetCampaignMeta(name: string|null): Map<string, string>;
+    function GetCampaignMeta(name: string|null): Map<string, string>|null;
 
     function SetActiveCampaign(name: string|null): boolean;
     function StartCampaign(campaign: string, chapter: string, map: number): boolean;
     function ContinueCampaign(campaign: string): boolean;
 
     function GetCampaignUnlockProgress(campaign: string): number;
+    
+    function CampaignHasSaveData(campaign: string|null): boolean;
+    function MoveToNextMap(): void;
 }
 
 interface GlobalEventNameMap {
     PanoramaComponent_Campaign_OnActiveCampaignChanged: (campaign: string|null) => void;
+    PanoramaComponent_Campaign_OnRefreshList: () => void;
+    PanoramaComponent_Campaign_OnCampaignEvaluationRequested: (campaign: string) => void;
 }
