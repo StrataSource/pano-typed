@@ -10,22 +10,14 @@
  * ```
  */
 
-/** @group enum */
-declare enum DownloadState {
-	UninstallPending	= 0,
-	Uninstalling		= 1,
-	Uninstalled			= 2,
-
-	InstallPending		= 3,
-	Installing			= 4,
-	Installed			= 5,
-}
+declare type AddonIndex_t = int32;
+declare type PublishedFileId_t = bigint;
 
 /** @group enum */
 declare enum AddonRating {
 	None            = 0,
-	ThumbsDown      = 1,
-	ThumbsUp        = 2,
+	ThumbsUp        = 1,
+	ThumbsDown      = 2,
 }
 
 /** Describes a workshop item. */
@@ -34,13 +26,12 @@ interface AddonMeta {
 	index: number;
 	title: string;
 	description: string;
-	workshopid: number;
+	workshopid: PublishedFileId_t;
 	local: boolean;
 
 	authors: string[];
 	tags: string[];
 
-	dependencies: {[uuid: string]: { required: boolean }};
 	votescore: number;
 	flagged: boolean;
 	upvotes: number;
@@ -53,21 +44,17 @@ interface AddonMeta {
 
 	// The standard workshop thumbnail. Exists on all addons.
 	thumb: string;
-
-	// These only exist when the addon is a campaign.
-	cover?: string;
-	logo?: string;
 }
 
-/** A chapter of an addon. */
-interface AddonChapterMeta {
-	map: string;
-	title: string;
-	description: string;
-
-	unlocked: boolean;
-	thumb: string;
-	background: string;
+interface SteamUGCDetails_t {
+	nPublishedFileId: PublishedFileId_t;
+	rgchTitle: string;
+	rgchDescription: string;
+	ulSteamIDOwner: uint64_num;
+	rtimeUpdated: Date;
+	rtimeCreated: Date;
+	tags: string[];
+	previews: string[];
 }
 
 /** [API not finalized] The workshop content API. Exclusive to P2:CE! */
@@ -76,48 +63,41 @@ declare namespace WorkshopAPI {
 	function GetAddonCount(): number;
 	
 	/** Returns the metadata for the addon at the specified index. */
-	function GetAddonMeta(index: uint32): AddonMeta;
+	function GetAddonMeta(index: AddonIndex_t): AddonMeta;
 
 	/** Sets the subscription state of the addon at the specified index */
-	function SetAddonSubscribed(index: uint32, subscribed: boolean): void;
+	function SetAddonSubscribed(index: AddonIndex_t, subscribed: boolean): void;
 
 	/** Returns the subscription state of the addon at the specified index. */
-	function GetAddonSubscribed(index: uint32): boolean;
+	function GetAddonSubscribed(index: AddonIndex_t): boolean;
 
 	/** Sets the enable state of the addon at the specified index */
-	function SetAddonEnabled(index: uint32, enabled: boolean): void;
+	function SetAddonEnabled(index: AddonIndex_t, enabled: boolean): void;
 
 	/** Returns the enable state of the addon at the specified index. */
-	function GetAddonEnabled(index: uint32): boolean;
+	function GetAddonEnabled(index: AddonIndex_t): boolean;
 
 	/** Gets the user rating for the given addon. If installed locally, returns AddonRating.None */
-	function GetAddonUserRating(index: uint32): AddonRating;
+	function GetAddonUserRating(index: AddonIndex_t): AddonRating;
 
 	/** Sets the user rating for the given addon */
-	function SetAddonUserRating(index: uint32, rating: AddonRating): void;
+	function SetAddonUserRating(index: AddonIndex_t, rating: AddonRating): void;
 
 	/** Enables or disables a set of addons in one fell swoop. Use this if you're planning to enable/disable multiple at once */
-	function SetAddonListEnabled(addons: Record<int32, boolean>): void;
+	function SetAddonListEnabled(addons: Record<AddonIndex_t, boolean>): void;
 
 	/** Returns the content path of an addon at the specified index. */
-	function GetAddonNamedPath(index: number): string;
+	function GetAddonNamedPath(index: AddonIndex_t): string;
 
 	/** Launched the game from Hammer or using the -workshop_tools launch option */
-	function IsWorkshopToolsMode(): string;
+	function IsWorkshopToolsMode(): boolean;
 
-	/****** Below here are @TODO items!! *******/
-	
-	/** Returns the index of the addon that owns the specified map, or null if the map is not owned by an addon. */
-	function GetAddonByMap(mapname: string): number|null;
-
-	/** Returns the metadata of the maps for the addon at the specified index. */
-	function GetAddonChapters(index: uint32): AddonChapterMeta[];
-
-	/** Returns the download state of the addon at the specified index. */
-	function GetAddonState(index: uint32): DownloadState;
+	function GetAddonDependencies(index: AddonIndex_t): Array<AddonIndex_t> | null;
+	function GetAddonDependenciesMissing(index: AddonIndex_t): Array<PublishedFileId_t> | null;
+	function CreateQueryUGCDetailsRequest(workshopIds: Array<PublishedFileId_t>): Promise<Array<SteamUGCDetails_t|null>>;
+	function GetActiveMountList(): Array<AddonIndex_t>;
 }
 
 interface GlobalEventNameMap {
-	/** Fires when the installation state of an addon is updated.  */
-	'WorkshopAddonStateUpdated':				(index: uint32, state: DownloadState) => void,
+	'PanoramaComponent_Workshop_OnAddonInstalled': (index: AddonIndex_t) => void,
 }
