@@ -461,6 +461,9 @@ declare namespace GameInterfaceAPI {
 
 	/** Get the AppIDs of all currently mounted Steam apps. */
 	function GetMountedSteamApps(): number[];
+
+	/** Gets the dimensions (width & height) and calculated aspect ratio of the game window. */
+	function GetWindowDimensions(): { width: number, height: number, aspectRatio: number };
 }
 
 /** @group api */
