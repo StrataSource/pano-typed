@@ -414,6 +414,9 @@ declare interface AbstractImagePanel<T extends keyof PanelTagNameMap> extends Ab
 
 	/** Can also be set via `scaling` XML attribute */
 	SetScaling(mode: ImageScalingMode): void;
+
+	/** Used to resize SVG images */
+	SetSvgTextureSize(width: int32, height: int32): void;
 }
 
 /**
