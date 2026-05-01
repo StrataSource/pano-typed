@@ -967,6 +967,9 @@ declare interface SettingsEnumDropDown extends AbstractPanel<'SettingsEnumDropDo
 
 declare interface ConVarColorDisplay extends AbstractPanel<'ConVarColorDisplay'> {
 	convar: string;
+
+	/** Set the cvar back to default */
+	RestoreCVarDefault(): void;
 }
 
 declare type SettingsPanel =
