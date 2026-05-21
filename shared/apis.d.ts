@@ -469,6 +469,9 @@ declare namespace GameInterfaceAPI {
 
 	/** Gets the dimensions (width & height) and calculated aspect ratio of the game window. */
 	function GetWindowDimensions(): { width: number, height: number, aspectRatio: number };
+	
+	/** Get the current operating system. */
+	function GetOperatingSystem(): 'windows' | 'linux' | 'unknown';
 }
 
 /** @group api */
