@@ -265,13 +265,18 @@ declare namespace $ {
 
 	/**
 	 * Localizes a string.
+	 * If provided a panel, uses the dialog variables assigned to that panel in the output string.
 	 * @example
 	 * $.Localize('#Weapon_StickybombLauncher'); // Returns "Kleefbommenwerper" in Dutch in Momentum
+	 * @example
 	 * $.Localize('#SomeNonexistentToken'); // Returns "#SomeNonexistentToken"
+	 * @example
+	 * const panel = $.CreatePanel('Panel', $.GetContextPanel(), '');
+	 * panel.SetDialogVariableInt('horses', 5);
+	 * $.Localize('#HorseCount', panel); // If #HorseCount is "I have %d horse", returns "I have 5 horses"
 	 * @returns Localized string in the current language, if exists, otherwise the provided argument.
-	 * @see [Example](https://github.com/momentum-mod/panorama/blob/721f39fe40bad57cd93943278d3a3c857e9ae9d7/scripts/hud/status.js#L47)
 	 */
-	function Localize(str: string): string;
+	function Localize(str: string, panel?: GenericPanel): string;
 
 	/** Localize a string, but return empty string if the localization token is not found */
 	function LocalizeSafe(str: string): string;
