@@ -1002,6 +1002,8 @@ declare interface BaseBlurTarget extends AbstractPanel<'BaseBlurTarget'> {
 	RemoveBlurPanel(panel: GenericPanel): void;
 }
 
+declare interface HudBlurTarget extends BaseBlurTarget {}
+
 declare interface TripleMonitorBackground extends AbstractPanel<'TripleMonitorBackground'> {}
 
 declare type ClockType = ValueOf<ClockTypeEnum>;
