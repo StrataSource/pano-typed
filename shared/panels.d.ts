@@ -1037,6 +1037,8 @@ declare interface Carousel extends AbstractPanel<'Carousel'> {
 declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
 	color: color;
 
+	text: string;
+	
 	alpha: float;
 }
 
