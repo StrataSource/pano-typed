@@ -66,11 +66,17 @@ declare type uuid = int32;
 /** Represents a keyframes animation return. */
 declare type Keyframes = unknown;
 
-/** rgba, hex etc. color string */
-declare type color = string;
-
 /** rgba color string */
+declare type rgbColor = string;
 declare type rgbaColor = string;
+declare type hexColor = string;
+
+/**
+ * rgb / rgba / hex color string
+ * We've considered using stronger types above e.g. type rgbColor = `rgb(${number}, ${number}, ${number})` but it's
+ * clunky to use, without much real benefit.
+ */
+declare type color = string;
 
 // ======== Utility Types ========
 // Many of these are from https://github.com/sindresorhus/type-fest

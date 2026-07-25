@@ -1039,7 +1039,7 @@ declare interface ColorDisplay extends AbstractPanel<'ColorDisplay'> {
 }
 
 declare interface RangeColorDisplay extends AbstractPanel<'RangeColorDisplay'> {
-	color: rgbaColor;
+	color: color;
 
 	SetBounds(min: float, max: float): void;
 }
