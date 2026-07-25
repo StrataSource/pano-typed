@@ -9,7 +9,7 @@ declare interface Style {
 	color: string;
 	font: string;
 	fontFamily: string;
-	fontSize: number;
+	fontSize: string;
 	fontStyle: 'normal'|'italic';
 	fontWeight: 'light'|'thin'|'normal'|'medium'|'bold'|'black';
 	letterSpacing: string;
