@@ -3,31 +3,32 @@
  */
 
 interface ChapterMap {
-    name: string;
+	name: string;
 
-    meta: Map<string, string>;
+	meta: Map<string, string>;
 }
 
 interface ChapterInfo {
-    id: string; 
-    title: string;
-    maps: ChapterMap[];
+	id: string;
+	title: string;
+	maps: ChapterMap[];
 
-    meta: Map<string, string>;
+	meta: Map<string, string>;
 }
 
 interface CampaignInfo {
-    id: string; 
-    title: string; 
-    chapters: ChapterInfo[];
+	id: string;
+	title: string;
+	chapters: ChapterInfo[];
+	multiplayer: boolean;
 
-    meta: Map<string, string>;
+	meta: Map<string, string>;
 }
 
 // Holds multiple campaigns
 interface CampaignBucket {
 	id: string;
-    addon_id: number; // Workshop Addon ID or -1 if not present
+	addon_id: number; // Workshop Addon ID or -1 if not present
 	campaigns: CampaignInfo[];
 
 	meta: Map<string, string>;
@@ -43,19 +44,19 @@ interface CampaignPair
 declare namespace CampaignAPI {
     function ReloadCampaigns(): void;
 
-    function GetAllCampaignBuckets(): CampaignBucket[];
-    function GetActiveCampaign(): CampaignPair|null;
-    function IsCampaignActive(): boolean;
-    function FindCampaign(campaign: string): CampaignPair|null;
+	function GetAllCampaignBuckets(): CampaignBucket[];
+	function GetActiveCampaign(): CampaignPair|null;
+	function IsCampaignActive(): boolean;
+	function FindCampaign(campaign: string): CampaignPair|null;
 
-    function GetCampaignMeta(name: string|null): Map<string, string>|null;
+	function GetCampaignMeta(name: string|null): Map<string, string>|null;
 
-    function SetActiveCampaign(name: string|null): boolean;
-    function StartCampaign(campaign: string, chapter: string, map: number): boolean;
-    function ContinueCampaign(campaign: string): boolean;
+	function SetActiveCampaign(name: string|null): boolean;
+	function StartCampaign(campaign: string, chapter: string, map: number): boolean;
+	function ContinueCampaign(campaign: string): boolean;
 
     function GetCampaignUnlockProgress(campaign: string): number;
-    
+
     function CampaignHasSaveData(campaign: string|null): boolean;
     function MoveToNextMap(): void;
 
