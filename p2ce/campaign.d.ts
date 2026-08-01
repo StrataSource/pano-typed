@@ -17,11 +17,18 @@ interface ChapterInfo {
 	meta: Map<string, string>;
 }
 
+interface CampaignMultiPlayerOptions {
+	required_players: number;
+	allow_splitscreen: boolean;
+	wait_for_players: boolean;
+}
+
 interface CampaignInfo {
 	id: string; 
 	title: string; 
 	chapters: ChapterInfo[];
 	multiplayer: boolean;
+	multiplayer_options: CampaignMultiPlayerOptions;
 
 	meta: Map<string, string>;
 }
@@ -41,6 +48,12 @@ interface CampaignPair
 	campaign: CampaignInfo;
 }
 
+declare const enum CampaignStartFlags {
+	NONE = 0x0,
+	// Requries multiplayer campaign, and it must allow splitscreen
+	SPLITSCREEN = 0x01
+}
+
 /** [API not finalized] The Campaign API. Exclusive to P2:CE! */
 declare namespace CampaignAPI {
 	function ReloadCampaigns();
@@ -53,7 +66,7 @@ declare namespace CampaignAPI {
 	function GetCampaignMeta(name: string|null): Map<string, string>|null;
 
 	function SetActiveCampaign(name: string|null): boolean;
-	function StartCampaign(campaign: string, chapter: string, map: number): boolean;
+	function StartCampaign(campaign: string, chapter: string, map: number, flags?: CampaignStartFlags): boolean;
 	function ContinueCampaign(campaign: string): boolean;
 
 	function GetCampaignUnlockProgress(campaign: string): number;
