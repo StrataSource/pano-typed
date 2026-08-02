@@ -18,8 +18,8 @@ interface PlayerInfo
     name: string; // Cached username
     steamID: steamID; // User SteamID
 
-    host?: boolean; // Player is host of the lobby
-    listSlot?: number; // Displayed UI slot, maybe not needed here and instead left to the UI
+    host: boolean; // Player is host of the lobby
+    slotIndex: number; // Displayed UI slot, maybe not needed here and instead left to the UI
 
     hasAllAddons?: boolean; // Has required installed addons
 
