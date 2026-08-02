@@ -49,7 +49,7 @@ interface CampaignPair
 
 declare const enum CampaignStartFlags {
 	NONE = 0x0,
-	// Requries multiplayer campaign, and it must allow splitscreen
+	// Requires multiplayer campaign, and it must allow splitscreen
 	SPLITSCREEN = 0x01
 }
 
