@@ -10,7 +10,7 @@ interface ChapterMap {
 }
 
 interface ChapterInfo {
-	id: string; 
+	id: string;
 	title: string;
 	maps: ChapterMap[];
 
@@ -24,8 +24,8 @@ interface CampaignMultiPlayerOptions {
 }
 
 interface CampaignInfo {
-	id: string; 
-	title: string; 
+	id: string;
+	title: string;
 	chapters: ChapterInfo[];
 	multiplayer: boolean;
 	multiplayer_options: CampaignMultiPlayerOptions;
@@ -50,7 +50,7 @@ interface CampaignPair
 
 declare const enum CampaignStartFlags {
 	NONE = 0x0,
-	// Requries multiplayer campaign, and it must allow splitscreen
+	// Requires multiplayer campaign, and it must allow splitscreen
 	SPLITSCREEN = 0x01
 }
 
@@ -70,7 +70,7 @@ declare namespace CampaignAPI {
 	function ContinueCampaign(campaign: string): boolean;
 
 	function GetCampaignUnlockProgress(campaign: string): number;
-	
+
 	function CampaignHasSaveData(campaign: string|null): boolean;
 	function MoveToNextMap(): void;
 }
