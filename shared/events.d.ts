@@ -149,7 +149,7 @@ interface GlobalEventNameMap {
 	'MapLoaded':							(mapName: string, isBackgroundMap: boolean) => void,
 	'MapUnloaded':							() => void,
 	'Cancelled':							(sourceID: string, source: PanelEventSource) => void,
-	'PopulateLoadingScreen':				(mapName: string) => void,
+	'PopulateLoadingScreen':				(info: LevelLoadInfo) => void,
 	'ApplyVideoSettings':					() => void,
 	'VideoSettingsInit':					() => void,
 	'VideoSettingsResetDefault':			() => void,
@@ -162,4 +162,11 @@ interface DragEventInfo {
 	offsetX: number;
 	offsetY: number;
 	displayPanel: Panel | null;
+}
+
+/** Represents the info object provided by PopulateLoadingScreen */
+interface LevelLoadInfo {
+	mapName: string;
+	mapGroup: string;
+	isBackgroundMap: boolean;
 }
