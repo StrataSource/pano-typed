@@ -3,6 +3,10 @@
  * P2:CE Multiplayer API.
  */
 
+/**
+ * Team index for players.
+ * @group enum
+ */
 declare const enum Team {
 	TEAM_ANY = -2,
 	TEAM_INVALID,
@@ -12,8 +16,11 @@ declare const enum Team {
 	TEAM_ATLAS
 }
 
+/**
+ * Internal representation of a player in the lobby UI.
+ */
 interface LobbyPlayer {
-	owner: boolean;
+	owner: boolean; // Creator/host of the lobby.
 	id: steamID;
 }
 
