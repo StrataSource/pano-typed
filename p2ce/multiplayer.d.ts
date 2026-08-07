@@ -16,17 +16,26 @@ declare const enum Team {
 	TEAM_ATLAS
 }
 
+declare const enum LobbyVisibility {
+	PRIVATE = 0,
+	FRIENDS_ONLY,
+	PUBLIC
+}
+
 /**
  * Internal representation of a player in the lobby UI.
  */
 interface LobbyPlayer {
 	owner: boolean; // Creator/host of the lobby.
 	id: steamID;
+	name: string;
 }
 
 interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_LobbyStateChanged: () => void;
 	PanoramaComponent_P2CELobby_PlayerStateChanged: () => void;
+	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void;
+	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: LobbyPlayer) => void;
 }
 
 declare namespace P2CELobbyAPI {
