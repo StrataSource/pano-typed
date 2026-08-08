@@ -37,6 +37,7 @@ interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void;
 	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: LobbyPlayer) => void;
 	PanoramaComponent_P2CELobby_OnStartWithAddonsMissing: () => void;
+	PanoramaComponent_P2CELobby_OnClientJoiningGame: () => void;
 }
 
 declare namespace P2CELobbyAPI {
