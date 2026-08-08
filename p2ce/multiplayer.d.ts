@@ -36,6 +36,7 @@ interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_PlayerStateChanged: () => void;
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void;
 	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: LobbyPlayer) => void;
+	PanoramaComponent_P2CELobby_OnStartWithAddonsMissing: () => void;
 }
 
 declare namespace P2CELobbyAPI {
@@ -46,4 +47,10 @@ declare namespace P2CELobbyAPI {
 	function ExitLobby(): void;
 	function StartGameSession(): void;
 	function GetPlayerList(): LobbyPlayer[];
+	function GetMissingAddons(): bigint[];
+	function GetCampaignID(): string;
+	function IsLobbyOwner(): boolean;
+	function KickPlayer(): void;
+	function BanPlayer(): void;
+	function UnBanPlayer(): void;
 }
