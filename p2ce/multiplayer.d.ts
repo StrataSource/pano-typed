@@ -4,16 +4,19 @@
  */
 
 /**
- * Team index for players.
+ * Engine team values for players.
  * @group enum
  */
 declare const enum Team {
 	TEAM_ANY = -2,
 	TEAM_INVALID,
-	TEAM_UNASSIGNED,
-	TEAM_SP,
-	TEAM_PBODY,
-	TEAM_ATLAS
+	TEAM_UNASSIGNED, // Chell/Bendy, etc.
+	TEAM_SPECTATOR,
+	TEAM_RED, // P-Body, Combine, etc.
+	TEAM_BLUE, // Atlas, Rebels, etc.
+	// TEAM_GREEN,
+	// TEAM_YELLOW
+	TEAM_MAX, // For iteration.
 }
 
 declare const enum LobbyVisibility {
