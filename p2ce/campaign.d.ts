@@ -59,10 +59,13 @@ declare namespace CampaignAPI {
     
     function CampaignHasSaveData(campaign: string|null): boolean;
     function MoveToNextMap(): void;
+
+    function OpenRatingMenu(): void;
+    function IsRatingCampaign(): boolean;
+    function CompleteRating(): void;
 }
 
 interface GlobalEventNameMap {
     PanoramaComponent_Campaign_OnActiveCampaignChanged: (campaign: string|null) => void;
     PanoramaComponent_Campaign_OnRefreshList: () => void;
-    PanoramaComponent_Campaign_OnCampaignEvaluationRequested: (campaign: string) => void;
 }
