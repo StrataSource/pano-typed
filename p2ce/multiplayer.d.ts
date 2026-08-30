@@ -4,19 +4,15 @@
  */
 
 /**
- * Engine team values for players.
+ * Player desired team assignation
  * @group enum
  */
-declare const enum Team {
-	TEAM_ANY = -2,
-	TEAM_INVALID,
-	TEAM_UNASSIGNED, // Chell/Bendy, etc.
-	TEAM_SPECTATOR,
-	TEAM_RED, // P-Body, Combine, etc.
-	TEAM_BLUE, // Atlas, Rebels, etc.
-	// TEAM_GREEN,
-	// TEAM_YELLOW
-	TEAM_MAX, // For iteration.
+declare const enum LobbyTeam {
+	ANY = 0,
+	SPECTATOR,
+	RED, // P-Body, Combine, etc.
+	BLUE, // Atlas, Rebels, etc.
+	COUNT
 }
 
 declare const enum LobbyVisibility {
@@ -36,7 +32,7 @@ interface LobbyPlayer {
 
 interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_LobbyStateChanged: () => void;
-	PanoramaComponent_P2CELobby_PlayerStateChanged: () => void;  // Fired when when a player has joined or left the lobby.
+	PanoramaComponent_P2CELobby_PlayerStateChanged: () => void;  // Fired when when a player's state has changed within the lobby.
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired specifically when player has joined the lobby.
 	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: LobbyPlayer) => void; // Fired specifically when player has left the lobby.
 	PanoramaComponent_P2CELobby_OnStartWithAddonsMissing: () => void;
@@ -57,4 +53,7 @@ declare namespace P2CELobbyAPI {
 	function KickPlayer(steamID: steamID): void;
 	function BanPlayer(steamID: steamID): void;
 	function UnBanPlayer(steamID: steamID): void;
+	// Requests the current player's team to be set to the provided value.
+	// It may fail under some circumstances.
+	function SetTeam(desired: LobbyTeam): boolean;
 }
