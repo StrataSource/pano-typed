@@ -1,7 +1,7 @@
 /**
  * @packageDocumentation Shared types, present in all Strata games.
  * See the {@link shared/apis | APIs module} for a full list of APIs.
- * 
+ *
  * For more information, see the [official documentation](https://wiki.stratasource.org/shared/panorama/overview).
  */
 

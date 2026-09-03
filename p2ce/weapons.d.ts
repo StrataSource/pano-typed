@@ -9,13 +9,6 @@
  * ```
  */
 
-declare interface GlobalEventNameMap {
-	'WeaponStateChange':		(mode: WeaponStateMode, index: int32) => void,
-	'WeaponSelect':				(action: WeaponSelectAction) => void,
-	'WeaponEquipped':			(classname: string) => void,
-	'WeaponsDropped':			() => void,
-}
-
 /** @group enum */
 declare enum WeaponStateMode {
 	SWITCH  = 0,
@@ -75,4 +68,11 @@ declare namespace WeaponsAPI {
     function SwitchToWeapon(id: uint32): boolean;
     function GetWeaponIndexFromClass(classname: string): uint32;
     function DropWeapon(id: uint32, throwVecX: number, throwVecY: number, throwVecZ: number): boolean;
+}
+
+interface GlobalEventNameMap {
+	'WeaponStateChange':		(mode: WeaponStateMode, index: int32) => void,
+	'WeaponSelect':				(action: WeaponSelectAction) => void,
+	'WeaponEquipped':			(classname: string) => void,
+	'WeaponsDropped':			() => void,
 }
