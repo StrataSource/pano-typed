@@ -42,7 +42,7 @@ interface CampaignPair
 
 /** [API not finalized] The Campaign API. Exclusive to P2:CE! */
 declare namespace CampaignAPI {
-    function ReloadCampaigns();
+    function ReloadCampaigns(): void;
 
     function GetAllCampaignBuckets(): CampaignBucket[];
     function GetActiveCampaign(): CampaignPair|null;
