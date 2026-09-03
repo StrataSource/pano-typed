@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @example Select the crowbar if the player has it.
  * ```
  * const crowbar = WeaponsAPI.GetWeaponIndexFromClass("weapon_crowbar");
