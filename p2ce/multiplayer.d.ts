@@ -31,6 +31,8 @@ interface LobbyPlayer {
 }
 
 interface GlobalEventNameMap {
+	GameDisconnection: (reason: string) => void;
+	
 	PanoramaComponent_P2CELobby_LobbyStateChanged: () => void;
 	PanoramaComponent_P2CELobby_PlayerStateChanged: () => void;  // Fired when when a player's state has changed within the lobby.
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired specifically when player has joined the lobby.
