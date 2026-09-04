@@ -5,7 +5,8 @@
 	"author": "Koerismo",
 	"license": "MIT",
 	"scripts": {
-		"build": "typedoc --options typedoc.json"
+		"build": "typedoc --options typedoc.json",
+		"dump-json": "typedoc --json ./docs/typedoc.json"
 	},
 	"devDependencies": {
 		"typedoc": "^0.26.11"
