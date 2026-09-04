@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @example List all subscribed addons' names.
  * ```
  * const addon_count = WorkshopAPI.GetAddonCount();

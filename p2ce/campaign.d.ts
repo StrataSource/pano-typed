@@ -1,6 +1,5 @@
 /**
- * @packageDocumentation
- * P2:CE Campaign API.
+ * @packageDocumentation P2:CE Campaign API.
  */
 
 interface ChapterMap {
