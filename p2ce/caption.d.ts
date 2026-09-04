@@ -1,6 +1,5 @@
 /**
- * @packageDocumentation
- * Captioning Interface
+ * @packageDocumentation Captioning Interface
  */
 
 interface Caption {

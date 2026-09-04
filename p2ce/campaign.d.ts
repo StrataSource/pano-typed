@@ -1,6 +1,5 @@
 /**
- * @packageDocumentation
- * P2:CE Campaign API.
+ * @packageDocumentation P2:CE Campaign API.
  */
 
 interface ChapterMap {
@@ -42,7 +41,7 @@ interface CampaignPair
 
 /** [API not finalized] The Campaign API. Exclusive to P2:CE! */
 declare namespace CampaignAPI {
-    function ReloadCampaigns();
+    function ReloadCampaigns(): void;
 
     function GetAllCampaignBuckets(): CampaignBucket[];
     function GetActiveCampaign(): CampaignPair|null;
