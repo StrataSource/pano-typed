@@ -22,7 +22,7 @@ declare const enum LobbyVisibility {
 
 declare const enum LobbyMemberReadyState {
 	NOT_READY = 0,
-	DOWNLOADING_ADDONS = 1,
+	DOWNLOADING_ADDONS = 1, // User has selected to ready up, but they need to install some addon content before they can be fully ready.
 	READY = 2
 }
 
@@ -52,18 +52,21 @@ interface LobbyData {
 }
 
 interface GlobalEventNameMap {
-	GameDisconnection: (reason: string) => void;
-	
-	PanoramaComponent_P2CELobby_LobbyJoinInProgress: (lobbyid: string) => void;
-	PanoramaComponent_P2CELobby_LobbyJoinFailed: (lobbyid: string, reason: string) => void;
-	PanoramaComponent_P2CELobby_LobbyJoined: (lobbyid: string) => void;
-	PanoramaComponent_P2CELobby_LobbyLeft: (lobbyid: string) => void;
-	PanoramaComponent_P2CELobby_LobbyStateChanged: (metadata: LobbyData) => void; // Lobby metadata was updated
-	PanoramaComponent_P2CELobby_PlayerStateChanged: (who: steamID, lobbyPlayer: LobbyPlayer) => void;  // Fired when when a player's state has changed within the lobby.
-	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired specifically when player has joined the lobby.
-	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: steamID) => void; // Fired specifically when player has left the lobby.
-	PanoramaComponent_P2CELobby_ReadyStateChanged: (state: LobbyMemberReadyState) => void; // Local player's ready state
-	PanoramaComponent_P2CELobby_JoiningGame: () => void; // When the local player starts joining the host
+	GameDisconnection: (reason: string) => void; // Fired when the local client disconnected from the game.
+
+	// Events specific to the local client while not in a lobby.
+	PanoramaComponent_P2CELobby_LobbyJoinInProgress: (lobbyid: string) => void; // Fired when the local client is current loading into a lobby, waiting for Steam to respond.
+	PanoramaComponent_P2CELobby_LobbyJoinFailed: (lobbyid: string, reason: string) => void; // Fired when the local client failed to join a lobby.
+	PanoramaComponent_P2CELobby_LobbyJoined: (lobbyid: string) => void; // Fired when the local client joined a lobby.
+	PanoramaComponent_P2CELobby_LobbyLeft: (lobbyid: string) => void; // Fired when the local client left a lobby.
+
+	// Events for the local client while in a lobby.
+	PanoramaComponent_P2CELobby_ReadyStateChanged: (state: LobbyMemberReadyState) => void; // Fired when the local client's ready state has changed.
+	PanoramaComponent_P2CELobby_LobbyStateChanged: (metadata: LobbyData) => void; // Fired when the lobby's data has changed and needs to be reflected on the client.
+	PanoramaComponent_P2CELobby_PlayerStateChanged: (who: steamID, lobbyPlayer: LobbyPlayer) => void; // Fired when a player's state has changed within the lobby.
+	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired when a player, not the local client, has joined the lobby.
+	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: steamID) => void; // Fired when a player, not the local client, has left the lobby.
+	PanoramaComponent_P2CELobby_JoiningGame: () => void; // When the local client starts joining the host's game.
 }
 
 declare namespace P2CELobbyAPI {
