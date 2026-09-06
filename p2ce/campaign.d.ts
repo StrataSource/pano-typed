@@ -17,9 +17,14 @@ interface ChapterInfo {
 }
 
 interface CampaignMultiPlayerOptions {
-	required_players: number;
-	allow_splitscreen: boolean;
-	wait_for_players: boolean;
+	max_players: number; // Maximum number of players that can be in the lobby.
+	max_num_teams: number; // Maximum number of teams that players can be on.
+	default_team: LobbyTeam; // Default team that the first player is set on before next player joining goes to another team.
+	can_switch_teams: boolean; // If other players than the host can switch teams.
+	required_players: number; // Minimum number of players required to start.
+	required_num_team_players: number; // Minimum number of players on each team required to start.
+	allow_splitscreen: boolean; // If split-screen should be allowed with this campaign.
+	wait_for_players: boolean; // Wait for another player to join before the game progresses. Ex. Waiting for coop partner behavior.
 }
 
 interface CampaignInfo {
