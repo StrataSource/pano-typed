@@ -58,10 +58,9 @@ interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_LobbyJoinInProgress: (lobbyid: string) => void; // Fired when the local client is current loading into a lobby, waiting for Steam to respond.
 	PanoramaComponent_P2CELobby_LobbyJoinFailed: (lobbyid: string, reason: string) => void; // Fired when the local client failed to join a lobby.
 	PanoramaComponent_P2CELobby_LobbyJoined: (lobbyid: string) => void; // Fired when the local client joined a lobby.
-	PanoramaComponent_P2CELobby_LobbyLeft: (lobbyid: string) => void; // Fired when the local client left a lobby.
+	PanoramaComponent_P2CELobby_LobbyLeft: (lobbyid: string, reason: string) => void; // Fired when the local client left a lobby.
 
 	// Events for the local client while in a lobby.
-	PanoramaComponent_P2CELobby_ReadyStateChanged: (state: LobbyMemberReadyState) => void; // Fired when the local client's ready state has changed.
 	PanoramaComponent_P2CELobby_LobbyStateChanged: (metadata: LobbyData) => void; // Fired when the lobby's data has changed and needs to be reflected on the client.
 	PanoramaComponent_P2CELobby_PlayerStateChanged: (who: steamID, lobbyPlayer: LobbyPlayer) => void; // Fired when a player's state has changed within the lobby.
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired when a player, not the local client, has joined the lobby.
@@ -70,28 +69,27 @@ interface GlobalEventNameMap {
 }
 
 declare namespace P2CELobbyAPI {
-	function CreateLobby(campaign: string): void;
-	function ExitLobby(): void;
-	function IsInLobby(): boolean;
-	function IsLobbyOwner(): boolean; // Check if the local user is the owner/host of the lobby.
+	function CreateLobby(campaign: string): void; // Creates a lobby hosted by the local client.
+	function ExitLobby(): void; // Exits the local client from the lobby.
+	function IsInLobby(): boolean; // If the local client is in a lobby.
+	function IsLobbyOwner(): boolean; // Check if the local client is the owner/host of the lobby.
 
-	function OpenInviteOverlay(): boolean; // Opens the invite dialog
-	function GetFriendsPlayingGame(): [ { id: string } ]; // Gets the list of friends (their Steam IDs) playing the same App ID
+	function OpenInviteOverlay(): boolean; // Opens the invite dialog for the local client.
+	function GetFriendsPlayingGame(): [ { id: string } ]; // Gets the list of friends (their Steam IDs) playing the same App ID.
 
 	function SetReadyStatus(ready: boolean): void; // Attempt to ready up. This will start downloading addons if necessary.
-	function GetPlayerList(): LobbyPlayer[];
+	function GetPlayerList(): LobbyPlayer[]; // Get the list of current players in the lobby.
 
-	function KickPlayer(steamID: steamID): void;
-	function BanPlayer(steamID: steamID): void;
-	function UnBanPlayer(steamID: steamID): void;
-	function GetBannedPlayers(): steamID[];
+	function KickPlayer(steamID: steamID, reason: string): void; // Kick the specified player by SteamID from the lobby.
+	function BanPlayer(steamID: steamID, reason: string): void; // Ban the specified player by SteamID from the lobby. Their SteamID is stored locally in the `lobbybans.kv3` on disk.
+	function UnBanPlayer(steamID: steamID): void; // Remove the specified player SteamID from the ban list on disk.
+	function GetBannedPlayers(): steamID[]; // Get the list of banned players from the local client's ban list on disk.
 
-	// Requests the current player's team to be set to the provided value.
-	// It may fail under some circumstances.
-	function SetTeam(desired: LobbyTeam): boolean;
 
-	function GetCampaignID(): string;
-	function ChangeCampaign(campaign: string): void;
-	function SetCampaignChapter(chapter: string): void;
-	function SetCampaignMap(map: number): void;
+	function SetTeam(desired: LobbyTeam): boolean; // Requests the current player's team to be set to the provided value. // It may fail under some circumstances.
+
+	function GetCampaignID(): string; // Get the current full campaign ID. Ex. `${bucket.id}/${campaign.id}`
+	function ChangeCampaign(campaign: string): void; // Set the current campaign by bucket and campaign ID. Ex. `${bucket.id}/${campaign.id}`
+	function SetCampaignChapter(chapter: string): void; // Set the chapter to a ID specified in the campaign script.
+	function SetCampaignMap(map: number): void; // Set the index of the map in the order defined in the campaign script.
 }
