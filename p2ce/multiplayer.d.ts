@@ -70,23 +70,28 @@ interface GlobalEventNameMap {
 }
 
 declare namespace P2CELobbyAPI {
-	function IsInLobby(): boolean;
 	function CreateLobby(campaign: string): void;
-	function ChangeCampaign(campaign: string): void;
-	function OpenInviteOverlay(): boolean;
 	function ExitLobby(): void;
+	function IsInLobby(): boolean;
+	function IsLobbyOwner(): boolean; // Check if the local user is the owner/host of the lobby.
+
+	function OpenInviteOverlay(): boolean; // Opens the invite dialog
+	function GetFriendsPlayingGame(): [ { id: string } ]; // Gets the list of friends (their Steam IDs) playing the same App ID
+
 	function SetReadyStatus(ready: boolean): void; // Attempt to ready up. This will start downloading addons if necessary.
 	function GetPlayerList(): LobbyPlayer[];
-	function GetCampaignID(): string;
-	function IsLobbyOwner(): boolean; // Check if the local user is the owner/host of the lobby.
+
 	function KickPlayer(steamID: steamID): void;
 	function BanPlayer(steamID: steamID): void;
 	function UnBanPlayer(steamID: steamID): void;
 	function GetBannedPlayers(): steamID[];
+
 	// Requests the current player's team to be set to the provided value.
 	// It may fail under some circumstances.
 	function SetTeam(desired: LobbyTeam): boolean;
-	function GetFriendsPlayingGame(): [ { id: string } ]; // Gets the list of friends (their Steam IDs) playing the same App ID
+
+	function GetCampaignID(): string;
+	function ChangeCampaign(campaign: string): void;
 	function SetCampaignChapter(chapter: string): void;
 	function SetCampaignMap(map: number): void;
 }
