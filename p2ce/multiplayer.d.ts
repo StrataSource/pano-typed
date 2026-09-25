@@ -14,18 +14,30 @@ declare const enum LobbyTeam {
 	COUNT
 }
 
+/**
+ * Visibility of the lobby through server browser and Steam API.
+ * @group enum
+ */
 declare const enum LobbyVisibility {
 	PRIVATE = 0,
 	FRIENDS_ONLY,
 	PUBLIC
 }
 
+/**
+ * Ready state for each client in the lobby.
+ * @group enum
+ */
 declare const enum LobbyMemberReadyState {
 	NOT_READY = 0,
 	DOWNLOADING_ADDONS = 1, // User has selected to ready up, but they need to install some addon content before they can be fully ready.
 	READY = 2
 }
 
+/**
+ * Ready state for each client in the lobby.
+ * @group enum
+ */
 declare const enum LobbyState {
 	INVALID = 0,
 	LOBBY = 1,
@@ -44,11 +56,14 @@ interface LobbyPlayer {
 	team: LobbyTeam;
 }
 
+/**
+ * Campaign data and state of the lobby for each client to have,
+ */
 interface LobbyData {
-	state: LobbyState;
-	campaign: string;
-	chapter: string;
-	map: number;
+	state: LobbyState; // Lobby general state for the client.
+	campaign: string; // Full campaign ID. `${bucket.id}/${campaign.id}`
+	chapter: string; // String name of the chapter (this one I forgor if true)
+	map: number; // Map ID/index in chapter order.
 }
 
 interface GlobalEventNameMap {
@@ -84,7 +99,6 @@ declare namespace P2CELobbyAPI {
 	function BanPlayer(steamID: steamID, reason: string): void; // Ban the specified player by SteamID from the lobby. Their SteamID is stored locally in the `lobbybans.kv3` on disk.
 	function UnBanPlayer(steamID: steamID): void; // Remove the specified player SteamID from the ban list on disk.
 	function GetBannedPlayers(): steamID[]; // Get the list of banned players from the local client's ban list on disk.
-
 
 	function SetTeam(desired: LobbyTeam): boolean; // Requests the current player's team to be set to the provided value. // It may fail under some circumstances.
 
