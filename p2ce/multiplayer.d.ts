@@ -62,7 +62,7 @@ interface LobbyPlayer {
 interface LobbyData {
 	state: LobbyState; // Lobby general state for the client.
 	campaign: string; // Full campaign ID. `${bucket.id}/${campaign.id}`
-	chapter: string; // String name of the chapter (this one I forgor if true)
+	chapter: string; // String name of the chapter as defined by the campaign script.
 	map: number; // Map ID/index in chapter order.
 }
 
@@ -81,6 +81,10 @@ interface GlobalEventNameMap {
 	PanoramaComponent_P2CELobby_PlayerJoined: (lobbyPlayer: LobbyPlayer) => void; // Fired when a player, not the local client, has joined the lobby.
 	PanoramaComponent_P2CELobby_PlayerLeft: (lobbyPlayer: steamID) => void; // Fired when a player, not the local client, has left the lobby.
 	PanoramaComponent_P2CELobby_JoiningGame: () => void; // When the local client starts joining the host's game.
+
+	P2CELobby_PlayerBanned: (who: steamID) => void;
+	P2CELobby_PlayerUnbanned: (who: steamID) => void;
+	P2CELobby_PlayerKicked: (who: steamID) => void;
 }
 
 declare namespace P2CELobbyAPI {
@@ -89,8 +93,9 @@ declare namespace P2CELobbyAPI {
 	function IsInLobby(): boolean; // If the local client is in a lobby.
 	function IsLobbyOwner(): boolean; // Check if the local client is the owner/host of the lobby.
 
-	function OpenInviteOverlay(): boolean; // Opens the invite dialog for the local client.
-	function GetFriendsPlayingGame(): [ { id: string } ]; // Gets the list of friends (their Steam IDs) playing the same App ID.
+	function OpenInviteOverlay(): boolean; // Opens the Steam Overlay invite dialog for the local client.
+	function GetAllFriends(): [ { id: string } ]; // Gets the list of friends by their Steam IDs and if they are playing the game. // TODO: Replace with below signature once knowing when people are playing P2:CE is added.
+	//function GetAllFriends(): [ { id: string; playing: boolean } ]; // Gets the list of friends by their Steam IDs and if they are playing the game.
 
 	function SetReadyStatus(ready: boolean): void; // Attempt to ready up. This will start downloading addons if necessary.
 	function GetPlayerList(): LobbyPlayer[]; // Get the list of current players in the lobby.
@@ -98,9 +103,9 @@ declare namespace P2CELobbyAPI {
 	function KickPlayer(steamID: steamID, reason: string): void; // Kick the specified player by SteamID from the lobby.
 	function BanPlayer(steamID: steamID, reason: string): void; // Ban the specified player by SteamID from the lobby. Their SteamID is stored locally in the `lobbybans.kv3` on disk.
 	function UnBanPlayer(steamID: steamID): void; // Remove the specified player SteamID from the ban list on disk.
-	function GetBannedPlayers(): steamID[]; // Get the list of banned players from the local client's ban list on disk.
+	function GetBannedPlayers(): steamID[]; // Get the list of banned players SteamIDs from the local clients' ban list on disk.
 
-	function SetTeam(desired: LobbyTeam): boolean; // Requests the current player's team to be set to the provided value. // It may fail under some circumstances.
+	function SetTeam(steamID: steamID, desired: LobbyTeam): boolean; // Requests the current player's team to be set to the provided value. // It may fail under some circumstances.
 
 	function GetCampaignID(): string; // Get the current full campaign ID. Ex. `${bucket.id}/${campaign.id}`
 	function ChangeCampaign(campaign: string): void; // Set the current campaign by bucket and campaign ID. Ex. `${bucket.id}/${campaign.id}`
