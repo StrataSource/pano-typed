@@ -66,6 +66,10 @@ interface LobbyData {
 	map: number; // Map ID/index in chapter order.
 }
 
+declare const enum GlobalUiObjects {
+	UI_LOBBYINFO = 'LobbyInfo'
+}
+
 interface GlobalEventNameMap {
 	GameDisconnection: (reason: string) => void; // Fired when the local client disconnected from the game.
 
